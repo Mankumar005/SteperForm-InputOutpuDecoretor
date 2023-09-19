@@ -1,0 +1,54 @@
+@import '../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+.select {
+  // position: absolute;
+  top: 29px;
+}
+
+.select-option {
+  color: #000000c9;
+}
+
+::ng-deep.select-button {
+  background-color: var(--select-outline-basic-background-color);
+  border-color: #b4b6bb !important;
+  color: var(--select-outline-basic-text-color);
+}
+
+.select-error {
+  position: relative;
+}
+
+.select-error-option {
+  top: 13px;
+  position: relative;
+}
+
+nb-select.select.appearance-outline.size-medium.status-basic.shape-rectangle.nb-transition {
+  width: 100%;
+}
+
+nb-select.full-width {
+  width: 100%;
+}
+
+nb-select.size-medium:not(.full-width) {
+  max-width: none;
+  width: 100%;
+  // position: relative;
+}
+//editor//  
+
+::ng-deep .angular-editor-toolbar {
+  border: 1px solid #b4b6bb !important;
+}
+
+::ng-deep .angular-editor-textarea {
+  border: 1px solid #b4b6bb !important;
+}
+}

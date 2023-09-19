@@ -1,0 +1,30 @@
+@import '../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  input {
+    width: 100%;
+  }
+
+  .cancel {
+    margin-right: 1rem;
+  }
+
+  .btn-next button {
+    background: linear-gradient(133deg, #4f5bfe, #c39aff);
+    color: #fff;
+  }
+}
+
+nb-card.address_book_modal {
+  width: 500px;
+  max-width: 96%;
+  height: 96%;
+  margin: 2% auto;
+  display: inline-flex;
+
+  nb-card-body p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+  }
+}

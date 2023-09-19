@@ -1,0 +1,25 @@
+@import '../../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+.text-link {
+    text-decoration: none;
+}
+
+.back-arow {
+    float: right;
+    cursor: pointer;
+}
+.back-text {
+    font-size: 13px;
+    padding-left: 5px;
+}
+.save-btn {
+    display: flex;
+    position: relative;
+    top: 27px;
+}
+}

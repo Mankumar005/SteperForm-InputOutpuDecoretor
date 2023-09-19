@@ -1,0 +1,21 @@
+<nb-card>
+  <nb-card-header class="page-title">
+    Approved Account List
+  </nb-card-header>
+  <nb-card-body>
+    <span class="select-user" style="margin: 10px 0px 15px 0px;">
+      <nb-select selected="1" class="ng_select_border" (selectedChange)="selectedAccountType($event)"
+        placeholder="Active">
+        <nb-option value="1">Active Accounts</nb-option>
+        <nb-option value="0">Deactive Accounts</nb-option>
+      </nb-select>
+    </span>
+    <nb-card class="ng-card-table pt-2">
+      <nb-card-body>
+        <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect" [settings]="settings"
+          [source]="source">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,175 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+}
+.title-border {
+    border-top: 1px solid #0000002b;
+}
+.title {
+    font-size: 21px;
+    font-weight: 600;
+}
+.print-label {
+    position: absolute;
+    left: 73%;
+    top: 5px;
+}
+.back-arow {
+    float: right;
+    cursor: pointer;
+}
+.back-text {
+    font-size: 13px;
+    padding-left: 5px;
+}
+label.lable.country {
+    display: flex;
+    font-weight: 600;
+
+}
+
+// ::ng-deep nb-select.size-medium .select-button {
+//     font-weight: 400; 
+
+// }
+nb-accordion {
+    width: 100%;
+}
+.comp-name {
+    display: flex;
+}
+::ng-deep nb-option-list.size-medium nb-option {
+    font-weight: 400;
+
+}
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+    color: #1e6bb8;
+}
+.sub-title {
+    font-size: 19px;
+    font-weight: 600;
+}
+.file-title {
+    font-size: 19px;
+    font-weight: 600;
+}
+::ng-deep nb-toggle .toggle:not(.checked) .toggle-switcher {
+    right: 0;
+    background: darkgrey;
+}
+::ng-deep nb-toggle .toggle:hover {
+  background-color:none;
+}
+::ng-deep span.pending {
+    color: blue;
+}
+::ng-deep span.approve {
+    color: green;
+    pointer-events: none !important;
+    cursor: text;
+}
+::ng-deep .approve {
+    pointer-events: none !important;
+    cursor: text;
+}
+::ng-deep span.reject {
+    color: red;
+}
+::ng-deep .reject {
+    pointer-events: none !important;
+    cursor: text;
+}
+.download-icon {
+    cursor: pointer;
+    position: relative;
+    left: 10px;
+
+}
+::ng-deep nb-radio.status-basic .native-input:disabled:checked + .outer-circle {
+    border-color: #3366ff !important;
+}
+::ng-deep nb-radio.status-basic .native-input:disabled:checked ~ .inner-circle {
+    background-color: #3366ff !important;
+}
+::ng-deep nb-checkbox.status-basic .native-input:disabled:checked + .custom-checkbox {
+    background-color: #3366ff;
+    border-color: #3366ff;
+}
+
+.item-icon {
+    background: #7f7f7f;
+    padding: 7px;
+    border-radius: 50%;
+    color: #fff;
+}
+.order-status {
+    position: relative;
+}
+.order-status::before {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 310%;
+    left: 49%;
+    // top: 0px;
+    background-color: #b0b0b0;
+    z-index: -1;
+}
+// .order-status.active::before {
+//     position: absolute;
+//     content: '';
+//     width: 2px;
+//     height: 100%;
+//     left: 50%;
+//     // top: 0px;
+//     background-color: #b0b0b0;
+//     z-index: -1;
+// }
+
+.order-status.active span {
+    background: #20337c;
+    width: 40px;
+    height: 40px;
+    // display: block;
+    margin: 0 auto;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tracking-steper-wraper > .row:last-child .order-status::before {
+	height: '0px';
+}
+
+.del-date {
+    font-size: 16px;
+    color: #20337c;
+}
+.del-status {
+    font-size: 20px;
+    color: #20337c;
+}
+.del-desc {
+    color: #959595;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.amount-title {
+    color: #000;
+}
+
+.amount-price {
+    color: #088508;
+}
+
+.pdf-icon {
+    width: 33px;
+    height: 31px;
+    margin-left: 10px;
+  }
+

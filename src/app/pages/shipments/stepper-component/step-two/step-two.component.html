@@ -1,0 +1,224 @@
+<div class="nb-tbl-flex title align-items-center">
+    <h5>Who Is The Recipient Of Your Package ?</h5>
+    <span class="back-arow" nbTooltip="Back" nbTooltipPlacement="bottom" (click)="backToListPage()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px" >
+      <span class="back-text">Back To List</span> 
+    </span>
+  </div>
+  <form [formGroup]="bookShipmentSecondForm" class="step-container">
+    <div class="form-group row">
+      <label for="inputCompany" class="label col-sm-2 col-form-label">Company <span
+        class="required-input">*</span></label>
+      <div class="col-sm-9">
+        <input type="text" nbInput fullWidth id="inputCompany" class="form-control" *ngIf="!allFormFieldsDisabled"
+          formControlName="company_name" placeholder="Enter Company Name" trim="blur">
+        <input type="text" nbInput fullWidth id="inputCompany" class="form-control" *ngIf="allFormFieldsDisabled"
+          formControlName="company_name" placeholder="Enter Company Name" trim="blur" disabled>
+          <mat-error *ngFor="let validation of SecondFormFormValidations.company_name">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentSecondForm.get('company_name')?.hasError(validation.type) && (bookShipmentSecondForm.get('company_name')?.dirty || bookShipmentSecondForm.get('company_name')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+
+      <div class="col-sm-1" (click)="openRecipientAddressSelectionDialog()" *ngIf="!allFormFieldsDisabled">
+        <i class="fa fa-address-book senderAddressbookModal"
+          style=" color: #0f377c !important; font-size: 30px;"></i>
+      </div>
+
+      <div class="col-sm-1" *ngIf="allFormFieldsDisabled">
+        <i class="fa fa-address-book senderAddressbookModal"
+          style=" color: #0f377c !important; font-size: 30px;"></i>
+      </div>
+
+    </div>
+    <div class="form-group row">
+      <label for="inputContactName" class="label col-sm-2 col-form-label">Contact Name <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputContactName" class="form-control" *ngIf="!allFormFieldsDisabled"
+          formControlName="contact_name" placeholder="Contact Name" trim="blur">
+        <input type="text" nbInput fullWidth id="inputContactName" class="form-control" *ngIf="allFormFieldsDisabled"
+          formControlName="contact_name" placeholder="Contact Name" trim="blur" disabled>
+        <mat-error *ngFor="let validation of SecondFormFormValidations.contact_name">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentSecondForm.get('contact_name')?.hasError(validation.type) && (bookShipmentSecondForm.get('contact_name')?.dirty || bookShipmentSecondForm.get('contact_name')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputEmail" class="label col-sm-2 col-form-label">Email <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputEmail" class="form-control" formControlName="email"
+          placeholder="Enter Email" trim="blur" *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth id="inputEmail" class="form-control" formControlName="email"
+          placeholder="Enter Email" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+          <mat-error *ngFor="let validation of SecondFormFormValidations.email">
+            <p class="caption status-danger"
+            *ngIf="bookShipmentSecondForm.get('email')?.hasError(validation.type) && (bookShipmentSecondForm.get('email')?.dirty || bookShipmentSecondForm.get('email')?.touched)">
+            {{validation.message}}</p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputAddress1" class="label col-sm-2 col-form-label">Address1 <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputAddress1" class="form-control"
+          formControlName="address1" placeholder="Enter Address1" trim="blur" *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth id="inputAddress1" class="form-control"
+          formControlName="address1" placeholder="Enter Address1" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+        <mat-error *ngFor="let validation of SecondFormFormValidations.address1">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentSecondForm.get('address1')?.hasError(validation.type) && (bookShipmentSecondForm.get('address1')?.dirty || bookShipmentSecondForm.get('address1')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputAddress2" class="label col-sm-2 col-form-label">Address2</label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputAddress2" class="form-control"
+          formControlName="address2" placeholder="Enter Address2" trim="blur" *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth id="inputAddress2" class="form-control"
+          formControlName="address2" placeholder="Enter Address2" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputCountry" class="label col-sm-2 col-form-label">Country <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <ng-select [items]="countryData" bindLabel="country_name" class="ng_select form-control"
+          [virtualScroll]="true" (change)="selectSecondStepCountry($event)" bindValue="country_id"
+          placeholder="Select Country" formControlName="country_id" [readonly]="allFormFieldsDisabled"
+          [(ngModel)]="selectedSecondStepCountryId">
+        </ng-select>
+        <mat-error *ngFor="let validation of SecondFormFormValidations.country_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentSecondForm.get('country_id')?.hasError(validation.type) && (bookShipmentSecondForm.get('country_id')?.dirty || bookShipmentSecondForm.get('country_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputState" class="label col-sm-2 col-form-label">State <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <!-- <input type="text" nbInput fullWidth id="inputState" class="form-control" formControlName="state_id" placeholder="Enter State"> -->
+        <ng-select [items]="stateData" bindLabel="state_name" class="ng_select form-control"
+          [virtualScroll]="true" bindValue="state_id" placeholder="Select State" formControlName="state_id"
+          [(ngModel)]="selectedSecondStepStateId" [readonly]="allFormFieldsDisabled">
+        </ng-select>
+        <mat-error *ngFor="let validation of SecondFormFormValidations.state_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentSecondForm.get('state_id')?.hasError(validation.type) && (bookShipmentSecondForm.get('state_id')?.dirty || bookShipmentSecondForm.get('state_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputCity" class="label col-sm-2 col-form-label">City <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputCity" class="form-control" formControlName="city"
+          placeholder="Enter City" trim="blur" *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth id="inputCity" class="form-control" formControlName="city"
+          placeholder="Enter City" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+        <mat-error *ngFor="let validation of SecondFormFormValidations.city">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentSecondForm.get('city')?.hasError(validation.type) && (bookShipmentSecondForm.get('city')?.dirty || bookShipmentSecondForm.get('city')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputZip" class="label col-sm-2 col-form-label">Zip Code<span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputZip" class="form-control" formControlName="zip_code"
+          placeholder="Enter Zip Code" trim="blur" *ngIf="!allFormFieldsDisabled"
+          onKeyPress="if(this.value.length==20) return false;">
+        <input type="text" nbInput fullWidth id="inputZip" class="form-control" formControlName="zip_code"
+          placeholder="Enter Zip Code" trim="blur" *ngIf="allFormFieldsDisabled"
+          onKeyPress="if(this.value.length==20) return false;" disabled>
+          <mat-error *ngFor="let validation of SecondFormFormValidations.zip_code">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentSecondForm.get('zip_code')?.hasError(validation.type) && (bookShipmentSecondForm.get('zip_code')?.dirty || bookShipmentSecondForm.get('zip_code')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+          <!-- <mat-error *ngFor="let validation of formValidations.zip_code">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentSecondForm.controls['zip_code'].hasError('minlength')">
+              Zip Code requied atleast 6 characters
+            </p>
+          </mat-error> -->
+          <mat-error *ngFor="let validation of SecondFormFormValidations.zip_code">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentSecondForm.controls['zip_code'].hasError('maxlength')">
+              Zip Code requied only 20 characters
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPhoneNo" class="label col-sm-2 col-form-label">Phone No <span
+          class="required-input">*</span></label>
+      <div class="col-sm-2">
+        <input type="text" nbInput fullWidth class="form-control country-code"
+          formControlName="country_code" placeholder="+91" disabled>
+      </div>
+      <div class="col-sm-8">
+        <input type="number" nbInput fullWidth id="inputPhoneNo" class="form-control hide_arrows" *ngIf="!allFormFieldsDisabled"
+          formControlName="phone" placeholder="Enter Phone No" trim="blur" min="0" maxlength="10"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          autocomplete="off" #input_number>
+        <input type="number" nbInput fullWidth id="inputPhoneNo" class="form-control hide_arrows" *ngIf="allFormFieldsDisabled"
+          formControlName="phone" placeholder="Enter Phone No" trim="blur" min="0" maxlength="10"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          autocomplete="off" #input_number disabled>
+          <mat-error *ngFor="let validation of SecondFormFormValidations.phone">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentSecondForm.get('phone')?.hasError(validation.type) && (bookShipmentSecondForm.get('phone')?.dirty || bookShipmentSecondForm.get('phone')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputExt" class="label col-sm-2 col-form-label">Phone Ext</label>
+      <div class="col-sm-10">
+        <input type="number" nbInput fullWidth id="inputExt" class="form-control hide_arrows" *ngIf="!allFormFieldsDisabled"
+          formControlName="phone_extension" placeholder="Enter Ext" trim="blur" min="0" maxlength="10"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          autocomplete="off" #input_number>
+        <input type="number" nbInput fullWidth id="inputExt" class="form-control hide_arrows" *ngIf="allFormFieldsDisabled"
+          formControlName="phone_extension" placeholder="Enter Ext" trim="blur" min="0" maxlength="10"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          autocomplete="off" #input_number disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2"></label>
+      <div class="col-sm-5" style="text-align: left;">
+        <nb-checkbox formControlName="is_residential_address"> This is a residential address.</nb-checkbox>
+      </div>
+      <div class="col-sm-5" style="text-align: left;">
+        <nb-checkbox formControlName="is_recipient_save_address"> Save as new recipient in address book
+        </nb-checkbox>
+      </div>
+    </div>
+    <div class="btn-back-next btn-next">
+      <button nbButton nbStepperPrevious>
+        << Back</button> <button nbButton nbStepperNext [nbSpinner]="isLoading" [disabled]="isLoading" (click)="saveSecondStep()">Next >>
+      </button>
+    </div>
+  </form>

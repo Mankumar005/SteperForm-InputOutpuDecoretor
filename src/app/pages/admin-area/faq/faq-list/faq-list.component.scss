@@ -1,0 +1,36 @@
+@import '../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+.add-faq {
+    float:right;
+}
+
+.edit-icon {
+    float:right;
+    cursor: pointer;
+}
+
+.nb-edit {
+    font-size: 29px;
+}
+ 
+.status-basic {
+    border-color: #b4b6bb !important;
+}
+
+label.label {
+    font-weight: 500;
+    color: #000000c9;
+}
+
+nb-card-header.title {
+    font-size: 21px;
+    font-weight: 700;
+ 
+}
+
+}

@@ -1,0 +1,212 @@
+<div class="nb-tbl-flex title align-items-center">
+    <h5>Who Is Sending The Package ?</h5>
+      <span class="back-arow" nbTooltip="Back" nbTooltipPlacement="bottom" (click)="backToListPage()">
+        <img src="assets/images/back-arow.png" height="15px" width="20px" >
+        <span class="back-text">Back To List</span> 
+    </span>
+  </div>
+
+  <form [formGroup]="bookShipmentFirstForm" class="step-container">
+    <div class="form-group row">
+      <label for="inputCompany" class="label col-sm-2 col-form-label">Company <span class="required-input">*</span></label>
+      <div class="col-sm-9">
+        <input type="text" nbInput fullWidth id="inputCompany" class="form-control" *ngIf="!allFormFieldsDisabled"
+          formControlName="company_name" placeholder="Company Name" trim="blur">
+        <input type="text" nbInput fullWidth id="inputCompany" class="form-control" *ngIf="allFormFieldsDisabled"
+          formControlName="company_name" placeholder="Company Name" trim="blur" disabled>
+          <mat-error *ngFor="let validation of formValidations.company_name">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFirstForm.get('company_name')?.hasError(validation.type) && (bookShipmentFirstForm.get('company_name')?.dirty || bookShipmentFirstForm.get('company_name')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+
+      <div class="col-sm-1" (click)="openAddressSelectionDialog()" *ngIf="!allFormFieldsDisabled">
+        <i class="fa fa-address-book senderAddressbookModal"
+          style=" color: #0f377c !important; font-size: 30px;"></i>
+      </div>
+      <div class="col-sm-1" *ngIf="allFormFieldsDisabled">
+        <i class="fa fa-address-book senderAddressbookModal"
+          style=" color: #0f377c !important; font-size: 30px;"></i>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputContactName" class="label col-sm-2 col-form-label">Contact Name <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputContactName" class="form-control" *ngIf="!allFormFieldsDisabled"
+          formControlName="contact_name" placeholder="Contact Name" trim="blur">
+          <input type="text" nbInput fullWidth id="inputContactName" class="form-control" *ngIf="allFormFieldsDisabled"
+          formControlName="contact_name" placeholder="Contact Name" trim="blur" disabled>
+          <mat-error *ngFor="let validation of formValidations.contact_name">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFirstForm.get('contact_name')?.hasError(validation.type) && (bookShipmentFirstForm.get('contact_name')?.dirty || bookShipmentFirstForm.get('contact_name')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputEmail" class="label col-sm-2 col-form-label">Email <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputEmail" class="form-control" formControlName="email"
+          placeholder="Enter Email" trim="blur" *ngIf="!allFormFieldsDisabled">
+
+        <input type="text" nbInput fullWidth id="inputEmail" class="form-control" formControlName="email"
+          placeholder="Enter Email" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+          <mat-error *ngFor="let validation of formValidations.email">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFirstForm.get('email')?.hasError(validation.type) && (bookShipmentFirstForm.get('email')?.dirty || bookShipmentFirstForm.get('email')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputAddress1" class="label col-sm-2 col-form-label">Address1 <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputAddress1" class="form-control" *ngIf="!allFormFieldsDisabled"
+          formControlName="address1" placeholder="Enter Address1" trim="blur">
+
+          <input type="text" nbInput fullWidth id="inputAddress1" class="form-control" *ngIf="allFormFieldsDisabled"
+          formControlName="address1" placeholder="Enter Address1" trim="blur" disabled>
+          <mat-error *ngFor="let validation of formValidations.address1">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFirstForm.get('address1')?.hasError(validation.type) && (bookShipmentFirstForm.get('address1')?.dirty || bookShipmentFirstForm.get('address1')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputAddress2" class="label col-sm-2 col-form-label">Address2</label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputAddress2" class="form-control" *ngIf="!allFormFieldsDisabled"
+          formControlName="address2" placeholder="Enter Address2" trim="blur">
+        <input type="text" nbInput fullWidth id="inputAddress2" class="form-control" *ngIf="allFormFieldsDisabled"
+          formControlName="address2" placeholder="Enter Address2" trim="blur" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputCountry" class="label col-sm-2 col-form-label">Country <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <ng-select [items]="countryData" bindLabel="country_name" class="ng_select form-control"
+          [virtualScroll]="true" (change)="selectFirstStepCountry($event)" bindValue="country_id"
+          placeholder="Select Country" formControlName="country_id" [readonly]="allFormFieldsDisabled"
+          [(ngModel)]="selectedFirstStepCountryId">
+        </ng-select>
+        <mat-error *ngFor="let validation of formValidations.country_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentFirstForm.get('country_id')?.hasError(validation.type) && (bookShipmentFirstForm.get('country_id')?.dirty || bookShipmentFirstForm.get('country_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputState" class="label col-sm-2 col-form-label">State <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <ng-select [items]="stateData" bindLabel="state_name" class="ng_select form-control"
+          [virtualScroll]="true" bindValue="state_id" placeholder="Select State" formControlName="state_id"
+          [(ngModel)]="selectedFirstStepStateId" [readonly]="allFormFieldsDisabled">
+        </ng-select>
+        <mat-error *ngFor="let validation of formValidations.state_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentFirstForm.get('state_id')?.hasError(validation.type) && (bookShipmentFirstForm.get('state_id')?.dirty || bookShipmentFirstForm.get('state_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputCity" class="label col-sm-2 col-form-label">City <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputCity" class="form-control" formControlName="city"
+          placeholder="Enter City" trim="blur" *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth id="inputCity" class="form-control" formControlName="city"
+          placeholder="Enter City" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+          <mat-error *ngFor="let validation of formValidations.city">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFirstForm.get('city')?.hasError(validation.type) && (bookShipmentFirstForm.get('city')?.dirty || bookShipmentFirstForm.get('city')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputZip" class="label col-sm-2 col-form-label">Zip Code <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth id="inputZip" class="form-control" formControlName="zip_code" *ngIf="!allFormFieldsDisabled"
+        onKeyPress="if(this.value.length==20) return false;" placeholder="Enter Zip Code" trim="blur">
+      <input type="text" nbInput fullWidth id="inputZip" class="form-control" formControlName="zip_code" *ngIf="allFormFieldsDisabled"
+        onKeyPress="if(this.value.length==20) return false;" placeholder="Enter Zip Code" trim="blur" disabled>
+        <mat-error *ngFor="let validation of formValidations.zip_code">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentFirstForm.get('zip_code')?.hasError(validation.type) && (bookShipmentFirstForm.get('zip_code')?.dirty || bookShipmentFirstForm.get('zip_code')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+        <mat-error *ngFor="let validation of formValidations.zip_code">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentFirstForm.controls['zip_code'].hasError('maxlength')">
+            Zip Code requied only 20 characters
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPhoneNo" class="label col-sm-2 col-form-label">Phone No <span
+          class="required-input">*</span></label>
+      <div class="col-sm-2">
+        <input type="text" nbInput fullWidth class="form-control country-code"
+          formControlName="country_code" placeholder="+91" disabled>
+      </div>
+      <div class="col-sm-8">
+        <input type="number" maxlength="10" nbInput fullWidth id="inputPhoneNo" class="form-control hide_arrows"
+          formControlName="phone" placeholder="Enter Phone No" trim="blur" min="0" *ngIf="!allFormFieldsDisabled"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          autocomplete="off" #input_number>
+        <input type="number" maxlength="10" nbInput fullWidth id="inputPhoneNo" class="form-control hide_arrows"
+          formControlName="phone" placeholder="Enter Phone No" trim="blur" min="0" *ngIf="allFormFieldsDisabled"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          autocomplete="off" #input_number disabled>
+          <mat-error *ngFor="let validation of formValidations.phone">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFirstForm.get('phone')?.hasError(validation.type) && (bookShipmentFirstForm.get('phone')?.dirty || bookShipmentFirstForm.get('phone')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputExt" class="label col-sm-2 col-form-label">Phone Ext</label>
+      <div class="col-sm-10">
+        <input type="number" nbInput fullWidth id="inputExt" class="form-control hide_arrows" *ngIf="!allFormFieldsDisabled"
+          formControlName="phone_extension" placeholder="Enter Ext" trim="blur" min="0" maxlength="10"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          #input_number>
+        <input type="number" nbInput fullWidth id="inputExt" class="form-control hide_arrows" *ngIf="allFormFieldsDisabled"
+          formControlName="phone_extension" placeholder="Enter Ext" trim="blur" min="0" maxlength="10"
+          onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==10) return false;"
+          #input_number disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-sm-2"></label>
+      <div class="col-sm-5" style="text-align: left;">
+        <nb-checkbox formControlName="is_default_address"> Save As My Default Address.</nb-checkbox>
+      </div>
+      <div class="col-sm-5" style="text-align: left;">
+        <nb-checkbox formControlName="is_sender_save_address"> Save New Sender In Address Book .
+        </nb-checkbox>
+      </div>
+    </div>
+    <div class="btn-next"><button nbButton nbStepperNext [nbSpinner]="isLoading" [disabled]="isLoading" (click)="saveFirstStep()">Next >></button></div>
+  </form>

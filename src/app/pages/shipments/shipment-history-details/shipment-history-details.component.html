@@ -1,0 +1,649 @@
+<nb-card>
+  <nb-card-header class="title">
+    Shipment Details - {{shipmentsDetailsData?.booking_no}}&nbsp;&nbsp;&nbsp;&nbsp;
+    <b class="amount-title">Total Amount</b> - <span class="amount-price">{{(shipmentsDetailsData?.shipment_price) ? '₹'+shipmentsDetailsData?.shipment_price : '₹0.00'}}</span>
+    <span *ngIf="!isPrintLabel" class="print-label">
+      <button size="large" [disabled]="isLoading" [nbSpinner]="isLoading" nbButton (click)="printLabelById()">Print
+        Label</button>
+    </span>
+    <span class="back-arow" nbTooltip="Back" nbTooltipPlacement="bottom" (click)="back()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px"><span class="back-text">Back To List</span>
+    </span>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-tabset>
+      <nb-tab tabTitle="General">
+        <div class="row">
+          <nb-accordion *ngIf="shipmentsDetailsData">
+            <nb-accordion-item expanded="true">
+              <nb-accordion-item-header>
+                <span class="sub-title">Who Is Sending The Package ?</span>
+              </nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Company:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.company_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Contact Name:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.contact_name}} </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Email:</b> <span> {{shipmentsDetailsData?.shipment_booking_sender?.email}}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Address1:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.address1}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Address2:</b> <span> {{shipmentsDetailsData?.shipment_booking_sender?.address2}}
+                      </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Country:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.country?.country_name}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Phone No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.phone}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Phone Ext:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.phone_extension}} </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Zip Code:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.zip_code}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>State:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_sender?.state?.state_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>City:</b> <span> {{shipmentsDetailsData?.shipment_booking_sender?.city}} </span>
+                    </p>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+
+            <nb-accordion-item expanded="true">
+              <nb-accordion-item-header>
+                <span class="sub-title">Who Is The Recipient Of Your Package ?</span>
+              </nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Company:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.company_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Contact Name:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.contact_name}} </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Email:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.email}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Address1:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.address1}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Address2:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.address2}} </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Country:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.country?.country_name}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Phone No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.phone}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Phone Ext:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.phone_extension}} </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Zip Code:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.zip_code}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>State:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_recipient?.state?.state_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>City:</b> <span> {{shipmentsDetailsData?.shipment_booking_recipient?.city}}
+                      </span> </p>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+
+            <nb-accordion-item expanded="true">
+              <nb-accordion-item-header>
+                <span class="sub-title">Tell Us About Your Package & Shipment Type ?</span>
+              </nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Shipment Date:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.shipment_date}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Package Type:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.package_type?.package_type_name}} </span> </p>
+                  </div>
+                  <div class="col-sm-4"
+                    *ngIf="shipmentsDetailsData?.shipment_booking_package?.is_identical_package === 0">
+                    <p fxFlex="33"><b>Number of Packages:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.number_of_packages}}</span> </p>
+                  </div>
+                </div>
+                <div class="row" *ngIf="shipmentsDetailsData?.shipment_booking_package?.is_identical_package === 1">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Weight Per Packages:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.weight_per_package}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Weight Unit:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.weight_unit}} </span> </p>
+                  </div>
+                </div>
+                <div class="row" *ngIf="shipmentsDetailsData?.shipment_booking_package?.is_identical_package === 0">
+                  <div class="col-sm-12">
+                    <table class="table table-bordered pkgtable">
+                      <thead>
+                        <tr>
+                          <th style="width: 50px;font-size: 10px;">S.No</th>
+                          <th style="width: 100px;font-size: 10px;">Weight</th>
+                          <th colspan="3" style="width: 200px;font-size: 10px;text-align: center;"> Dimensions </th>
+                          <th style="width: 100px;font-size: 10px;"></th>
+                          <th style="width: 100px;font-size: 10px;">Value</th>
+                          <th style="width: 100px;font-size: 10px;">NonStandard Pack</th>
+                          <th style="width: 100px;font-size: 10px;">Dangerous Goods</th>
+                          <th style="width: 100px;font-size: 10px;">Dangerous Goods Description</th>
+                        </tr>
+                        <tr>
+                          <th fldname="sno" style="font-size: 10px;text-align: center;"></th>
+                          <th fldname="weight" style="font-size: 10px;text-align: center;"></th>
+                          <th fldname="length" style="font-size: 10px;text-align: center;">Length</th>
+                          <th fldname="width" style="font-size: 10px;text-align: center;">Width</th>
+                          <th fldname="height" style="font-size: 10px;text-align: center;">Height</th>
+                          <th fldname="unit" style="font-size: 10px;text-align: center;">Unit</th>
+                          <th fldname="dimensionsbook" style="font-size: 10px;text-align: center;"></th>
+                          <th fldname="value" style="font-size: 10px;text-align: center;"></th>
+                          <th fldname="nonstandard" style="font-size: 9px;text-align: center;"></th>
+                          <th fldname="dangerous" style="font-size: 9px;text-align: center;"></th>
+                        </tr>
+                      </thead>
+                      <tbody class="pkgtabledata" *ngIf="shipmentsDetailsData?.shipment_booking_package_detail.length">
+                        <tr
+                          *ngFor="let tblData of shipmentsDetailsData?.shipment_booking_package_detail; let i = index">
+                          <td fldname="sno">{{ i + 1}}</td>
+                          <td> {{tblData?.weight}} {{tblData?.weight_unit}}</td>
+                          <td>{{tblData?.length}}</td>
+                          <td>{{tblData?.width}}</td>
+                          <td>{{tblData?.height}}</td>
+                          <td>{{tblData?.size_unit}}</td>
+                          <td>₹{{tblData?.declared_value}}</td>
+                          <td style="text-align: center;">
+                            <nb-checkbox [checked]="true" disabled></nb-checkbox>
+                          </td>
+                          <td style="text-align: center;">
+                            <nb-checkbox [checked]="tblData?.is_dangerous_goods" disabled></nb-checkbox>
+                          </td>
+                          <td>{{tblData?.dangerous_description}}</td>
+                        </tr>
+                      </tbody>
+                      <tbody class="pkgtabledata" *ngIf="!shipmentsDetailsData?.shipment_booking_package_detail.length">
+                        <td colspan="10" align="center">Data not found!</td>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Service Type:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.service_type?.service_type_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Package Contents:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.package_content?.package_content_name}}
+                      </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Shipment Purpose:</b> <span>
+                        {{shipmentsDetailsData?.shipment_booking_package?.shipment_purpose?.shipment_purpose_name}}</span>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Total Customs Value:</b> <span>
+                      {{(shipmentsDetailsData?.shipment_booking_package?.declared_value) ? '₹'+shipmentsDetailsData?.shipment_booking_package?.declared_value : ''}}</span></p>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+
+            <nb-accordion-item expanded="true">
+              <nb-accordion-item-header>
+                <span class="sub-title">How Do You Want Your Billing ?</span>
+              </nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Bill Transportation To:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.bill_transportation_to?.option_name}}</span>
+                    </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Account No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.bill_transportation_account_no}} </span>
+                    </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Bill Duties And Taxes Fees:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.bill_duties_taxes?.option_name}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Account No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.bill_duties_taxes_account_no}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Your Reference:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.reference}} </span> </p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>P.O No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.po_number}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Invoice No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.invoice_number}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Department No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.department_number}} </span> </p>
+                  </div>
+                </div><br />
+
+                <div class="form-group row">
+                  <span class="col-sm-4 sub-title">PickUp/Drop-Off (Optional)
+                    <hr /></span>
+                  <div class="col-sm-8 demo-items">
+                    <nb-radio-group>
+                      <nb-radio class="radio-flex" [value]="'1'"
+                        [checked]="shipmentsDetailsData?.shipment_billing_prefrence?.pickup_dropoff === 1 ? true : false"
+                        disabled>
+                        Schedule a pickup
+                      </nb-radio>
+                      <nb-radio class="radio-flex" [value]="'2'"
+                        [checked]="shipmentsDetailsData?.shipment_billing_prefrence?.pickup_dropoff === 2 ? true : false"
+                        disabled>
+                        Dropoff package at VayuLogi
+                      </nb-radio>
+                    </nb-radio-group>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px;"
+                  *ngIf="shipmentsDetailsData?.shipment_billing_prefrence?.pickup_dropoff === 2">
+                  <span class="sub-title col-sm-12">Dropoff package at VayuLogi
+                    <hr /></span>
+                  <div class="col-sm-12">
+                    <p fxFlex="33"><b>Location:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.vayu_logi_location?.location_name}}</span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px;margin-bottom: 20px;"
+                  *ngIf="shipmentsDetailsData?.shipment_billing_prefrence?.pickup_dropoff === 1">
+                  <span class="sub-title col-sm-12">PickUp Address
+                    <hr /></span>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Country/Territory:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_country?.country_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>PickUp Zip:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_zip_code}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Company:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_company_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Contact Name:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_contact_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>PickUp Email:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_email}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Phone No:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_phone_no}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Phone Ext:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_phone_no_ext}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Address:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_address_1}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Address 2 Suite/Unit/Floor etc:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_address_2}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>State:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_state?.state_name}}</span></p>
+                  </div>
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>City:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.pickup_city}}</span></p>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 20px;">
+                  <span class="sub-title">Shipment Notification Details
+                    <hr /></span>
+                  <!-- <div class="col-sm-12">
+                                    <p fxFlex="33"><b>Sender Notification: </b> <span>{{shipmentsDetailsData?.shipment_billing_prefrence?.shipment_sender_notification_type}}</span></p>
+                                    <p fxFlex="33"><b>Notification Type: </b> <span *ngFor="let data of shipmentsDetailsData?.shipment_billing_prefrence?.shipment_sender_notification; let i = index;">{{data.name}}{{(shipmentsDetailsData?.shipment_billing_prefrence?.shipment_sender_notification?.length -1 !== i) ? ',' : ''}} </span></p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <p fxFlex="33"><b>Recipient Notification: </b> <span>{{shipmentsDetailsData?.shipment_billing_prefrence?.shipment_recipient_notification_type}}</span></p>
+                                    <p fxFlex="33"><b>Notification Type: </b> <span *ngFor="let data of shipmentsDetailsData?.shipment_billing_prefrence?.shipment_recipient_notification; let i = index;">{{data.name}} {{(shipmentsDetailsData?.shipment_billing_prefrence?.shipment_recipient_notification?.length -1 !== i) ? ',' : '' }} </span></p>
+                                </div> -->
+                </div>
+
+                <div class="form-group row align-items-start">
+                  <div class="col-sm-6">
+                    <label class="label col-form-label text-left d-block pl-0">Sender Notification</label>
+                    <div class="demo-items">
+                      <nb-radio-group class="radio-flex" name="sender-group">
+                        <nb-radio [value]="'email'"
+                          [checked]="shipmentsDetailsData?.shipment_billing_prefrence?.shipment_sender_notification_type === 'email' ? true : false"
+                          disabled>
+                          Email
+                        </nb-radio>
+                        <nb-radio [value]="'sms'"
+                          [checked]="shipmentsDetailsData?.shipment_billing_prefrence?.shipment_sender_notification_type === 'sms' ? true : false"
+                          disabled>
+                          SMS
+                        </nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div>
+                      <label class="label col-form-label text-left d-block pl-0">Notification Type:</label>
+                      <nb-checkbox class="d-block text-left"
+                        *ngFor="let data of shipmentsDetailsData?.shipment_billing_prefrence?.sender_notification_types"
+                        [checked]="data?.isChecked" disabled>
+                        {{ data.name }}</nb-checkbox>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6" style="margin-top: 30px;">
+                    <label class="label col-form-label text-left d-block pl-0">Recipient Notification</label>
+                    <div class="demo-items">
+                      <nb-radio-group class="radio-flex" name="recipient-group">
+                        <nb-radio [value]="'email'"
+                          [checked]="shipmentsDetailsData?.shipment_billing_prefrence?.shipment_recipient_notification_type === 'email' ? true : false"
+                          disabled>
+                          Email
+                        </nb-radio>
+                        <nb-radio [value]="'sms'"
+                          [checked]="shipmentsDetailsData?.shipment_billing_prefrence?.shipment_recipient_notification_type === 'sms' ? true : false"
+                          disabled>
+                          SMS
+                        </nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </div>
+                  <div class="col-sm-6" style="margin-top: 30px;">
+                    <div>
+                      <label class="label col-form-label text-left d-block pl-0">Notification Type:</label>
+                      <nb-checkbox class="d-block text-left"
+                        *ngFor="let data of shipmentsDetailsData?.shipment_billing_prefrence?.recipient_notification_types"
+                        [checked]="data?.isChecked" disabled>
+                        {{data.name}}</nb-checkbox>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <p fxFlex="33"><b>Message:</b> <span>
+                        {{shipmentsDetailsData?.shipment_billing_prefrence?.extra_notes}}</span></p>
+                  </div>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+
+            <nb-accordion-item expanded="true">
+              <nb-accordion-item-header>
+                <span class="sub-title">Commodity Information</span>
+              </nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <p fxFlex="33"><b>Total Qty:</b> <span> {{commodityTotalQty}}</span></p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p fxFlex="33"><b>Total Weight:</b> <span> {{commodityTotalWeight}}</span> </p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p fxFlex="33"><b>Total Customs Value:</b> <span> ₹{{commodityTotalCustomsValue}}</span> </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <table class="table pkgtable">
+                    <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th>Harmonized Code</th>
+                        <th>Country of Manufacture</th>
+                        <th>Qty</th>
+                        <th>Weight</th>
+                        <th>Unit</th>
+                        <th>Customs value</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody class="pkgtabledata" *ngIf="shipmentsDetailsData?.shipment_booking_commodity?.length">
+                      <tr id="pack_det_row_1" *ngFor="let tblData of shipmentsDetailsData?.shipment_booking_commodity">
+                        <td style="width: 200px;">{{tblData?.item_name}}</td>
+                        <td style="width: 200px;">{{tblData?.harmonized_system_code?.description}}</td>
+                        <td style="width: 200px;">{{tblData?.manufacture_country?.country_name}}</td>
+                        <td style="width: 100px;">{{tblData?.quantity}}</td>
+                        <td style="width: 100px;">{{tblData?.weight}}</td>
+                        <td style="width: 200px;">{{tblData?.weight_unit}}</td>
+                        <td style="width: 100px;">₹{{tblData?.declared_value}}</td>
+                      </tr>
+                    </tbody>
+                    <tbody class="pkgtabledata" *ngIf="!shipmentsDetailsData?.shipment_booking_commodity?.length">
+                      <td colspan="7" align="center">Data not found!</td>
+                    </tbody>
+                  </table>
+                </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+
+          </nb-accordion>
+
+          <nb-accordion *ngIf="!shipmentsDetailsData">
+            <nb-accordion-item expanded="true">
+              <nb-accordion-item-header>
+                <span class="sub-title">No data found!</span>
+                <!-- <nb-spinner _nghost-kaq-c146="" class="size-giant status-primary ng-star-inserted"><span _ngcontent-kaq-c146="" class="spin-circle"></span></nb-spinner> -->
+              </nb-accordion-item-header>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+      </nb-tab>
+
+      <nb-tab tabTitle="Tracking">
+        <div class="steppers-container row" style="margin-bottom: 75px;" *ngIf="userRole?.role === 'ADMIN'">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <form [formGroup]="shipmentTrackingForm" class="step-container">
+              <div class="form-group row">
+                <label class="label col-sm-2 col-form-label">Status <span class="required-input">*</span></label>
+                <div class="col-sm-9">
+                  <ng-select [items]="statusData" bindLabel="name" class="ng_select form-control" [virtualScroll]="true"
+                    bindValue="order_status_id" [(ngModel)]="selectedStatusId" placeholder="Select Status"
+                    formControlName="order_status_id">
+                  </ng-select>
+                  <mat-error *ngFor="let validation of formValidations.order_status_id">
+                    <p class="caption status-danger"
+                      *ngIf="shipmentTrackingForm.get('order_status_id')?.hasError(validation.type) && (shipmentTrackingForm.get('order_status_id')?.dirty || shipmentTrackingForm.get('order_status_id')?.touched)">
+                      {{validation.message}}
+                    </p>
+                  </mat-error>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="label col-sm-2 col-form-label">Comment</label>
+                <div class="col-sm-9">
+                  <textarea rows="3" nbInput fullWidth shape="round" formControlName="comment" placeholder="Comment"
+                    trim="blur"></textarea>
+                  <mat-error *ngFor="let validation of formValidations.comment">
+                    <p class="caption status-danger"
+                      *ngIf="shipmentTrackingForm.get('comment')?.hasError(validation.type) && (shipmentTrackingForm.get('comment')?.dirty || shipmentTrackingForm.get('comment')?.touched)">
+                      {{validation.message}}
+                    </p>
+                  </mat-error>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                  <span class="save-btn">
+                    <button nbButton class="save_btn_save" size="medium" [disabled]="isSaveBtnLoading"
+                      [nbSpinner]="isSaveBtnLoading" nbSpinnerStatus="primary" (click)="saveData()">
+                      Save
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="steppers-container row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12 tracking-steper-wraper">
+            <div class="row align-items-center pt-5" *ngFor="let data of trackingOrderStatusArray; let i=index;">
+              <div class="col-md-3 text-right">
+                <p class="del-date mb-0">{{ data?.timeLIneDate }}</p>
+              </div>
+              <div class="col-md-1 text-center order-status"
+                [ngClass]="(i === 0) ? 'active' : ''">
+                <span _ngcontent-uln-c342="" class="fa fa-check item-icon"></span>
+              </div>
+              <div class="col-md-7">
+                <p class="del-status mb-0">{{data?.order_status?.name}}</p>
+                <p class="del-desc mb-0">{{data?.comment}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </nb-tab>
+
+      <nb-tab tabTitle="Invoice">
+        <div class="form-group row" style="margin-bottom: 0px;">
+          <label for="inputCompany" class="label col-sm-2 col-form-label">Invoice No :</label>
+          <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+            {{shipmentsDetailsData?.jazva_order_invoice?.invoicenum}}
+          </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 0px;">
+          <label for="inputCompany" class="label col-sm-2 col-form-label">Invoice Date :</label>
+          <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+            {{shipmentsDetailsData?.jazva_order_invoice?.created_at | date: 'dd/MM/yyyy'}}
+          </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 0px;">
+            <label for="inputCompany" class="label col-sm-2 col-form-label">Invoice Due Date :</label>
+            <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;" *ngIf="shipmentsDetailsData?.jazva_order_invoice?.due_date">
+              {{shipmentsDetailsData?.jazva_order_invoice?.due_date | date: 'dd/MM/yyyy'}}
+            </div>
+            <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;" *ngIf="!shipmentsDetailsData?.jazva_order_invoice?.due_date">
+                -
+              </div>
+          </div>
+        <div class="form-group row" style="margin-bottom: 0px;">
+          <label for="inputCompany" class="label col-sm-2 col-form-label">Status :</label>
+          <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+            {{shipmentsDetailsData?.jazva_order_invoice?.status}}
+          </div>
+        </div>
+        <div class="form-group row" style="margin-bottom: 0px;">
+          <label for="inputCompany" class="label col-sm-2 col-form-label">Amount :</label>
+          <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+            ₹{{(shipmentsDetailsData?.jazva_order_invoice?.total) ? shipmentsDetailsData?.jazva_order_invoice?.total : '0.00'}}
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 30px;" *ngIf="userRole?.role === 'ADMIN'">
+          <nb-accordion>
+            <nb-accordion-item expanded="true">
+              <nb-accordion-item-header>
+                <span class="sub-title">Parcel Details </span>
+              </nb-accordion-item-header>
+              <nb-accordion-item-body>
+                <div class="row">
+                    <div class="col-sm-4">
+                      <p fxFlex="33"><b>Tracking No :</b> <span>
+                        {{(shipmentsDetailsData?.jazva_order_invoice?.jazva_order_invoice_parcel?.tracking) ? shipmentsDetailsData?.jazva_order_invoice?.jazva_order_invoice_parcel?.tracking : ''}}</span></p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p fxFlex="33"><b>URL :</b> 
+                            <span *ngIf="shipmentsDetailsData?.jazva_order_invoice?.jazva_order_invoice_parcel?.trackingurl">
+                                <img class="pdf-icon pointer" src="../../../../assets/images/pdf-icon.png" nbTooltip="Print Label" nbTooltipPlacement="bottom" (click)="printPdf(shipmentsDetailsData?.jazva_order_invoice?.jazva_order_invoice_parcel?.trackingurl)">
+                            </span> 
+                        </p>
+                    </div>
+                    <div class="col-sm-4">
+                      <p fxFlex="33"><b>Mail Class :</b> <span> {{shipmentsDetailsData?.jazva_order_invoice?.jazva_order_invoice_parcel?.mailclass}}</span>
+                      </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Cost :</b> <span> ₹{{(shipmentsDetailsData?.jazva_order_invoice?.jazva_order_invoice_parcel?.cost) ? shipmentsDetailsData?.jazva_order_invoice?.jazva_order_invoice_parcel?.cost : '0.00'}}</span>
+                        </p>
+                      </div>
+                  </div>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card-body>
+</nb-card>

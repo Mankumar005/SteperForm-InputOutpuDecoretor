@@ -1,0 +1,630 @@
+<nb-card>
+  <nb-card-header class="card-header page-title">
+    {{isEditProfile ? 'Edit Profile' : 'Profile Details'}}
+    <span *ngIf="!isEditProfile">
+      <button class="edit-btn" nbButton size="medium" (click)="onEditProfile()">Edit</button>
+    </span>
+    <span *ngIf="isEditProfile" class="back-arow" (click)="back()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px"><span class="back-text">Back To Profile</span>
+    </span>
+  </nb-card-header>
+  <nb-card-body>
+    <!-- Profile Data-->
+    <ng-container *ngIf="!isEditProfile">
+      <div class="row">
+        <nb-accordion *ngIf="profileDetials">
+          <nb-accordion-item expanded="true">
+            <nb-accordion-item-header>
+              <span class="sub-title">Basic Details</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Name:</b> <span> {{ profileDetials.name }}</span>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Phone:</b> <span> {{ profileDetials.phone }} </span>
+                  </p>
+                </div>
+                <div class="col-sm-4" *ngIf="userRole.role !== 'CUSTOMER'">
+                    <p fxFlex="33">
+                      <b>Email:</b> <span> {{ profileDetials.email }}</span>
+                    </p>
+                </div>
+                <div class="col-sm-4" *ngIf="userRole.role !== 'ADMIN'">
+                  <p fxFlex="33">
+                    <b>Phone Extension:</b>
+                    <span>
+                      {{profileDetials.phone_extension? profileDetials.phone_extension: "Not Provide" }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="row" *ngIf="userRole.role !== 'ADMIN'">
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Email:</b> <span> {{ profileDetials.email }}</span>
+                  </p>
+                </div>
+                <div class="col-sm-12" >
+                  <p fxFlex="33">
+                    <b>Address:</b>
+                    <span> {{ profileDetials.address1}}{{ profileDetials.address2 ? "," : "" }}{{
+                      profileDetials.address2
+                      }}, {{ profileDetials.city }},{{ profileDetials.state }}, {{ profileDetials.country }}, {{
+                      profileDetials.zip_code }}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+
+          <nb-accordion-item expanded="true" *ngIf="userRole.role !== 'ADMIN'">
+            <nb-accordion-item-header>
+              <span class="sub-title">Company Details</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div class="row">
+                <div class="col-sm-12">
+                  <p fxFlex="33">
+                    <b>Company Name:</b>
+                    <span> {{ profileDetials.company_name }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>GST No:</b>
+                    <span>
+                      {{profileDetials.gst_no ? profileDetials.gst_no : "Not Provide"}}</span>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>PAN No:</b>
+                    <span>
+                      {{ profileDetials.pan_no ? profileDetials.pan_no : "Not Provide" }}</span>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Udyog Aadhar:</b>
+                    <span>
+                      {{ profileDetials.udyog_aadhaar ? profileDetials.udyog_aadhaar : "Not Provide" }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>SSN No:</b>
+                    <span> {{ profileDetials.ssn ? profileDetials.ssn : "Not Provide" }}</span>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>IEC No:</b>
+                    <span> {{ profileDetials.iec_code ? profileDetials.iec_code : "Not Provide" }}</span>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Shipping Service Type:</b>
+                    <span> {{ profileDetials.shipping_service }}</span>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <p fxFlex="33">
+                    <b>Business Description:</b>
+                    <span> {{ profileDetials.business_description ? profileDetials.business_description : "Not Provide"
+                      }}</span>
+                  </p>
+                </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+          
+          <nb-accordion-item expanded="true" *ngIf="userRole.role !== 'ADMIN'">
+            <nb-accordion-item-header>
+              <span class="sub-title">Shipment Details</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div class="row">
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Nature Of Business: </b>
+                    <span> {{ profileDetials.business_name }}</span>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Shipment Frequency: </b>
+                    <span> {{ profileDetials.frequency_name }} </span>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <p fxFlex="33">
+                    <b>Other Info: </b>
+                    <span>
+                      {{ profileDetials.other_info ? profileDetials.other_info : "Not Provide" }}</span>
+                  </p>
+                </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+      </div>
+    </ng-container>
+
+    <!-- Edit Profile -->
+    <!-- basic details -->
+    <ng-container *ngIf="isEditProfile && userRole.role !== 'ADMIN'">
+      <nb-accordion *ngIf="profileDetials">
+        <nb-accordion-item expanded="true">
+          <nb-accordion-item-header>
+            <span class="sub-title">Basic Details</span>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-card>
+              <nb-card-body>
+                <form [formGroup]="userDetailsForm">
+                  <div class="custom-form-group row ">
+                    <label class="label col-sm-3 form-control-label">First Name
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #first_name maxlength="100" formControlName="first_name" class="form-control"
+                        trim="blur" nbInput fullWidth placeholder="First Name" required>
+                      <mat-error *ngFor="let validation of formValidations.first_name">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('first_name')?.hasError(validation.type) && (userDetailsForm.get('first_name')?.dirty || userDetailsForm.get('first_name')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Last Name
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #last_name maxlength="100" class="form-control" formControlName="last_name"
+                        nbInput fullWidth trim="blur" placeholder="Last Name" required>
+                      <mat-error *ngFor="let validation of formValidations.last_name">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('last_name')?.hasError(validation.type) && (userDetailsForm.get('last_name')?.dirty || userDetailsForm.get('last_name')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Company
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #company_name maxlength="100" class="form-control"
+                        formControlName="company_name" nbInput fullWidth trim="blur" placeholder="Company" required>
+                      <mat-error *ngFor="let validation of formValidations.company_name">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('company_name')?.hasError(validation.type) && (userDetailsForm.get('company_name')?.dirty || userDetailsForm.get('company_name')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Address1
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" maxlength="200" class="form-control" formControlName="address1" nbInput
+                        fullWidth trim="blur" placeholder="Address1" required>
+                      <mat-error *ngFor="let validation of formValidations.address1">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('address1')?.hasError(validation.type) && (userDetailsForm.get('address1')?.dirty || userDetailsForm.get('address1')?.touched) ">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Address2</label>
+                    <div class="col-md-9">
+                      <input type="text" trim="blur" class="form-control" formControlName="address2" nbInput fullWidth
+                        placeholder="Address2">
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label label">Country
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <ng-select [items]="countryList" bindLabel="country_name"
+                        class="ng_select ng_dropdown_panel form-control" bindValue="country_id"
+                        (change)="selectCountryValue($event)" [virtualScroll]="true" placeholder="Select Country"
+                        formControlName="country_id" required>
+                      </ng-select>
+                      <mat-error *ngFor="let validation of formValidations.country_id">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('country_id')?.hasError(validation.type) && (userDetailsForm.get('country_id')?.dirty || userDetailsForm.get('country_id')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">State
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <ng-select [items]="stateList" bindLabel="state_name"
+                        class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="state_id"
+                        placeholder="Select State" formControlName="state_id" required>
+                      </ng-select>
+                      <!-- <input type="text" #state formControlName="state" nbInput fullWidth placeholder="State" required> -->
+                      <mat-error *ngFor="let validation of formValidations.state_id">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('state_id')?.hasError(validation.type) && (userDetailsForm.get('state_id')?.dirty || userDetailsForm.get('state_id')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">City
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" maxlength="100" #city class="form-control" formControlName="city" nbInput
+                        fullWidth placeholder="City" trim="blur" required>
+                      <mat-error *ngFor="let validation of formValidations.city">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('city')?.hasError(validation.type) && (userDetailsForm.get('city')?.dirty || userDetailsForm.get('city')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Zip Code
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" nbInput fullWidth class="form-control" formControlName="zip_code"
+                        maxlength="20" placeholder="Zip Code" required>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Phone
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-2">
+                      <input type="text" disabled="true" class="form-control" formControlName="country_code" nbInput
+                        fullWidth placeholder="+91">
+                    </div>
+                    <div class="col-md-7">
+                      <input type="text" maxlength="10" min="0" class="form-control" #phone formControlName="phone"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' nbInput fullWidth
+                        placeholder="Phone" readonly>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Phone Ext.
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" maxlength="10" min="0" class="form-control" formControlName="phone_extension"
+                        trim="blur" onkeypress='return event.charCode >= 48 && event.charCode <= 57' nbInput fullWidth
+                        placeholder="Phone Extension">
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Email
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input nbInput type="email" #email maxlength="100" class="form-control" fullWidth
+                        placeholder="Email" name="email" trim="blur" formControlName="email" autocomplete="off"
+                        #inputEmail spellcheck="true" readonly>
+                      <nb-card-body class="spinner-loader" [nbSpinner]="isLoadingEmail" nbSpinnerSize="tiny"
+                        nbSpinnerStatus="primary">
+                      </nb-card-body>
+                    </div>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+      <!-- Company details -->
+      <nb-accordion *ngIf="profileDetials">
+        <nb-accordion-item expanded="true">
+          <nb-accordion-item-header>
+            <span class="sub-title">Company Details</span>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-card>
+              <nb-card-body>
+                <form [formGroup]="companyDetailsForm">
+                  <div class="custom-form-group row ">
+                    <label class="label col-sm-3 form-control-label">GST Exempted
+                      <span *ngIf="selectValueObj.gst_exempted" class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <nb-select class="select-Country" (selectedChange)="getGSTExemptedValue($event)" fullWidth
+                        formControlName="gst_exempted" placeholder="Select(Is your Business Exempted from GST ?)"
+                        required>
+                        <nb-option [value]="1">Yes</nb-option>
+                        <nb-option [value]="0">No</nb-option>
+                      </nb-select>
+                      <mat-error *ngFor="let validation of formValidations.gst_exempted">
+                        <p class="caption status-danger"
+                          *ngIf="companyDetailsForm.get('gst_exempted')?.hasError(validation.type) && (companyDetailsForm.get('gst_exempted')?.dirty || companyDetailsForm.get('gst_exempted')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row" *ngIf="isGSTExempted">
+                    <label class="label col-sm-3 form-control-label">GST No.
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #gst_no nbInput fullWidth maxlength="15" class="form-control"
+                        formControlName="gst_no" placeholder="GST No." trim="blur" required>
+                      <mat-error *ngFor="let validation of formValidations.gst_no">
+                        <p class="caption status-danger"
+                          *ngIf="companyDetailsForm.get('gst_no')?.hasError(validation.type) && (companyDetailsForm.get('gst_no')?.dirty || companyDetailsForm.get('gst_no')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row" *ngIf="isRequiredField">
+                    <label class="label col-sm-3 form-control-label">PAN No.
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #pan_no nbInput fullWidth maxlength="10" class="form-control"
+                        formControlName="pan_no" placeholder="PAN No." trim="blur" required>
+                      <mat-error *ngFor="let validation of formValidations.pan_no">
+                        <p class="caption status-danger"
+                          *ngIf="companyDetailsForm.get('pan_no')?.hasError(validation.type) && (companyDetailsForm.get('pan_no')?.dirty || companyDetailsForm.get('pan_no')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row" *ngIf="isUdyogAdhar">
+                    <label class="label col-sm-3 form-control-label">Udyog Aadhar No.
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #udyog_aadhaar maxlength="12" nbInput class="form-control" fullWidth
+                        formControlName="udyog_aadhaar" trim="blur" placeholder="Udyog Aadhar No." required>
+                      <mat-error *ngFor="let validation of formValidations.udyog_aadhaar">
+                        <p class="caption status-danger"
+                          *ngIf="companyDetailsForm.get('udyog_aadhaar')?.hasError(validation.type) && (companyDetailsForm.get('udyog_aadhaar')?.dirty || companyDetailsForm.get('udyog_aadhaar')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="custom-form-group row ">
+                      <label class="label col-sm-3 form-control-label">SSN No.
+                      </label>
+                      <div class="col-md-9">
+                        <input type="text" #ssn nbInput fullWidth class="form-control" formControlName="ssn"
+                          maxlength="11" min="0" trim="blur"
+                          onkeypress='return event.charCode >= 48 && event.charCode <= 57' placeholder="SSN No.">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Business Description
+                    </label>
+                    <div class="col-md-9">
+                      <textarea type="text" maxlength="200" trim="blur" class="form-control" nbInput fullWidth
+                        formControlName="business_description" placeholder="Business Description"></textarea>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label label">Type Of Shipping Service
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <nb-select class="select-Country" formControlName="shipping_service_type_id"
+                        placeholder="Type Of Shipping Service" required>
+                        <nb-option *ngFor="let shipping of shippingTypesList"
+                          [value]="shipping.shipping_service_type_id">
+                          {{shipping.shipping_service_type_name}}</nb-option>
+                      </nb-select>
+                      <mat-error *ngFor="let validation of formValidations.shipping_service_type_id">
+                        <p class="caption status-danger"
+                          *ngIf="companyDetailsForm.get('shipping_service_type_id')?.hasError(validation.type) && (companyDetailsForm.get('shipping_service_type_id')?.dirty || companyDetailsForm.get('shipping_service_type_id')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label label">IEC Code
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" trim="blur" nbInput fullWidth class="form-control" formControlName="iec_code"
+                        maxlength="10" min="0" placeholder="IEC Code">
+                    </div>
+                  </div>
+
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+      <!-- Shipment details -->
+      <nb-accordion *ngIf="profileDetials">
+        <nb-accordion-item expanded="true">
+          <nb-accordion-item-header>
+            <span class="sub-title">Shipment Details</span>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-card>
+              <nb-card-body>
+                <form [formGroup]="shipmentDetailsForm">
+                  <div class="custom-form-group row ">
+                    <label class="label col-sm-3 form-control-label label">Nature of Business
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <nb-select class="select-Country" formControlName="nature_of_business_id"
+                        placeholder="Nature of Business" required>
+                        <nb-option *ngFor="let business of natuerBusinessList" [value]="business.nature_of_business_id">
+                          {{business.business_name}}</nb-option>
+                      </nb-select>
+                      <mat-error *ngFor="let validation of formValidations.nature_of_business_id">
+                        <p class="caption status-danger"
+                          *ngIf="shipmentDetailsForm.get('nature_of_business_id')?.hasError(validation.type) && (shipmentDetailsForm.get('nature_of_business_id')?.dirty || shipmentDetailsForm.get('nature_of_business_id')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row ">
+                    <label class="label col-sm-3 form-control-label label">Shipment Frequency
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <nb-select class="select-Country" formControlName="shipment_frequency_id"
+                        placeholder="Shipment Frequency" required>
+                        <nb-option *ngFor="let frequencies of shipmentFrequenciesList"
+                          [value]="frequencies.shipment_frequencies_id">{{frequencies.name}}</nb-option>
+                      </nb-select>
+                      <mat-error *ngFor="let validation of formValidations.shipment_frequency_id">
+                        <p class="caption status-danger"
+                          *ngIf="shipmentDetailsForm.get('shipment_frequency_id')?.hasError(validation.type) && (shipmentDetailsForm.get('shipment_frequency_id')?.dirty || shipmentDetailsForm.get('shipment_frequency_id')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Other Info</label>
+                    <div class="col-md-9">
+                      <textarea type="text" maxlength="200" trim="blur" class="form-control" nbInput fullWidth
+                        formControlName="other_info" placeholder="Other Info"></textarea>
+                    </div>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+      <div class="row pt-3">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-6">
+          <span class="next-btn">
+            <button nbButton class="theme-btn" [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary"
+              (click)="onSubmit()">Update</button>
+          </span>
+        </div>
+      </div>
+    </ng-container>
+
+
+    <!-- Edit Admin Profile -->
+    <!-- basic details -->
+    <ng-container *ngIf="isEditProfile && userRole.role == 'ADMIN'">
+      <nb-accordion *ngIf="profileDetials">
+        <nb-accordion-item expanded="true">
+          <nb-accordion-item-header>
+            <span class="sub-title">Basic Details</span>
+          </nb-accordion-item-header>
+          <nb-accordion-item-body>
+            <nb-card>
+              <nb-card-body>
+                <form [formGroup]="userDetailsForm">
+                  <div class="custom-form-group row ">
+                    <label class="label col-sm-3 form-control-label">First Name
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #first_name maxlength="100" formControlName="first_name" class="form-control"
+                        trim="blur" nbInput fullWidth placeholder="First Name" required>
+                      <mat-error *ngFor="let validation of formValidations.first_name">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('first_name')?.hasError(validation.type) && (userDetailsForm.get('first_name')?.dirty || userDetailsForm.get('first_name')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Last Name
+                      <span class="required-input">*</span>
+                    </label>
+                    <div class="col-md-9">
+                      <input type="text" #last_name maxlength="100" class="form-control" formControlName="last_name"
+                        nbInput fullWidth trim="blur" placeholder="Last Name" required>
+                      <mat-error *ngFor="let validation of formValidations.last_name">
+                        <p class="caption status-danger"
+                          *ngIf="userDetailsForm.get('last_name')?.hasError(validation.type) && (userDetailsForm.get('last_name')?.dirty || userDetailsForm.get('last_name')?.touched)">
+                          {{validation.message}}
+                        </p>
+                      </mat-error>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Phone
+                    </label>
+                    <div class="col-md-2">
+                      <input type="text" disabled="true" class="form-control" formControlName="country_code" nbInput
+                        fullWidth placeholder="+91">
+                    </div>
+                    <div class="col-md-7">
+                      <input type="text" maxlength="10" min="0" class="form-control" #phone formControlName="phone"
+                        onkeypress='return event.charCode >= 48 && event.charCode <= 57' nbInput fullWidth
+                        placeholder="Phone" readonly>
+                    </div>
+                  </div>
+                  <div class="custom-form-group row">
+                    <label class="label col-sm-3 form-control-label">Email
+                    </label>
+                    <div class="col-md-9">
+                      <input nbInput type="email" #email maxlength="100" class="form-control" fullWidth
+                        placeholder="Email" name="email" trim="blur" formControlName="email" autocomplete="off"
+                        #inputEmail spellcheck="true" readonly>
+                      <nb-card-body class="spinner-loader" [nbSpinner]="isLoadingEmail" nbSpinnerSize="tiny"
+                        nbSpinnerStatus="primary">
+                      </nb-card-body>
+                    </div>
+                  </div>
+                </form>
+              </nb-card-body>
+            </nb-card>
+          </nb-accordion-item-body>
+        </nb-accordion-item>
+      </nb-accordion>
+      <div class="row pt-3">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-6">
+          <span class="next-btn">
+            <button nbButton class="theme-btn" [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary"
+              (click)="onSubmit()">Update</button>
+          </span>
+        </div>
+      </div>
+    </ng-container>
+
+  </nb-card-body>
+</nb-card>

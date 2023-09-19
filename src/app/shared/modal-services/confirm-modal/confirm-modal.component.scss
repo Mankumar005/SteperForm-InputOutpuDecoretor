@@ -1,0 +1,46 @@
+.delete-text {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: #0f377c;
+    font-weight: 500;
+}
+
+.button-Style {
+    display: flex;
+    justify-content: center;
+    // color: white !important;
+}
+
+.buttonDelete {
+    width: 28%;
+    height: 36px;
+    margin-right: 20px;
+    font-size: 15px;
+    color: white;
+}
+
+.buttonCancle {
+    width: 28%;
+    height: 36px;
+    // background: lavender;
+    font-size: 15px;
+
+}
+
+.del-account {
+    ::ng-deep {
+        .mat-dialog-content {
+            width: 96%;
+            display: block;
+        }
+    }
+}
+
+.appearance-outline,
+.appearance-outline {
+    border-style: var(--button-outline-border-style);
+    border-width: var(--button-outline-border-width);
+    text-transform: none;
+}

@@ -1,0 +1,699 @@
+ <!--add -edit-sub-account -->
+ <!-- <ng-container *ngIf="this.userId"> -->
+<nb-card>
+    <nb-card-header class="page-title">
+     {{userId ? 'Edit' : 'Add'}} Sub Account
+      <span class="back-arow" (click)="back()">
+        <img src="assets/images/back-arow.png" height="15px" width="20px"><span class="back-text">Back To Account</span>
+      </span>
+    </nb-card-header>
+    <nb-card-body>
+        <nb-accordion>
+          <nb-accordion-item expanded="true">
+            <nb-accordion-item-header>
+              <span class="sub-title">Basic Details</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <nb-card>
+                <nb-card-body>
+                    <form [formGroup]="userDetailsForm">
+                        <div class="form-group row ">
+                          <label class="label col-sm-3 form-control-label">First Name
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" #first_name maxlength="100" formControlName="first_name" class="form-control"
+                              trim="blur" nbInput fullWidth placeholder="First Name" required>
+                            <mat-error *ngFor="let validation of formValidations.first_name">
+                              <p class="caption status-danger"
+                                *ngIf="userDetailsForm.get('first_name')?.hasError(validation.type) && (userDetailsForm.get('first_name')?.dirty || userDetailsForm.get('first_name')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Last Name
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" #last_name maxlength="100" class="form-control" formControlName="last_name"
+                              nbInput fullWidth trim="blur" placeholder="Last Name" required>
+                            <mat-error *ngFor="let validation of formValidations.last_name">
+                              <p class="caption status-danger"
+                                *ngIf="userDetailsForm.get('last_name')?.hasError(validation.type) && (userDetailsForm.get('last_name')?.dirty || userDetailsForm.get('last_name')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Company
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" #company_name maxlength="100" class="form-control"
+                              formControlName="company_name" nbInput fullWidth trim="blur" placeholder="Company" required>
+                            <mat-error *ngFor="let validation of formValidations.company_name">
+                              <p class="caption status-danger"
+                                *ngIf="userDetailsForm.get('company_name')?.hasError(validation.type) && (userDetailsForm.get('company_name')?.dirty || userDetailsForm.get('company_name')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Address1
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" maxlength="200" class="form-control" formControlName="address1" nbInput
+                              fullWidth trim="blur" placeholder="Address1" required>
+                            <mat-error *ngFor="let validation of formValidations.address1">
+                              <p class="caption status-danger"
+                                *ngIf="userDetailsForm.get('address1')?.hasError(validation.type) && (userDetailsForm.get('address1')?.dirty || userDetailsForm.get('address1')?.touched) ">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Address2</label>
+                          <div class="col-md-9">
+                            <input type="text" trim="blur" class="form-control" formControlName="address2" nbInput fullWidth
+                              placeholder="Address2">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label label">Country
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <ng-select [items]="countryList" bindLabel="country_name"
+                              class="ng_select ng_dropdown_panel form-control" bindValue="country_id"
+                              (change)="selectCountryValue($event)" [virtualScroll]="true" placeholder="Select Country"
+                              formControlName="country_id" required>
+                            </ng-select>
+                            <mat-error *ngFor="let validation of formValidations.country_id">
+                              <p class="caption status-danger"
+                                *ngIf="userDetailsForm.get('country_id')?.hasError(validation.type) && (userDetailsForm.get('country_id')?.dirty || userDetailsForm.get('country_id')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">State
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <ng-select [items]="stateList" bindLabel="state_name"
+                              class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true" bindValue="state_id"
+                              placeholder="Select State" formControlName="state_id" required>
+                            </ng-select>
+                            <!-- <input type="text" #state formControlName="state" nbInput fullWidth placeholder="State" required> -->
+                            <mat-error *ngFor="let validation of formValidations.state_id">
+                              <p class="caption status-danger"
+                                *ngIf="userDetailsForm.get('state_id')?.hasError(validation.type) && (userDetailsForm.get('state_id')?.dirty || userDetailsForm.get('state_id')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">City
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" maxlength="100" #city class="form-control" formControlName="city" nbInput
+                              fullWidth placeholder="City" trim="blur" required>
+                            <mat-error *ngFor="let validation of formValidations.city">
+                              <p class="caption status-danger"
+                                *ngIf="userDetailsForm.get('city')?.hasError(validation.type) && (userDetailsForm.get('city')?.dirty || userDetailsForm.get('city')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Zip Code
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" nbInput fullWidth class="form-control" formControlName="zip_code"
+                              maxlength="20" placeholder="Zip Code" required>
+                          </div>
+                        </div>
+                        <ng-container *ngIf="!userId">
+                          <div class="form-group row align-items-start">
+                            <label class="label col-sm-3 form-control-label">Phone
+                              <span class="required-input">*</span>
+                            </label>
+                            <div class="col-md-2">
+                              <input type="text" disabled="true" class="form-control" formControlName="country_code" nbInput
+                                fullWidth placeholder="+91">
+                            </div>
+                            <div class="col-md-7">
+                              <input type="text" #phone_value maxlength="10" min="0" class="form-control" #phone formControlName="phone"
+                              onkeypress='return event.charCode >= 48 && event.charCode <= 57' nbInput fullWidth placeholder="Phone"
+                              required>
+                              <mat-error *ngFor="let validation of formValidations.phone">
+                                <p class="caption status-danger"
+                                  *ngIf="userDetailsForm.get('phone')?.hasError(validation.type) && (userDetailsForm.get('phone')?.dirty || userDetailsForm.get('phone')?.touched)">
+                                  {{validation.message}}
+                                </p>
+                              </mat-error>
+                              <!-- verify-phone -->
+                              <span *ngIf="isPhoneVerifiedIcon" class="phone-verify-icon" nbTooltip="Verified" nbTooltipPlacement="bottom">
+                                <img src="../../../assets/images/check.png" height="20px" >
+                              </span>
+                              <ng-container *ngIf="isVerifyPhoneMessage && phone_value.value.length === 10">
+                                <span class="caption status-danger">
+                                  Please verify your Phone No.
+                                </span>
+                              </ng-container>
+                              <ng-container *ngIf="isSendPhoneOTP && phone_value.value.length === 10">
+                                <div class="row pt-1">
+                                  <div class="col-md-4">
+                                    <span class="send-otp-btn">
+                                      <button nbButton size="small" style="text-transform:capitalize;" [ngClass]="isVerifyPhoneLoading ? 'verify-btn' : 'theme-btn'"
+                                        [disabled]="isVerifyPhoneLoading" outline (click)="sendOTPOnPhone()">{{isVerifyPhoneLoading ?
+                                          phoneOTPResendTimer : isResendPhoneOTP ? 'Resend OTP' : 'Send OTP'}}</button>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="pt-2">
+                                  <p class="label">
+                                    Note: Click here to send OTP on your Phone No.
+                                  </p>
+                                </div>
+                              </ng-container>
+                              <ng-container *ngIf="isViewPhoneOTPVerification && phone_value.value.length === 10">
+                                <div class="row pt-3">
+                                  <div class="col-md-12">
+                                    <div class="input_OTP">
+                                      <ng-otp-input #ngOtpInput [config]="optInputConfig" (onInputChange)="handleOtpChange($event)">
+                                      </ng-otp-input>
+                                    </div>
+                                    <mat-error class="caption status-danger" *ngIf="isOtpBlank">
+                                      OTP is required
+                                    </mat-error>
+                                  </div>
+                                </div>
+                                <div class="pt-2">
+                                  <p class="label">
+                                    Note: Enter verification code sent to your Phone No.
+                                  </p>
+                                </div>
+                                {{ngOtpInput.value}}
+                                <div class="pt-2">
+                                  <span class="send-otp-btn">
+                                    <button nbButton size="small" style="text-transform:capitalize;" [ngClass]="isVerifyPhoneLoading ? '' : 'theme-btn'" [disabled]="isVerifyPhoneLoading"
+                                      [nbSpinner]="isVerifyPhoneLoading" nbSpinnerStatus="primary" (click)="onVerifyPhoneOTP()" outline>Verify
+                                      OTP</button>
+                                  </span>
+                                </div>
+                              </ng-container>
+                              <!--end verify-phone -->
+                            </div>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="userId">
+                          <div class="form-group row">
+                            <label class="label col-sm-3 form-control-label">Phone
+                              <span class="required-input">*</span>
+                            </label>
+                            <div class="col-md-2">
+                              <input type="text" disabled="true" class="form-control" formControlName="country_code" nbInput
+                                fullWidth placeholder="+91">
+                            </div>
+                            <div class="col-md-7">
+                              <input type="text" maxlength="10" min="0" class="form-control" #phone formControlName="phone"
+                                onkeypress='return event.charCode >= 48 && event.charCode <= 57' nbInput fullWidth
+                                placeholder="Phone" readonly>
+                            </div>
+                          </div>
+                        </ng-container>
+                     
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Phone Ext.
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" maxlength="10" min="0" class="form-control" formControlName="phone_extension"
+                              trim="blur" onkeypress='return event.charCode >= 48 && event.charCode <= 57' nbInput fullWidth
+                              placeholder="Phone Extension">
+                          </div>
+                        </div>
+                        <ng-container *ngIf="!userId" >
+                          <div class="form-group row">
+                            <label class="label col-sm-3 form-control-label">Email
+                              <span class="required-input">*</span>
+                            </label>
+                            <div class="col-md-9">
+                              <input nbInput type="email" maxlength="100" class="form-control" fullWidth placeholder="Email"
+                              name="email" trim="blur" formControlName="email" autocomplete="off" #inputEmail spellcheck="true"
+                              required>
+                            <nb-card-body class="spinner-loader-error-msg" [nbSpinner]="isLoadingEmail" nbSpinnerSize="tiny"
+                              nbSpinnerStatus="primary">
+                            </nb-card-body>
+                            <!-- <ng-container *ngIf="!isVerifyEmailMessage"> -->
+                              <mat-error *ngFor="let validation of formValidations.email">
+                                <p class="caption status-danger"
+                                  *ngIf="!isExistingEmail && userDetailsForm.get('email')?.hasError(validation.type) && (userDetailsForm.get('email')?.dirty || userDetailsForm.get('email')?.touched)">
+                                  {{validation.message}}
+                                </p>
+                              </mat-error>
+                              <mat-error class="email-error" *ngIf="isExistingEmail">
+                                <mat-error class="caption status-danger">
+                                  This email is already exist.
+                                </mat-error>
+                              </mat-error>
+                            <!-- </ng-container> -->
+                            <!-- verify-email -->
+                              <span *ngIf="isEmailVerifiedIcon" class="email-verify-icon" nbTooltip="Verified" nbTooltipPlacement="bottom">
+                                <img src="../../../assets/images/check.png" height="20px" >
+                              </span>
+                            <ng-container *ngIf="isVerifyEmailMessage">
+                              <span class="caption status-danger">
+                                Please verify your email address.
+                              </span>
+                            </ng-container>
+                            <ng-container *ngIf="isSendOTPOnEmail">
+                              <div class="row pt-2">
+                                <div class="col-md-4">
+                                  <span class="send-otp-btn">
+                                    <button nbButton size="small" style="text-transform:capitalize;" [ngClass]="isVerifyEmailLoading ? 'verify-btn' : 'theme-btn'"
+                                      [disabled]="isVerifyEmailLoading" outline (click)="sendOTPOnEmail()">{{isVerifyEmailLoading ?
+                                        emailOTPResendTimer : isResendEmailOTP ? 'Resend OTP' : 'Send OTP'}}</button>
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="pt-2">
+                                <p class="label">
+                                  Note: Click here to send OTP on your email.
+                                </p>
+                              </div>
+                            </ng-container>
+                            <ng-container *ngIf="isViewEmailOTPVerification">
+                              <div class="row pt-3">
+                                <div class="col-md-12">
+                                  <div class="input_OTP">
+                                    <ng-otp-input #ngOtpInput [config]="optInputConfig" (onInputChange)="handleOtpChange($event)">
+                                    </ng-otp-input>
+                                  </div>
+                                  <mat-error class="caption status-danger" *ngIf="isOtpBlank">
+                                    OTP is required
+                                  </mat-error>
+                                </div>
+                              </div>
+                              <div class="pt-2">
+                                <p class="label">
+                                  Note: Enter verification code sent to your email
+                                </p>
+                              </div>
+                              <div class="pt-2">
+                                <span class="send-otp-btn">
+                                  <button nbButton size="small" style="text-transform:capitalize;" [ngClass]="isVerifyEmailLoading ? '' : 'theme-btn btn-text-cap'" [disabled]="isVerifyEmailLoading"
+                                    [nbSpinner]="isVerifyEmailLoading" nbSpinnerStatus="primary" (click)="onVerifyEmailOTP()" outline>Verify
+                                    OTP</button>
+                                </span>
+                              </div>
+                            </ng-container>
+                            <!--end verify-email -->
+                            </div>
+                         </div>
+                        </ng-container>
+                        <ng-container *ngIf="userId">
+                          <div class="form-group row">
+                            <label class="label col-sm-3 form-control-label">Email
+                              <span class="required-input">*</span>
+                            </label>
+                            <div class="col-md-9">
+                              <input nbInput type="email" #email maxlength="100" class="form-control" fullWidth
+                                placeholder="Email" name="email" trim="blur" formControlName="email" autocomplete="off"
+                                #inputEmail spellcheck="true" readonly>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <ng-container *ngIf="!userId">
+                          <div class="form-group row">
+                            <label class="label col-sm-3 form-control-label">Password
+                              <span class="required-input">*</span>
+                            </label>
+                            <div class="col-md-9">
+                              <input type="{{showPassword ? 'text' : 'password'}}" class="form-control" #password
+                                formControlName="password" trim="blur" nbInput fullWidth placeholder="Password" required>
+                              <nb-icon type="button" class="pass-eye" (click)="isHideShow()"
+                                icon="{{showPassword ? 'eye' : 'eye-off'}}"></nb-icon>
+                              <mat-error class="caption status-danger" *ngIf="userDetailsForm.get('password')?.invalid &&
+                              (userDetailsForm.get('password')?.touched || userDetailsForm.get('password')?.dirty)">
+                                <p class="caption status-danger" *ngIf="userDetailsForm.get('password')?.hasError('required')">
+                                  Password is required
+                                </p>
+                                <p class="caption status-danger" *ngIf="userDetailsForm.get('password')?.hasError('passwordStrength')">
+                                  {{userDetailsForm.get('password')?.errors?.['passwordStrength']}}
+                                </p>
+                                <p class="caption status-danger"
+                                  *ngIf="!userDetailsForm.get('password')?.hasError('passwordStrength') && userDetailsForm.get('password').errors.minlength">
+                                  Password must be at least 8 characters
+                                </p>
+                              </mat-error>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="label col-sm-3 form-control-label">Confirm Password
+                              <span class="required-input">*</span>
+                            </label>
+                            <div class="col-md-9">
+                              <input type="{{showConfirmPassword ? 'text' : 'password'}}" class="form-control" #confirm_password
+                                trim="blur" formControlName="confirm_password" nbInput fullWidth placeholder="Confirm Password">
+                              <nb-icon type="button" class="confirm-pass-eye" (click)="isHideShowConfirmPass()"
+                                icon="{{showConfirmPassword ? 'eye' : 'eye-off'}}"></nb-icon>
+                              <mat-error *ngFor="let validation of formValidations.confirm_password">
+                                <mat-error class="caption status-danger"
+                                  *ngIf="userDetailsForm.get('confirm_password')?.hasError(validation.type) && (userDetailsForm.get('confirm_password')?.dirty || userDetailsForm.get('confirm_password')?.touched)">
+                                  {{validation.message}}
+                                </mat-error>
+                                <mat-error class="caption status-danger"
+                                  *ngIf="!userDetailsForm.get('confirm_password')?.hasError(validation.type) && (userDetailsForm.get('confirm_password')?.dirty || userDetailsForm.get('confirm_password')?.touched) && userDetailsForm.errors">
+                                  Enter match password
+                                </mat-error>
+                              </mat-error>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </form>
+                </nb-card-body>
+              </nb-card>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+
+        <!-- Company details -->
+        <nb-accordion>
+          <nb-accordion-item expanded="true">
+            <nb-accordion-item-header>
+              <span class="sub-title">Company Details</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <nb-card>
+                <nb-card-body>
+                    <form [formGroup]="companyDetailsForm">
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">GST Exempted
+                            <span *ngIf="selectValueObj.gst_exempted" class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <nb-select class="select-Country" (selectedChange)="getGSTExemptedValue($event)" fullWidth
+                              formControlName="gst_exempted" placeholder="Select(Is your Business Exempted from GST ?)" required>
+                              <nb-option [value]="1">Yes</nb-option>
+                              <nb-option [value]="0">No</nb-option>
+                            </nb-select>
+                            <mat-error *ngFor="let validation of formValidations.gst_exempted">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('gst_exempted')?.hasError(validation.type) && (companyDetailsForm.get('gst_exempted')?.dirty || companyDetailsForm.get('gst_exempted')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row" *ngIf="isGSTExempted">
+                          <label class="label col-sm-3 form-control-label">GST No.
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-6">
+                            <input type="text" #gst_no nbInput fullWidth maxlength="15" class="form-control" formControlName="gst_no"
+                              placeholder="GST No." trim="blur" required>
+                            <mat-error *ngFor="let validation of formValidations.gst_no">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('gst_no')?.hasError(validation.type) && (companyDetailsForm.get('gst_no')?.dirty || companyDetailsForm.get('gst_no')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                          <div class="col-md-3 pointer" (click)="upload_GST_File()">
+                            <span>
+                              <nb-icon icon="attach-outline"></nb-icon>
+                            </span>
+                            <a type="button" [ngClass]="gstFileName ? 'file-upload-done' : 'file-upload'">{{gstFileName ? gstFileName
+                              : 'Add File'}}
+                              <span *ngIf="gstFileName ? false : true" class="required-input">*</span>
+                            </a>
+                            <input nbInput type="file" accept="image/png, image/gif, image/jpeg" class="irtoolkit-file" name="filename" class="form-control"
+                              formControlName="gst_document_url" (change)="fileChanged($event)" #getGSTFile style="display:none"
+                              required>
+                            <mat-error *ngFor="let validation of formValidations.gst_document_url">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('gst_document_url')?.hasError(validation.type) && (companyDetailsForm.get('gst_document_url')?.dirty || companyDetailsForm.get('gst_document_url')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                            <mat-error *ngIf="!companyDetailsForm.get('gst_document_url')?.hasError && !gstFileName">
+                              <p class="caption status-danger">
+                                GST File is reruired
+                              </p>
+                            </mat-error>
+                          </div>
+                          <div class="set-remove-icon">
+                            <span *ngIf="gstFileName">
+                              <nb-icon (click)="removeIcon('GST')" class="remove-icon pointer" icon="close-outline"></nb-icon>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group row" *ngIf="isRequiredField">
+                          <label class="label col-sm-3 form-control-label">PAN No.
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-6">
+                            <input type="text" nbInput fullWidth maxlength="10" class="form-control" formControlName="pan_no"
+                              placeholder="PAN No." trim="blur" required>
+                            <mat-error *ngFor="let validation of formValidations.pan_no">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('pan_no')?.hasError(validation.type) && (companyDetailsForm.get('pan_no')?.dirty || companyDetailsForm.get('pan_no')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                          <div class="col-md-3 pointer" (click)="upload_PAN_File()">
+                            <span>
+                              <nb-icon icon="attach-outline"></nb-icon>
+                            </span>
+                            <a type="button" [ngClass]="panFileName ? 'file-upload-done' : 'file-upload'">{{panFileName ? panFileName
+                              : 'Add File'}}
+                              <span *ngIf="panFileName ? false : true" class="required-input">*</span>
+                            </a>
+                            <input nbInput type="file" accept="image/png, image/gif, image/jpeg" class="irtoolkit-file" name="filename" class="form-control"
+                              formControlName="pan_document_url" (change)="fileChanged($event)" #getPANFile style="display:none"
+                              required>
+                            <mat-error *ngFor="let validation of formValidations.pan_document_url">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('pan_document_url')?.hasError(validation.type) && (companyDetailsForm.get('pan_document_url')?.dirty || companyDetailsForm.get('pan_document_url')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                          <div class="set-remove-icon">
+                            <span *ngIf="panFileName">
+                              <nb-icon (click)="removeIcon('PAN')" class="remove-icon pointer" icon="close-outline"></nb-icon>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group row" *ngIf="isUdyogAdhar">
+                          <label class="label col-sm-3 form-control-label">Udyog Aadhar No.
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-6">
+                            <input type="text" maxlength="12" nbInput class="form-control" fullWidth
+                              formControlName="udyog_aadhaar" trim="blur" placeholder="Udyog Aadhar No." required>
+                            <mat-error *ngFor="let validation of formValidations.udyog_aadhaar">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('udyog_aadhaar')?.hasError(validation.type) && (companyDetailsForm.get('udyog_aadhaar')?.dirty || companyDetailsForm.get('udyog_aadhaar')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                          <div class="col-md-3 pointer" (click)="uploadUdyogAdharFile()">
+                            <span>
+                              <nb-icon icon="attach-outline"></nb-icon>
+                            </span>
+                            <a type="button" [ngClass]="udyogAdharFileName ? 'file-upload-done' : 'file-upload'">{{udyogAdharFileName
+                              ? udyogAdharFileName : 'Add File'}}
+                              <span *ngIf="udyogAdharFileName ? false : true" class="required-input">*</span>
+                            </a>
+                            <input nbInput type="file" accept="image/png, image/gif, image/jpeg" class="irtoolkit-file" name="filename" class="form-control"
+                              formControlName="udyog_aadhaar_document_url" (change)="fileChanged($event)" #getUdyogAdharFile
+                              style="display:none" required>
+                            <mat-error *ngFor="let validation of formValidations.udyog_aadhaar_document_url">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('udyog_aadhaar_document_url')?.hasError(validation.type) && (companyDetailsForm.get('udyog_aadhaar_document_url')?.dirty || companyDetailsForm.get('udyog_aadhaar_document_url')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                            <mat-error *ngIf="!companyDetailsForm.get('udyog_aadhaar_document_url')?.hasError && !udyogAdharFileName">
+                              <p class="caption status-danger">
+                                Udyog Adhar is reruired
+                              </p>
+                            </mat-error>
+                          </div>
+                          <div class="set-remove-icon">
+                            <span *ngIf="udyogAdharFileName">
+                              <nb-icon (click)="removeIcon('Udyog_Adhar')" class="remove-icon pointer" icon="close-outline"></nb-icon>
+                            </span>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Photo ID Proof
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-sm-6 file-id-proof">
+                            <span>
+                              <nb-icon icon="attach-outline" (click)="uploadPhotoIdFile()"></nb-icon>
+                            </span>
+                            <a type="button" (click)="uploadPhotoIdFile()"
+                              [ngClass]="photoIdFileName ? 'file-upload-done' : 'file-upload'">{{photoIdFileName ?
+                              photoIdFileName : 'Add File'}}
+                              <span *ngIf="photoIdFileName ? false : true" class="required-input">*</span>
+                            </a>
+                            <input nbInput type="file" accept="image/png, image/gif, image/jpeg" class="irtoolkit-file" name="filename" formControlName="photo_id_proof_url"
+                              (change)="fileChanged($event)" #getPhotoFile style="display:none" required>
+                            <mat-error *ngFor="let validation of formValidations.photo_id_proof_url">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('photo_id_proof_url')?.hasError(validation.type) && (companyDetailsForm.get('photo_id_proof_url')?.dirty || companyDetailsForm.get('photo_id_proof_url')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                            <mat-error *ngIf="!companyDetailsForm.get('photo_id_proof_url')?.hasError && !photoIdFileName">
+                              <p class="caption status-danger">
+                                Photo ID Proof is reruired
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="remove-p-id-icon" *ngIf="photoIdFileName">
+                          <nb-icon (click)="removeIcon('Photo_Id')" class="photo-id-remove-icon pointer" icon="close-outline"></nb-icon>
+                        </div>
+                        <div [style]="photoIdFileName ? '' : 'padding-top:15px;'">
+                          <div class="form-group row ">
+                            <label class="label col-sm-3 form-control-label">SSN No.
+                            </label>
+                            <div class="col-md-9">
+                              <input type="text" #ssn nbInput fullWidth class="form-control" formControlName="ssn" maxlength="11"
+                                min="0" trim="blur" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                placeholder="SSN No.">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label">Business Description
+                          </label>
+                          <div class="col-md-9">
+                            <textarea type="text" maxlength="200" trim="blur" class="form-control" nbInput fullWidth
+                              formControlName="business_description" placeholder="Business Description"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label label">Type Of Shipping Service
+                            <span class="required-input">*</span>
+                          </label>
+                          <div class="col-md-9">
+                            <nb-select class="select-Country" formControlName="shipping_service_type_id"
+                              placeholder="Type Of Shipping Service" required>
+                              <nb-option *ngFor="let shipping of shippingTypesList" [value]="shipping.shipping_service_type_id">
+                                {{shipping.shipping_service_type_name}}</nb-option>
+                            </nb-select>
+                            <mat-error *ngFor="let validation of formValidations.shipping_service_type_id">
+                              <p class="caption status-danger"
+                                *ngIf="companyDetailsForm.get('shipping_service_type_id')?.hasError(validation.type) && (companyDetailsForm.get('shipping_service_type_id')?.dirty || companyDetailsForm.get('shipping_service_type_id')?.touched)">
+                                {{validation.message}}
+                              </p>
+                            </mat-error>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="label col-sm-3 form-control-label label">IEC Code
+                          </label>
+                          <div class="col-md-9">
+                            <input type="text" #iec_code trim="blur" nbInput fullWidth class="form-control" formControlName="iec_code"
+                              maxlength="10" min="0" placeholder="IEC Code">
+                          </div>
+                        </div>
+                      </form>
+                </nb-card-body>
+              </nb-card>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+
+        <!-- Shipment details -->
+        <nb-accordion>
+          <nb-accordion-item expanded="true">
+            <nb-accordion-item-header>
+              <span class="sub-title">Shipment Details</span>
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <nb-card>
+                <nb-card-body>
+                  <form [formGroup]="shipmentDetailsForm">
+                    <div class="form-group row ">
+                      <label class="label col-sm-3 form-control-label label">Nature of Business
+                        <span class="required-input">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <nb-select class="select-Country" formControlName="nature_of_business_id"
+                          placeholder="Nature of Business" required>
+                          <nb-option *ngFor="let business of natuerBusinessList" [value]="business.nature_of_business_id">
+                            {{business.business_name}}</nb-option>
+                        </nb-select>
+                        <mat-error *ngFor="let validation of formValidations.nature_of_business_id">
+                          <p class="caption status-danger"
+                            *ngIf="shipmentDetailsForm.get('nature_of_business_id')?.hasError(validation.type) && (shipmentDetailsForm.get('nature_of_business_id')?.dirty || shipmentDetailsForm.get('nature_of_business_id')?.touched)">
+                            {{validation.message}}
+                          </p>
+                        </mat-error>
+                      </div>
+                    </div>
+                    <div class="form-group row ">
+                      <label class="label col-sm-3 form-control-label label">Shipment Frequency
+                        <span class="required-input">*</span>
+                      </label>
+                      <div class="col-md-9">
+                        <nb-select class="select-Country" formControlName="shipment_frequency_id"
+                          placeholder="Shipment Frequency" required>
+                          <nb-option *ngFor="let frequencies of shipmentFrequenciesList"
+                            [value]="frequencies.shipment_frequencies_id">{{frequencies.name}}</nb-option>
+                        </nb-select>
+                        <mat-error *ngFor="let validation of formValidations.shipment_frequency_id">
+                          <p class="caption status-danger"
+                            *ngIf="shipmentDetailsForm.get('shipment_frequency_id')?.hasError(validation.type) && (shipmentDetailsForm.get('shipment_frequency_id')?.dirty || shipmentDetailsForm.get('shipment_frequency_id')?.touched)">
+                            {{validation.message}}
+                          </p>
+                        </mat-error>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="label col-sm-3 form-control-label">Other Info</label>
+                      <div class="col-md-9">
+                        <textarea type="text" maxlength="200" trim="blur" class="form-control" nbInput fullWidth
+                          formControlName="other_info" placeholder="Other Info"></textarea>
+                      </div>
+                    </div>
+                  </form>
+                </nb-card-body>
+              </nb-card>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+
+        <div class="row pt-3">
+          <div class="col-md-5">
+          </div>
+          <div class="col-md-6">
+            <span class="next-btn">
+              <button nbButton class="theme-btn" [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary"
+                (click)="onSubmit()"> {{userId ? 'Update' : 'Save'}} </button>
+            </span>
+          </div>
+        </div>
+ 
+    </nb-card-body>
+</nb-card>
+ <!-- </ng-container> -->

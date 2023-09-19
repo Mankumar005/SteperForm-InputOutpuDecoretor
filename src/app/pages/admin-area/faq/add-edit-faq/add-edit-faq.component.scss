@@ -1,0 +1,23 @@
+@import '../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+nb-card-body {
+    display: block;
+}
+.save_btn_save {
+    margin-left: 28px;
+}
+
+.remove-icon {
+  position: absolute;
+  bottom: 29%;
+  left: -5%;
+}
+ 
+.icon {
+  color: red;
+}
+}

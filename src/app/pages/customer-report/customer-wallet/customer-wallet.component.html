@@ -1,0 +1,79 @@
+<nb-card>
+    <nb-card-header class="page-title">
+        Wallet Transactions
+    </nb-card-header>
+    <nb-card-body>
+        <form [formGroup]="customerForm" class="step-container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group set-icon">
+                        <label class="label"><b>Start Date</b> </label>
+                        <input nbInput #dateInput id="date" class="date" fullWidth class="form-control"
+                            class="form-control" [min]="startDateMin" formControlName="start_date" placeholder="Select Date"
+                            [nbDatepicker]="datepicker" required>
+                        <nb-datepicker #datepicker></nb-datepicker>
+                        <span class="calendar-icon">
+                            <button nbSuffix nbButton ghost (click)="dateInput.click()">
+                                <nb-icon icon="calendar-outline"> </nb-icon>
+                            </button>
+                        </span>
+                    </div>
+                    <mat-error *ngFor="let validation of formValidations.start_date">
+                        <p class="caption status-danger" style="position: relative;top: -13px;"
+                            *ngIf="customerForm.get('start_date')?.hasError(validation.type) && (customerForm.get('start_date')?.dirty || customerForm.get('start_date')?.touched)">
+                            {{validation.message}}
+                        </p>
+                    </mat-error>
+                </div>
+                <div class="col-md-1">
+                    <span class="swap-arrow">
+                        <!-- <nb-icon icon="swap-outline"> </nb-icon> --><b>To</b>
+                    </span>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group set-icon">
+                        <label class="label"><b>End Date</b></label>
+                        <input nbInput #endDateInput id="date1" class="date" fullWidth class="form-control" 
+                            formControlName="end_date" placeholder="Select Date" [nbDatepicker]="endDateDatepicker" required>
+                        <nb-datepicker #endDateDatepicker [max]="endDateMin"></nb-datepicker>
+                        <span class="calendar-icon">
+                            <button nbSuffix nbButton ghost (click)="endDateInput.click()">
+                                <nb-icon icon="calendar-outline"> </nb-icon>
+                            </button>
+                        </span>
+                        <mat-error *ngFor="let validation of formValidations.end_date">
+                            <p class="caption status-danger"
+                                *ngIf="customerForm.get('end_date')?.hasError(validation.type) && (customerForm.get('end_date')?.dirty || customerForm.get('end_date')?.touched)">
+                                {{validation.message}}
+                            </p>
+                        </mat-error>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-4">
+                <button nbButton [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary"
+                    (click)="findCustomerTransaction()">Search history</button>
+            </div>
+        </div>
+        <div class="pt-5" *ngIf="customerHistoryList.length">
+            <nb-card>
+                <nb-card-header class="page-title">
+                    Wallet Transaction history
+                        <!-- <span class="back-arow" (click)="generateExcelReport()" *ngIf="!isGenerateExcelReport">
+                            <img src="assets/images/excel.png" height="20px" width="20px" nbTooltip="Download" nbTooltipPlacement="bottom"><span class="back-text"></span>
+                          </span> -->
+                          <span class="back-arow-loader">
+                            <nb-card-body class="loading" *ngIf="isGenerateExcelReport"  nbTooltip="Processing..." nbTooltipPlacement="bottom" [nbSpinner]="true" nbSpinnerSize="tiny">
+                            </nb-card-body>
+                          </span>
+                </nb-card-header>
+                <nb-card-body>
+                            <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect" [settings]="settings" [source]="source" >
+                            </ng2-smart-table>
+                </nb-card-body>
+               </nb-card>
+        </div>
+    </nb-card-body>
+</nb-card>

@@ -1,0 +1,24 @@
+<nb-card>
+    <nb-card-header class="page-title">FAQ
+        <span class="add-faq">
+            <button nbButton (click)="redirectAddEditFAQ('null')"  nbSpinnerStatus="primary"
+            *ngIf="onPermission?.create">Add FAQ</button>
+        </span>
+    </nb-card-header>
+    <nb-card-body>
+<nb-accordion>
+    <nb-accordion-item #item *ngFor="let faq of faqList">
+      <nb-accordion-item-header>
+      {{faq.question}}
+      </nb-accordion-item-header>
+      <nb-accordion-item-body>
+       <b>Answer:</b>&nbsp; {{faq.answer}}
+       <span class="edit-icon"  nbTooltip="Edit" nbTooltipPlacement="bottom" (click)="redirectAddEditFAQ(faq)"
+       *ngIf="onPermission?.update">
+             <img src="assets/images/edit.png" width="18" height="18" >
+       </span>
+      </nb-accordion-item-body>
+    </nb-accordion-item>
+</nb-accordion>
+</nb-card-body>
+</nb-card>

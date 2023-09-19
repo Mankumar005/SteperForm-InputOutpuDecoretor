@@ -1,0 +1,16 @@
+<nb-card>
+    <nb-card-header class="page-title">
+      HSN Code List
+        <button class="theme-btn" nbButton routerLink="/pages/admin-area/master/add-edit-hsn-code"
+        *ngIf="onPermission?.create">Add HSN Code</button>
+    </nb-card-header>
+    <nb-card-body>
+                <nb-card class="ng-card-table" >
+                <nb-card-body >
+                  <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect" [settings]="settings" [source]="source" >
+                  </ng2-smart-table>
+                  </nb-card-body>
+                </nb-card>
+    
+      </nb-card-body>
+    </nb-card>

@@ -1,0 +1,129 @@
+<nb-card>
+    <nb-card-header class="page-title">
+    {{faqId ? 'Edit' :  'Add'}} FAQ
+      <span class="back-arow" (click)="back()">
+        <img src="assets/images/back-arow.png" height="15px" width="20px" /><span
+          class="back-text">
+          Back To List
+        </span>
+      </span>
+    </nb-card-header>
+    <nb-card-body>
+        <div *ngIf="!faqId">
+            <form [formGroup]="faqForm">
+                <div formArrayName="formArray" *ngFor="let a of faqForm.get('formArray')?.controls; let i = index">
+                  <div [formGroupName]="i" style="margin-bottom: 10px;">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="label" for="input-email">Question 
+                                    <span class="required-input">*</span>
+                                </label>
+                              </div>
+                              <div class="col-md-6"> 
+                                <input maxlength="500" nbInput fullWidth type="text" trim="blur" class="form-control"   
+                                formControlName="question" placeholder="Question" required>
+                                <mat-error *ngFor="let validation of formValidations.question">
+                                    <p class="caption status-danger"
+                                      *ngIf="faqForm.controls['formArray'].controls[i].controls.question?.hasError('required') && (faqForm.controls['formArray'].controls[i].controls.question?.dirty || faqForm.controls['formArray'].controls[i].controls.question?.touched)">
+                                      {{validation.message}}
+                                    </p>
+                                </mat-error>
+                            </div>
+                            <div class="col-md-2" *ngIf="getControls().length > 1"> 
+                              <span class="remove-icon" (click)="removeFaq(i)">
+                                <nb-icon class="icon pointer" icon="close-outline" nbTooltip="Remove" nbTooltipPlacement="bottom"></nb-icon>
+                              </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="label" for="input-email">Answer 
+                                    <span class="required-input">*</span>
+                                </label>
+                              </div>
+                              <div class="col-md-6"> 
+                                <textarea maxlength="500" nbInput fullWidth type="text" trim="blur" class="form-control" 
+                                formControlName="answer" placeholder="Answer" fieldSize="large" required></textarea>
+                                <mat-error *ngFor="let validation of formValidations.answer">
+                                    <p class="caption status-danger"
+                                      *ngIf="faqForm.controls['formArray'].controls[i].controls.answer?.hasError('required') && (faqForm.controls['formArray'].controls[i].controls.answer?.dirty || faqForm.controls['formArray'].controls[i].controls.answer?.touched)">
+                                      {{validation.message}}
+                                    </p>
+                                </mat-error>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-6">
+                <button nbButton size="medium" type="button" (click)="addItem()" style="margin-right: 5px;">Add Question</button>
+                  <span class="save_btn_save">
+                    <button nbButton size="medium" [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary" (click)="onSubmit()" >Save</button>
+                  </span>
+                </div>
+              </div>
+        </div>
+
+        <!--  edit Form  -->
+        <div *ngIf="faqId">
+          <form [formGroup]="faqForm">
+            <div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="label" for="input-email">Question 
+                                <span class="required-input">*</span>
+                            </label>
+                          </div>
+                          <div class="col-md-6"> 
+                            <input maxlength="500" nbInput fullWidth type="text" trim="blur" class="form-control"  
+                            formControlName="question" placeholder="Question"  required>
+                            <mat-error *ngFor="let validation of formValidations.question">
+                              <p class="caption status-danger"
+                                *ngIf="faqForm.get('question')?.hasError(validation.type) && (faqForm.get('question')?.dirty || faqForm.get('question')?.touched)">
+                                {{validation.message}}
+                              </p>
+                          </mat-error>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="label" for="input-email">Answer 
+                                <span class="required-input">*</span>
+                            </label>
+                          </div>
+                          <div class="col-md-6"> 
+                            <textarea  maxlength="500" nbInput fullWidth type="text" trim="blur" class="form-control"  
+                            formControlName="answer" placeholder="Answer" fieldSize="large" required></textarea>
+                            <mat-error *ngFor="let validation of formValidations.answer">
+                              <p class="caption status-danger"
+                                *ngIf="faqForm.get('answer')?.hasError(validation.type) && (faqForm.get('answer')?.dirty || faqForm.get('answer')?.touched)">
+                                {{validation.message}}
+                              </p>
+                          </mat-error>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-6">
+              <span >
+                <button nbButton size="medium" [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary" (click)="onSubmit()" >Save</button>
+              </span>
+            </div>
+          </div>
+        </div>
+    </nb-card-body>
+</nb-card>

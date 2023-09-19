@@ -1,0 +1,60 @@
+@import '../../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+nb-card-body {
+    flex: 1;
+    -ms-flex: 1 1 auto;
+    overflow: auto;
+    padding: 1px;
+    position: relative;
+}
+
+.title {
+    font-size: 17px;
+}
+
+::ng-deep .delete-icon.pointer {
+    font-size: 29px;
+}
+::ng-deep .view-icon.pointer {
+    font-size: 29px;
+}
+
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+    color: #1e6bb8;
+}
+
+::ng-deep nb-select.size-medium .select-button {
+    font-weight: 400;
+}
+
+::ng-deep nb-option-list.size-medium nb-option {
+    font-weight: 400;
+}
+
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+    color: #1e6bb8;
+}
+
+::ng-deep nb-spinner.size-large.status-primary {
+    top: 72%;
+}
+
+nb-select.appearance-outline.size-medium.status-basic.shape-rectangle.nb-transition {
+    margin-left: 2%;
+}
+.ng-card-table {
+    padding-top: 10px;
+}
+.add-icon {
+    float: right;
+    padding-right: 21px;
+}
+.theme-btn {
+    float: right;
+}
+}

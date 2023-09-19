@@ -1,0 +1,22 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .nb-tbl-flex {
+    display: flex;
+    justify-content: space-between;
+    color: #0f377c;
+  }
+  .nb-tbl-flex h5 {
+    color: #3366ff;
+  }
+  .doboookingnew {
+    color: #3366ff;
+  }
+  ::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+    color: #1e6bb8;
+  }
+}

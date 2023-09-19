@@ -1,0 +1,22 @@
+build website:
+  stage: build
+  image: node:14.20.0
+  script:
+    - npm install
+    - npm install -g @angular/cli
+    - npm run build
+  only: ['master']
+  artifacts:
+    paths:
+      - dist
+
+deploy to s3:
+  stage: deploy
+  image: 
+    name: amazon/aws-cli
+    entrypoint: [""]
+  script:
+    - aws --version
+    - aws s3 sync dist s3://portal.vayulogi.com/ --acl=public-read --delete
+    - aws cloudfront create-invalidation --distribution-id $distributionId --paths "/*"
+  only: ['master']

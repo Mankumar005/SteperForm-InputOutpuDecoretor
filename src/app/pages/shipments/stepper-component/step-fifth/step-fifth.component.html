@@ -1,0 +1,117 @@
+<div class="nb-tbl-flex title align-items-center">
+    <h5>Commodity Information</h5>
+    <span class="back-arow" nbTooltip="Back" nbTooltipPlacement="bottom" (click)="backToListPage()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px" >
+      <span class="back-text">Back To List</span> 
+    </span>
+  </div>
+  <form [formGroup]="bookShipmentFiveForm" class="step-container">
+    <div class="form-group row">
+      <label for="inputCompany" class="label col-sm-3 col-form-label">Total Qty :</label>
+      <div class="col-sm-9" style="text-align: left;">
+        {{lastStepTotalQty}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputCompany" class="label col-sm-3 col-form-label">Total Weight :</label>
+      <div class="col-sm-9" style="text-align: left;">
+        {{lastStepTotalWeight}}
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputCompany" class="label col-sm-3 col-form-label">Total Customs Value :</label>
+      <div class="col-sm-9" style="text-align: left;">
+        ₹{{lastStepTotalCustValue}}
+      </div>
+    </div>
+    <div class="nb-tbl-flex">
+      <h5></h5>
+      <span class="float-end" >
+        <button style="cursor:pointer;" nbButton (click)="addMorecommodityInformation()" [disabled]="allFormFieldsDisabled">Add Commodity</button>
+        </span>
+    </div>
+    <div class="form-group row">
+      <div class="packagestable" style="width: 100%;">
+        <div class="row form-group mb-2">
+          <div class="table-responsive">
+            <div class="table-wrapper">
+              <table class="table pkgtable invalid-effect-true">
+                <thead>
+                  <tr>
+                    <th>Item Name</th>
+                    <th>Harmonized Code</th>
+                    <th>Country of Manufacture</th>
+                    <th>Qty</th>
+                    <th>Weight</th>
+                    <th>Unit</th>
+                    <th>Customs Value</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody class="pkgtabledata" formArrayName="commodities">
+                  <tr id="pack_det_row_1" data-row="0" data-index="1" [formGroupName]="i"
+                    *ngFor="let commodities of getcommodityInformationControls(); let i = index">
+                    <td style="width: 200px;">
+                      <input type="text" nbInput fullWidth class="form-control"
+                        formControlName="item_name" trim="blur" *ngIf="!allFormFieldsDisabled">
+                      <input type="text" nbInput fullWidth class="form-control"
+                        formControlName="item_name" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+                    </td>
+                    <td style="width: 200px;">
+                      <ng-select [items]="harmonizedCodeDataArray" bindLabel="description"
+                        class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true"
+                        bindValue="harmonized_system_code_id" placeholder="Select Harmonized Code"
+                        appendTo="body" formControlName="harmonized_system_code_id" [readonly]="allFormFieldsDisabled">
+                      </ng-select>
+                    </td>
+                    <td style="width: 200px;">
+                      <ng-select [items]="manufactureCountryData" bindLabel="country_name"
+                        class="ng_select ng_dropdown_panel form-control" [virtualScroll]="true"
+                        (change)="selectmanufactureCountry(commodities, $event)" bindValue="country_id"
+                        appendTo="body" placeholder="Select Country of Manufacture"
+                        formControlName="manufacture_country_id" [readonly]="allFormFieldsDisabled">
+                      </ng-select>
+                    </td>
+                    <td style="width: 100px;">
+                      <input type="number" nbInput fullWidth class="form-control hide_arrows" *ngIf="!allFormFieldsDisabled"
+                        formControlName="quantity" trim="blur" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));" (change)="qtyChange()">
+                        <input type="number" nbInput fullWidth class="form-control hide_arrows" *ngIf="allFormFieldsDisabled" disabled
+                        formControlName="quantity" trim="blur" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));" (change)="qtyChange()">
+                    </td>
+                    <td style="width: 100px;">
+                      <input type="text" nbInput fullWidth class="form-control" (keyup)="afterPointThreeValueCheck($event, commodities, 'weight')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)"
+                        formControlName="weight" trim="blur" (change)="weightChange()" *ngIf="!allFormFieldsDisabled">
+                      <input type="text" nbInput fullWidth class="form-control" (keyup)="afterPointThreeValueCheck($event, commodities, 'weight')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)"
+                        formControlName="weight" trim="blur" (change)="weightChange()" *ngIf="allFormFieldsDisabled" disabled>
+                      </td>
+                    <td style="width: 200px;">
+                      <nb-select fullWidth formControlName="weight_unit" selected="kg"  disabled="true">
+                        <nb-option value="lbs">Lbs</nb-option>
+                        <nb-option value="kg">Kg</nb-option>
+                      </nb-select>
+                    </td>
+                    <td style="width: 100px;">
+                      <input type="text" nbInput fullWidth class="form-control" *ngIf="!allFormFieldsDisabled"
+                        formControlName="declared_value" trim="blur" (keyup)="afterPointTwoValueCheck($event, commodities, 'declared_value')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" (change)="customsvalueChange()">
+                      <input type="text" nbInput fullWidth class="form-control" *ngIf="allFormFieldsDisabled"
+                        formControlName="declared_value" trim="blur" (keyup)="afterPointTwoValueCheck($event, commodities, 'declared_value')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" (change)="customsvalueChange()" disabled>
+                    </td>
+                    <td>
+                      <i class="fa fa-trash" (click)="removeCommodityInformation(i)" *ngIf="!allFormFieldsDisabled"></i>
+                      <i class="fa fa-trash" *ngIf="allFormFieldsDisabled"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-back-next btn-next">
+      <button nbButton nbStepperPrevious><< Back</button> 
+        <button nbButton nbStepperNext [disabled]="!commodities?.length || isSpinnerLoader"
+        [nbSpinner]="isSpinnerLoader" (click)="saveFifthStep()">Next >>
+      </button>
+    </div>
+  </form>

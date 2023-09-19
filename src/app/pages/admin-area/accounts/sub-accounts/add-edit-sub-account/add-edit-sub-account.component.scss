@@ -1,0 +1,255 @@
+@import '../../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  ::ng-deep router-outlet + * {
+    display: block;
+    animation: fade 1s;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+.title {
+ position: relative;
+ font-size: 21px;
+ font-weight: 800;
+}
+
+.sub-title-res {
+ font-size: 16px;
+ font-weight: 700;
+ color: #0f377c;
+}
+.main-card {
+ width: 133%;
+ position: relative;
+ right: 90px;
+}
+
+.form-group.row {
+ align-items: center;
+}
+
+span.User-tilte {
+ font-size: 19px;
+ font-weight: 600;
+ position: relative;
+ left: 121px;
+}
+
+nb-card-body {
+ overflow: hidden !important;
+}
+
+.register-next-btn {
+ padding-top: 35px;
+ text-align: center;
+ padding-left: 105px;
+}
+
+.next-btn {
+ padding-left: 50px;
+}
+
+::ng-deep nb-card {
+ margin: 0;
+ display: flex;
+ height: auto;
+}
+
+.mail-pass {
+ font-size: 17px;
+ font-weight: 600;
+ padding-left: 116px;
+}
+
+.sub-title-text {
+  font-size: 16px;
+  font-family: system-ui;
+}
+
+.pass-eye {
+ position: absolute;
+ float: right;
+ right: 24px;
+ bottom: auto;
+ top: 10px;
+}
+
+.confirm-pass-eye {
+ position: relative;
+ float: right;
+ right: 10px;
+ bottom: 29px;
+}
+
+.select {
+ // position: absolute;
+ top: 29px;
+}
+
+.spinner-loader-error-msg {
+ position: absolute;
+ top: 4%;
+ right: 3%;
+}
+
+.select-error {
+ position: relative;
+}
+
+button.appearance-outline.size-small.shape-rectangle.status-basic.nb-transition.verify-btn.btn-disabled {
+ border-color: #0f377c;
+ width: 85px;
+}
+
+.Verified-text {
+ color:green;
+ text-transform: capitalize;
+ font-size: 13px;
+}
+
+::ng-deep .otp-input {
+ width: 37px !important;
+ height: 37px !important;
+ border-radius: 4px;
+ border: solid 1px #c5c5c5bd !important;
+ text-align: center;
+ font-size: 25px !important;
+}
+
+.phone-verify-icon {
+ position: relative;
+ bottom: 29px;
+ float: right;
+ right: 10px;
+}
+
+.email-verify-icon {
+ position: relative;
+ bottom: 29px;
+ float: right;
+ right: 10px;
+}
+
+.select-error-option {
+ top: 13px;
+ position: relative;
+}
+
+nb-select.select.appearance-outline.size-medium.status-basic.shape-rectangle.nb-transition {
+ width: 100%;
+}
+
+nb-select.full-width {
+ width: 100%;
+}
+
+nb-select.size-medium:not(.full-width) {
+ max-width: none;
+ width: 100%;
+ // position: relative;
+}
+
+.file-upload {
+ position: absolute;
+ padding-left: 10px;
+ color: blue !important;
+ text-decoration: underline !important;
+}
+
+.file-upload-done {
+ position: absolute;
+ padding-left: 10px;
+ color: blue !important;
+}
+
+.remove-icon {
+ position: absolute;
+ color: red;
+}
+
+.remove-p-id-icon {
+ position: relative;
+ bottom: 38px;
+ left: 58%;
+}
+
+.set-remove-icon {
+ position: relative;
+ right: 10px;
+ bottom: 7px;
+}
+
+.file-id-proof {
+ width: 100%;
+}
+
+nb-icon.photo-id-remove-icon.pointer {
+  color: red;
+}
+
+.mat-error {
+ position: relative;
+ left: 129px;
+}
+
+.file-name {
+ position: relative;
+ left: 78%;
+}
+
+.photo-id-name {
+ position: relative;
+ left: 16%;
+}
+
+.invalid-shipping-input {
+ color: red;
+ padding-left: 3px;
+ position: absolute;
+}
+
+.valid-shipping-input {
+ color: gray;
+ padding-left: 3px;
+ position: absolute;
+}
+
+.invalid-file-input {
+ position: absolute;
+ color: red;
+ padding-left: 10px;
+ bottom: 22%;
+}
+
+.valid-file-input {
+ position: absolute;
+ color: gray;
+ padding-left: 3px;
+ padding-left: 10px;
+ bottom: 22%;
+}
+
+.ng-input-text {
+ font-weight: 600;
+}
+
+.sign-acount-text {
+ padding-left: 38px;
+}
+.sign-in-text {
+ color: blue;
+ cursor: pointer;
+}
+}
+::ng-deep .navigation .link nb-icon {
+ display: none !important;
+}

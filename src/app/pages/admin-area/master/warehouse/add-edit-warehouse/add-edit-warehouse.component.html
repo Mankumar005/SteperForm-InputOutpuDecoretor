@@ -1,0 +1,147 @@
+<nb-card>
+    <nb-card-header class="page-title">{{warehouseId ? 'Edit' : 'Add'}} Warehouse
+        <span class="back-arow" (click)="back()">
+            <img src="assets/images/back-arow.png" height="15px" width="20px" ><span class="back-text">Back To List</span> 
+         </span>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="warehouseFrom">
+        <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+              <label class="label">Location Name 
+                <span class="required-input">*</span>
+              </label>
+              </div>
+              <div class="col-md-6">
+                  <input type="text" trim="blur" maxlength="100" class="form-control" formControlName="location_name" nbInput fullWidth placeholder="Location Name" required>
+                  <mat-error *ngFor="let validation of formValidations.location_name">
+                    <p class="caption status-danger"
+                      *ngIf="warehouseFrom.get('location_name')?.hasError(validation.type) && (warehouseFrom.get('location_name')?.dirty || warehouseFrom.get('location_name')?.touched)">
+                      {{validation.message}}
+                    </p>
+                  </mat-error>
+                </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+              <label class="label">Address1 
+                <span class="required-input">*</span>
+              </label>
+              </div>
+              <div class="col-md-6">
+                  <input type="text" trim="blur" maxlength="100" class="form-control" formControlName="address1" nbInput fullWidth placeholder="Address1" required>
+                  <mat-error *ngFor="let validation of formValidations.address1">
+                    <p class="caption status-danger"
+                      *ngIf="warehouseFrom.get('address1')?.hasError(validation.type) && (warehouseFrom.get('address1')?.dirty || warehouseFrom.get('address1')?.touched)">
+                      {{validation.message}}
+                    </p>
+                  </mat-error>
+                </div>
+             
+            </div>
+          </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-2">
+            <label class="label">Address2 </label>
+             </div>
+            <div class="col-md-6">
+            <input type="text" trim="blur" maxlength="100" class="form-control" formControlName="address2" nbInput fullWidth placeholder="Address2" >
+            </div>
+            
+          </div>
+        </div>
+  
+        <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+              <label class="label">City 
+                <span class="required-input">*</span>
+                </label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" trim="blur" maxlength="100" class="form-control" formControlName="city" nbInput fullWidth placeholder="City" required>
+                  <mat-error *ngFor="let validation of formValidations.city">
+                    <p class="caption status-danger"
+                      *ngIf="warehouseFrom.get('city')?.hasError(validation.type) && (warehouseFrom.get('city')?.dirty || warehouseFrom.get('city')?.touched)">
+                      {{validation.message}}
+                    </p>
+                  </mat-error>
+                </div>
+               
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+              <label class="label">Zip Code 
+              </label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" trim="blur" maxlength="20" class="form-control" formControlName="zip_code" nbInput fullWidth placeholder="Zip Code" >
+                </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+              <label class="label">Country 
+                <span class="required-input">*</span>
+              </label>
+                </div>
+                <div class="col-md-6">
+                <ng-select [items]="countryList" bindLabel="country_name" class="ng_select ng_dropdown_panel form-control"
+                    bindValue="country_id" (change)="selectCountryValue($event)" [virtualScroll]="true"
+                    placeholder="Select Country" formControlName="country_id" 
+                      required>
+                        </ng-select>
+                      <mat-error *ngFor="let validation of formValidations.country_id">
+                       <p class="caption status-danger"
+                        *ngIf="warehouseFrom.get('country_id')?.hasError(validation.type) && (warehouseFrom.get('country_id')?.dirty || warehouseFrom.get('country_id')?.touched)">
+                        {{validation.message}}
+                       </p>
+                    </mat-error>
+                </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+              <label class="label">State 
+                <span class="required-input">*</span>
+              </label>
+            </div>
+            <div class="col-md-6">
+            <ng-select [items]="stateList" bindLabel="state_name" class="ng_select ng_dropdown_panel form-control"
+                [virtualScroll]="true" bindValue="state_id" placeholder="Select State" formControlName="state_id" required>
+            </ng-select>
+            <mat-error *ngFor="let validation of formValidations.state_id">
+                <p class="caption status-danger"
+                    *ngIf="warehouseFrom.get('state_id')?.hasError(validation.type) && (warehouseFrom.get('state_id')?.dirty || warehouseFrom.get('state_id')?.touched)">
+                    {{validation.message}}
+                </p>
+            </mat-error>
+                </div>
+            </div>
+          </div>
+      </form>
+      <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+          <span class="save-btn">
+            <button nbButton [ngClass]="isLoading ? '' : 'theme-btn'" class="save_btn_save" size="medium" (click)="onSubmit()" [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary">
+              Save 
+          </button>
+          </span>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>

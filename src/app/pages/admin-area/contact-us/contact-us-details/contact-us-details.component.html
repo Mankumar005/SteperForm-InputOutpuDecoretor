@@ -1,0 +1,62 @@
+<nb-card >
+    <nb-card-header class="page-title">
+        Contact Us Details
+        <span class="back-arow" (click)="back()">
+           <img src="assets/images/back-arow.png" height="15px" width="20px" ><span class="back-text">Back To List</span> 
+        </span>
+    </nb-card-header>
+<nb-card-body>
+    <div class="row"  *ngIf="contcatUsDetials">
+    <nb-accordion  >
+      <nb-accordion-item expanded="true">
+        <nb-accordion-item-header >
+            <span class="sub-title">Basic Details</span> 
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Name:</b> <span> {{contcatUsDetials.name}}</span></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Phone:</b> <span> {{contcatUsDetials.phone}} </span> </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Email:</b> <span> {{contcatUsDetials.email}}</span> </p>
+                      </div>
+                </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item expanded="true">
+        <nb-accordion-item-header>
+        <span class="sub-title">Subject & Message</span>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p fxFlex="33"><b>Subject:</b> <span> {{contcatUsDetials.subject}}</span></p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-12" >
+                        <p fxFlex="33"><b>Message:</b> <span > {{contcatUsDetials.message ? contcatUsDetials.message : 'Not Provide'}}</span> </p>
+                    </div>
+                </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+    </nb-accordion>
+  </div>
+  <div>
+    <nb-accordion *ngIf="!contcatUsDetials">
+          <nb-accordion-item expanded="true">
+          <nb-accordion-item-header>
+              <span class="sub-title">No data found!</span> 
+          </nb-accordion-item-header>
+          </nb-accordion-item>
+      </nb-accordion>
+    </div>
+</nb-card-body>
+</nb-card>

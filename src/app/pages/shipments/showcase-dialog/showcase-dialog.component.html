@@ -1,0 +1,30 @@
+<nb-card *ngIf="dialogName == 'backToListPage'">
+  <nb-card-header>Back To List Page</nb-card-header>
+  <nb-card-body>
+    {{ title }}
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="btn-back-next">
+      <button nbButton class="theme-btn btn-back" (click)="dismiss(false)">No</button>
+      <button nbButton class="btn-next theme-btn" (click)="dismiss(true)">Yes</button>
+    </div>
+  </nb-card-footer>
+</nb-card>
+
+<nb-card *ngIf="dialogName == 'dangerousGoodsDesc'">
+  <nb-card-header>Dangerous Goods Description</nb-card-header>
+  <nb-card-body>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <textarea rows="3" nbInput fullWidth shape="round" placeholder="Description" trim="blur" [formControl]="goodsDescription"></textarea>
+      </div>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="btn-back-next">
+      <button nbButton class="theme-btn btn-back" (click)="dismiss(false)">No</button>
+      <button nbButton class="btn-next theme-btn" [disabled]="goodsDescription?.value?.length ? false : true" (click)="saveDescription()">Save</button>
+    </div>
+  </nb-card-footer>
+</nb-card>
+

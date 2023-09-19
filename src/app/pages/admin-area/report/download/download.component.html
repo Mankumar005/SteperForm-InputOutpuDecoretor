@@ -1,0 +1,69 @@
+<nb-card>
+    <nb-card-header class="page-title">
+      Shipment Report
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <nb-accordion>
+                <nb-accordion-item expanded="true">
+                  <nb-accordion-item-header>
+                    <span class="sub-title">Generate Excel Report</span>
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <p class="sub-title-text">
+                    <!-- Shipment Report -->
+                    </p>
+                    <hr>
+                    <form [formGroup]="reportForm" class="step-container">
+                      <div class="row">
+                        <div class="col-md-3">
+                          <div class="form-group set-icon">
+                            <label  class="label"><b>Select Date</b> </label>
+                            <input nbInput  #dateInput  id="date"
+                            class="date" fullWidth class="form-control" class="form-control" formControlName="start_date" 
+                              placeholder="Select" [nbDatepicker]="datepicker" required>
+                              <nb-datepicker #datepicker [min]="startDateMin"></nb-datepicker>
+                            <span class="calendar-icon">
+                            <button nbSuffix nbButton ghost (click)="dateInput.click()">
+                              <nb-icon icon="calendar-outline"> </nb-icon>
+                            </button>
+                          </span>
+                          </div>
+                          <mat-error *ngFor="let validation of formValidations.start_date">
+                            <p class="caption status-danger" style="position: relative;top: -13px;"
+                              *ngIf="reportForm.get('start_date')?.hasError(validation.type) && (reportForm.get('start_date')?.dirty || reportForm.get('start_date')?.touched)">
+                              {{validation.message}}
+                            </p>
+                        </mat-error>
+                          
+                        </div>
+                        <div class="col-md-1">
+                          <span class="swap-arrow">
+                            <!-- <nb-icon icon="swap-outline"> </nb-icon> --><b>To</b>
+                          </span>
+                        </div>
+                         <div class="col-md-3">
+                          <div class="form-group set-icon">
+                            <label class="label"><b>Select Date</b></label>
+                            <input nbInput  #endDateInput fullWidth class="form-control" formControlName="end_date" 
+                            placeholder="Select" [nbDatepicker]="endDateDatepicker">
+                            <nb-datepicker #endDateDatepicker [min]="endDateMin"></nb-datepicker>
+                            <span class="calendar-icon">
+                              <button nbSuffix nbButton ghost (click)="endDateInput.click()">
+                                <nb-icon icon="calendar-outline"> </nb-icon>
+                              </button>
+                            </span>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </form>
+                    <div class="form-group pt-3">
+                      <button  nbButton [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary" (click)="generateExcelReport()" >Download</button>
+                    </div>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+            </nb-accordion>
+        </div>
+    </nb-card-body>
+</nb-card>

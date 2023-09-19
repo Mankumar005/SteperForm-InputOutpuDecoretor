@@ -1,0 +1,44 @@
+@import '../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+.login-input {
+    border-color: #b4b6bb;
+}
+
+.text-link {
+    text-decoration: none;
+}
+
+.pass-eye {
+    position: relative;
+    top: 3px;
+    cursor: pointer !important;
+}
+
+.forgot-password {
+    color: rgb(58 67 86 / 48%);
+    
+}
+
+.show-password {
+    color: #8f9bb3;
+    cursor: pointer;
+}
+
+.sing-in-text {
+    color: blue;
+    cursor: pointer;
+}
+}
+::ng-deep .navigation .link nb-icon {
+    display: none !important;
+}
+::ng-deep nb-spinner.size-large.status-primary {
+    background: none;
+}
+input.form-control.input-full-width.size-large.status-basic {
+    height: 47px;
+}

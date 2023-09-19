@@ -1,0 +1,54 @@
+@import '../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+  nb-accordion {
+    width: 100%;
+}
+
+.sub-title-text {
+    font-size: 15px;
+    font-family: system-ui;
+}
+::ng-deep nb-radio.status-basic .text {
+    cursor: pointer !important;
+}
+.set-icon {
+    position: relative;
+}
+.back-text {
+    font-size: 13px;
+    padding-left: 5px;
+}
+.back-arow {
+    float: right;
+    cursor: pointer;
+}
+.back-arow-loader {
+    float: right;
+}
+::ng-deep nb-spinner.status-basic {
+    background-color: #fff0 !important;
+}
+.calendar-icon {
+    position: absolute;
+    top: 43%;
+    left: auto;
+    right: 0;
+}
+
+button.appearance-ghost.size-medium.shape-rectangle.icon-start.icon-end.status-basic.nb-transition {
+    height: 37px !important;
+}
+.swap-arrow {
+    position: relative;
+    top: 43%;
+    left: 39%;
+}
+.calendar-icon button:hover {
+    background-color: #f7f9fc !important;
+    color: #222b45 !important;
+}
+}

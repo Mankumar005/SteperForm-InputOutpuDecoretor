@@ -1,0 +1,95 @@
+<nb-card>
+    <nb-card-header class="page-title">Email Tamplate</nb-card-header>
+    <nb-card-body>
+  <form [formGroup]="emailTemplateFrom" aria-labelledby="title">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <label class="label" for="input-email">Name 
+                    <span class="required-input">*</span>
+                </label>
+              </div>
+              <div class="col-md-6"> 
+                <input type="text" trim="blur" maxlength="100" class="form-control" formControlName="template_name" nbInput fullWidth placeholder="Name" required>
+                <mat-error *ngFor="let validation of formValidations.template_name">
+                    <p class="caption status-danger"
+                      *ngIf="emailTemplateFrom.get('template_name')?.hasError(validation.type) && (emailTemplateFrom.get('template_name')?.dirty || emailTemplateFrom.get('template_name')?.touched)">
+                      {{validation.message}}
+                    </p>
+                </mat-error>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <label class="label" for="input-email">Subject
+                    <span class="required-input">*</span>
+                </label>
+              </div>
+              <div class="col-md-6"> 
+                <input type="text" trim="blur" maxlength="100" class="form-control" formControlName="subject" nbInput fullWidth placeholder="Subject" required>
+                <mat-error *ngFor="let validation of formValidations.subject">
+                    <p class="caption status-danger"
+                      *ngIf="emailTemplateFrom.get('subject')?.hasError(validation.type) && (emailTemplateFrom.get('subject')?.dirty || emailTemplateFrom.get('subject')?.touched)">
+                      {{validation.message}}
+                    </p>
+                </mat-error>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <label class="label" for="input-email">Select Tag 
+                    <span class="required-input">*</span>
+                </label>
+              </div>
+              <div class="col-md-6"> 
+                <nb-select (selectedChange)="getTagValue($event)"  placeholder="Selcet Tag" >
+                    <nb-option *ngFor="let tag of utilService.getEmailTemplateTag"   [value]="tag.tag_name">{{tag.tag_name}}</nb-option>
+                  </nb-select>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                <label class="label" for="input-email">Content 
+                    <span class="required-input">*</span>
+                </label>
+              </div>
+              <div class="col-md-6"> 
+                  <angular-editor [(ngModel)]="htmlContent" formControlName="template_content" [config]="config"></angular-editor>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+      <div class="row">
+          <div class="col-md-2">
+              <label class="label" for="input-email">Select Tag 
+              </label>
+            </div>
+            <div class="col-md-6"> 
+              <span><b> Note:</b> Useful tags to use in email templates. </span> <br>
+              <span>[CUSTOMER_COMPANY_NAME], [CUSTOMER_NAME], [CUSTOMER_PHONE], [CONTACT_MESSAGE]</span>
+          </div>
+      </div>
+  </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+            <span >
+                <button nbButton size="medium" [disabled]="isLoading" [nbSpinner]="isLoading" nbSpinnerStatus="primary" (click)="onSubmit()" >Save</button>
+            </span>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+  </form>
+</nb-card-body>
+</nb-card>
+  
+ 

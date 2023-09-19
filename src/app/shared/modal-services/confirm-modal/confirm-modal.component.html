@@ -1,0 +1,29 @@
+<nb-card>
+	<nb-card-header>
+		<span class="delete-text">
+			{{message}}
+		</span>
+	</nb-card-header>
+	<ng-container *ngIf="actionType === 'Reject'">
+	   <nb-card-body>
+		<form [formGroup]="reasonFrom">
+			<div class="form-group">
+				<label class="label">Reason For Reject
+				<span class="required-input">*</span>
+				</label>
+				<textarea type="text" nbInput fullWidth trim="blur" class="form-control" formControlName="reason" placeholder="Enter Reason" required></textarea>
+				<mat-error *ngFor="let validation of formValidations.reason">
+					<p class="caption status-danger"
+					  *ngIf="reasonFrom.get('reason')?.hasError(validation.type) && (reasonFrom.get('reason')?.dirty || reasonFrom.get('reason')?.touched)">
+					  {{validation.message}}
+					</p>
+				</mat-error>
+			</div>
+		</form>
+	  </nb-card-body>
+	</ng-container>
+	 <nb-card-footer class="button-Style">
+		<button nbButton class="buttonDelete theme-btn" (click)="onConfirmClick()" tabindex="1">{{confirmButtonText}}</button>
+		<button nbButton class="buttonCancle theme-btn" (click)="cancel()" tabindex="-1">{{cancelButtonText}}</button>
+	 </nb-card-footer>
+</nb-card>

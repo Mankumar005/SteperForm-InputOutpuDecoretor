@@ -1,0 +1,425 @@
+<div class="nb-tbl-flex title align-items-center">
+    <h5>How Do You Want Your Billing ?</h5>
+    <span class="back-arow" nbTooltip="Back" nbTooltipPlacement="bottom" (click)="backToListPage()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px" >
+      <span class="back-text">Back To List</span> 
+    </span>
+  </div>
+  <form [formGroup]="bookShipmentFourForm" class="step-container">
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Bill Transportation To <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <nb-select fullWidth formControlName="bill_transportation_to_id" [disabled]="allFormFieldsDisabled"
+          (selectedChange)="billTransportationToSelect($event)">
+          <nb-option value="{{billTransport.bill_transportation_option_id}}"
+            *ngFor="let billTransport of billTransportationToData">{{billTransport.option_name}}</nb-option>
+        </nb-select>
+        <mat-error
+        *ngFor="let validation of fourFormFormValidations.bill_transportation_to_id">
+        <p class="caption status-danger"
+          *ngIf="bookShipmentFourForm.get('bill_transportation_to_id')?.hasError(validation.type) && (bookShipmentFourForm.get('bill_transportation_to_id')?.dirty || bookShipmentFourForm.get('bill_transportation_to_id')?.touched)">
+          {{validation.message}}
+        </p>
+      </mat-error>
+      </div>
+    </div>
+    <div class="form-group row"
+      *ngIf="bookShipmentFourForm.get('bill_transportation_to_id')?.value !== '2'">
+      <label class="label col-sm-2 col-form-label">Account No <span class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="number" nbInput fullWidth class="form-control hide_arrows" *ngIf="!allFormFieldsDisabled"
+          formControlName="bill_transportation_account_no" placeholder="Enter Account No" maxlength="20"
+          trim="blur" min="0" onkeydown="return event.keyCode !== 69"
+          onKeyPress="if(this.value.length==20) return false;" autocomplete="off" #input_number>
+        <input type="number" nbInput fullWidth class="form-control hide_arrows" *ngIf="allFormFieldsDisabled"
+          formControlName="bill_transportation_account_no" placeholder="Enter Account No" maxlength="20"
+          trim="blur" min="0" onkeydown="return event.keyCode !== 69" disabled
+          onKeyPress="if(this.value.length==20) return false;" autocomplete="off" #input_number>
+          <mat-error
+            *ngFor="let validation of fourFormFormValidations.bill_transportation_account_no">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFourForm.get('bill_transportation_account_no')?.hasError(validation.type) && (bookShipmentFourForm.get('bill_transportation_account_no')?.dirty || bookShipmentFourForm.get('bill_transportation_account_no')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Bill Duties And Taxes Fees <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <nb-select fullWidth formControlName="bill_duties_taxes_id" [disabled]="allFormFieldsDisabled"
+          (selectedChange)="billDutiesAndTaxesFeesSelect($event)">
+          <nb-option value="{{billTransport.bill_transportation_option_id}}"
+            *ngFor="let billTransport of billTransportationToData">{{billTransport.option_name}}</nb-option>
+        </nb-select>
+        <mat-error
+        *ngFor="let validation of fourFormFormValidations.bill_duties_taxes_id">
+        <p class="caption status-danger"
+          *ngIf="bookShipmentFourForm.get('bill_duties_taxes_id')?.hasError(validation.type) && (bookShipmentFourForm.get('bill_duties_taxes_id')?.dirty || bookShipmentFourForm.get('bill_duties_taxes_id')?.touched)">
+          {{validation.message}}
+        </p>
+      </mat-error>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="bookShipmentFourForm.get('bill_duties_taxes_id')?.value !== '2'">
+      <label class="label col-sm-2 col-form-label">Account No <span class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="number" nbInput fullWidth class="form-control hide_arrows" *ngIf="!allFormFieldsDisabled"
+          formControlName="bill_duties_taxes_account_no" placeholder="Enter Account No" maxlength="20"
+          trim="blur" min="0" min="0" onkeydown="return event.keyCode !== 69"
+          onKeyPress="if(this.value.length==20) return false;" autocomplete="off" #input_number>
+        <input type="number" nbInput fullWidth class="form-control hide_arrows" *ngIf="allFormFieldsDisabled"
+          formControlName="bill_duties_taxes_account_no" placeholder="Enter Account No" maxlength="20"
+          trim="blur" min="0" min="0" onkeydown="return event.keyCode !== 69" disabled
+          onKeyPress="if(this.value.length==20) return false;" autocomplete="off" #input_number>
+          <mat-error
+            *ngFor="let validation of fourFormFormValidations.bill_duties_taxes_account_no">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFourForm.get('bill_duties_taxes_account_no')?.hasError(validation.type) && (bookShipmentFourForm.get('bill_duties_taxes_account_no')?.dirty || bookShipmentFourForm.get('bill_duties_taxes_account_no')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Your Reference</label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth class="form-control" formControlName="reference"
+          placeholder="Enter Your Reference" trim="blur" *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth class="form-control" formControlName="reference"
+          placeholder="Enter Your Reference" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">P.O No</label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth class="form-control hide_arrows" formControlName="po_number" *ngIf="!allFormFieldsDisabled"
+          placeholder="Enter P.O No" trim="blur" autocomplete="off" onKeyPress="if(this.value.length==20) return false;"
+          #input_number>
+        <input type="text" nbInput fullWidth class="form-control hide_arrows" formControlName="po_number" *ngIf="allFormFieldsDisabled"
+          placeholder="Enter P.O No" trim="blur" autocomplete="off" onKeyPress="if(this.value.length==20) return false;"
+          #input_number disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Invoice No</label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth class="form-control hide_arrows" formControlName="invoice_number"
+          placeholder="Enter Invoice No" trim="blur" onKeyPress="if(this.value.length==20) return false;"
+          autocomplete="off" #input_number *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth class="form-control hide_arrows" formControlName="invoice_number"
+          placeholder="Enter Invoice No" trim="blur" onKeyPress="if(this.value.length==20) return false;"
+          autocomplete="off" #input_number *ngIf="allFormFieldsDisabled" disabled>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Department No</label>
+      <div class="col-sm-10">
+        <input type="text" nbInput fullWidth class="form-control hide_arrows" formControlName="department_number"
+          placeholder="Enter Department No" trim="blur" onKeyPress="if(this.value.length==20) return false;"
+          autocomplete="off" #input_number *ngIf="!allFormFieldsDisabled">
+        <input type="text" nbInput fullWidth class="form-control hide_arrows" formControlName="department_number"
+          placeholder="Enter Department No" trim="blur" onKeyPress="if(this.value.length==20) return false;"
+          autocomplete="off" #input_number *ngIf="allFormFieldsDisabled" disabled>
+      </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Pickup/Drop-Off (Optional)</label>
+      <div class="col-sm-10 demo-items">
+        <nb-radio-group formControlName="pickup_dropoff" [(value)]="radioGroupValue" [disabled]="allFormFieldsDisabled">
+          <nb-radio class="radio-flex" (valueChange)="onChangePickupDrop($event)" [value]="'1'">
+            Schedule a pickup
+          </nb-radio>
+          <nb-radio class="radio-flex" (valueChange)="onChangePickupDrop($event)" [value]="'2'">
+            Dropoff package at VayuLogi
+          </nb-radio>
+        </nb-radio-group>
+      </div>
+    </div>
+
+    <div class="form-group row" *ngIf="radioGroupValue === '2'">
+      <label class="label col-sm-2 col-form-label">Location</label>
+      <div class="col-sm-10">
+        <nb-select fullWidth formControlName="vayu_logi_location_id">
+          <nb-option value="{{location.vayu_logi_location_id}}" *ngFor="let location of locationData">
+            {{location.location_name}}</nb-option>
+        </nb-select>
+        <mat-error
+        *ngFor="let validation of fourFormFormValidations.vayu_logi_location_id">
+        <p class="caption status-danger"
+          *ngIf="bookShipmentFourForm.get('vayu_logi_location_id')?.hasError(validation.type) && (bookShipmentFourForm.get('vayu_logi_location_id')?.dirty || bookShipmentFourForm.get('vayu_logi_location_id')?.touched)">
+          {{validation.message}}
+        </p>
+      </mat-error>
+      </div>
+    </div>
+
+    <div *ngIf="radioGroupValue === '1'">
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">Pickup Address</label>
+      </div>
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">Company</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_company_name"
+            placeholder="Enter Company Name" trim="blur" *ngIf="!allFormFieldsDisabled">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_company_name"
+            placeholder="Enter Company Name" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+        </div>
+        <div class="col-sm-1" (click)="openBillingAddressSelectionDialog()" *ngIf="!allFormFieldsDisabled">
+          <i class="fa fa-address-book senderAddressbookModal"
+            style=" color: #0f377c !important; font-size: 30px;"></i>
+        </div>
+        <div class="col-sm-1" *ngIf="allFormFieldsDisabled">
+          <i class="fa fa-address-book senderAddressbookModal"
+            style=" color: #0f377c !important; font-size: 30px;"></i>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">Contact Name <span
+            class="required-input">*</span></label>
+        <div class="col-sm-10">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_contact_name"
+            placeholder="Enter Contact Name" trim="blur" *ngIf="!allFormFieldsDisabled">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_contact_name"
+            placeholder="Enter Contact Name" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+            <mat-error
+              *ngFor="let validation of fourFormFormValidations.pickup_contact_name">
+              <p class="caption status-danger"
+                *ngIf="bookShipmentFourForm.get('pickup_contact_name')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_contact_name')?.dirty || bookShipmentFourForm.get('pickup_contact_name')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputEmail" class="label col-sm-2 col-form-label">Pickup Email <span
+            class="required-input">*</span></label>
+        <div class="col-sm-10">
+          <input type="text" nbInput fullWidth id="inputEmail" class="form-control"
+            formControlName="pickup_email" placeholder="Enter Pickup Email" trim="blur" *ngIf="!allFormFieldsDisabled">
+          <input type="text" nbInput fullWidth id="inputEmail" class="form-control"
+            formControlName="pickup_email" placeholder="Enter Pickup Email" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+            <mat-error *ngFor="let validation of fourFormFormValidations.pickup_email">
+              <mat-error
+                *ngIf="bookShipmentFourForm.get('pickup_email')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_email')?.dirty || bookShipmentFourForm.get('pickup_email')?.touched)">
+                <p class="caption status-danger">{{validation.message}}</p>
+              </mat-error>
+            </mat-error>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">Address <span class="required-input">*</span></label>
+        <div class="col-sm-10">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_address_1"
+            placeholder="Enter Address" trim="blur" *ngIf="!allFormFieldsDisabled">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_address_1"
+            placeholder="Enter Address" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+            <mat-error *ngFor="let validation of fourFormFormValidations.pickup_address_1">
+              <p class="caption status-danger"
+                *ngIf="bookShipmentFourForm.get('pickup_address_1')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_address_1')?.dirty || bookShipmentFourForm.get('pickup_address_1')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">Address 2 Suite/Unit/Floor etc</label>
+        <div class="col-sm-10">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_address_2"
+            placeholder="Enter Address 2 Suite/Unit/Floor etc" trim="blur" *ngIf="!allFormFieldsDisabled">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_address_2"
+            placeholder="Enter Address 2 Suite/Unit/Floor etc" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">Country/Territory <span
+            class="required-input">*</span></label>
+        <div class="col-sm-10">
+          <ng-select [items]="pickUpCountryData" bindLabel="country_name" class="ng_select form-control"
+            [virtualScroll]="true" (change)="selectFourthStepCountry($event)" bindValue="country_id"
+            placeholder="Select Pickup Country" formControlName="pickup_country_id"
+            [(ngModel)]="selectedFourthStepCountryId" [readonly]="allFormFieldsDisabled">
+          </ng-select>
+          <mat-error
+            *ngFor="let validation of fourFormFormValidations.pickup_country_id">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFourForm.get('pickup_country_id')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_country_id')?.dirty || bookShipmentFourForm.get('pickup_country_id')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">State <span class="required-input">*</span></label>
+        <div class="col-sm-10">
+          <ng-select [items]="pickUpStateData" bindLabel="state_name" class="ng_select form-control"
+            [virtualScroll]="true" bindValue="state_id" placeholder="Select Pickup State"
+            formControlName="pickup_state_id" [(ngModel)]="selectedFourthStepStateId" [readonly]="allFormFieldsDisabled">
+          </ng-select>
+          <mat-error *ngFor="let validation of fourFormFormValidations.pickup_state_id">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFourForm.get('pickup_state_id')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_state_id')?.dirty || bookShipmentFourForm.get('pickup_state_id')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="label col-sm-2 col-form-label">City <span class="required-input">*</span></label>
+        <div class="col-sm-10">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_city"
+            placeholder="Enter City" trim="blur" *ngIf="!allFormFieldsDisabled">
+          <input type="text" nbInput fullWidth class="form-control" formControlName="pickup_city"
+            placeholder="Enter City" trim="blur" *ngIf="allFormFieldsDisabled" disabled>
+            <mat-error *ngFor="let validation of fourFormFormValidations.pickup_city">
+              <p class="caption status-danger"
+                *ngIf="bookShipmentFourForm.get('pickup_city')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_city')?.dirty || bookShipmentFourForm.get('pickup_city')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputZip" class="label col-sm-2 col-form-label">Pickup Zip <span
+            class="required-input">*</span></label>
+        <div class="col-sm-10">
+          <input type="text" nbInput fullWidth id="inputZip" formControlName="pickup_zip_code" *ngIf="!allFormFieldsDisabled"
+            class="form-control" placeholder="Enter Zip Code" trim="blur" onKeyPress="if(this.value.length==20) return false;">
+          <input type="text" nbInput fullWidth id="inputZip" formControlName="pickup_zip_code" *ngIf="allFormFieldsDisabled"
+            class="form-control" placeholder="Enter Zip Code" trim="blur" onKeyPress="if(this.value.length==20) return false;" disabled>
+            <mat-error *ngFor="let validation of fourFormFormValidations.pickup_zip_code">
+              <p class="caption status-danger"
+                *ngIf="bookShipmentFourForm.get('pickup_zip_code')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_zip_code')?.dirty || bookShipmentFourForm.get('pickup_zip_code')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputPhoneNo" class="label col-sm-2 col-form-label">Phone No <span
+            class="required-input">*</span></label>
+        <div class="col-sm-5">
+          <input type="number" nbInput fullWidth id="inputPhoneNo" class="form-control hide_arrows"
+            placeholder="Enter Phone No" formControlName="pickup_phone_no" trim="blur" min="0"
+            maxlength="10" onkeydown="return event.keyCode !== 69" *ngIf="!allFormFieldsDisabled"
+            onKeyPress="if(this.value.length==10) return false;" autocomplete="off" #input_number>
+          <input type="number" nbInput fullWidth id="inputPhoneNo" class="form-control hide_arrows"
+            placeholder="Enter Phone No" formControlName="pickup_phone_no" trim="blur" min="0"
+            maxlength="10" onkeydown="return event.keyCode !== 69" *ngIf="allFormFieldsDisabled"
+            onKeyPress="if(this.value.length==10) return false;" autocomplete="off" #input_number disabled>
+          <mat-error class="select-error" *ngFor="let validation of fourFormFormValidations.pickup_phone_no">
+            <p class="caption status-danger"
+              *ngIf="bookShipmentFourForm.get('pickup_phone_no')?.hasError(validation.type) && (bookShipmentFourForm.get('pickup_phone_no')?.dirty || bookShipmentFourForm.get('pickup_phone_no')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+        </div>
+        <label for="inputExt" class="label col-sm-1 col-form-label">Phone Ext.</label>
+        <div class="col-sm-4">
+          <input type="number" nbInput fullWidth id="inputExt" class="form-control hide_arrows"
+            placeholder="Enter Ext No" formControlName="pickup_phone_no_ext" trim="blur" min="0"
+            maxlength="10" onkeydown="return event.keyCode !== 69" *ngIf="!allFormFieldsDisabled"
+            onKeyPress="if(this.value.length==10) return false;" autocomplete="off" #input_number>
+          <input type="number" nbInput fullWidth id="inputExt" class="form-control hide_arrows"
+            placeholder="Enter Ext No" formControlName="pickup_phone_no_ext" trim="blur" min="0"
+            maxlength="10" onkeydown="return event.keyCode !== 69" *ngIf="allFormFieldsDisabled"
+            onKeyPress="if(this.value.length==10) return false;" autocomplete="off" #input_number disabled>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2"></label>
+        <div class="col-sm-5" style="text-align: left;">
+          <nb-checkbox formControlName="is_save_address"> Save As Address.</nb-checkbox>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+      <label class="label col-sm-12 col-form-label">Optional Shipment Notification Details</label>
+    </div>
+    <div class="form-group row align-items-start">
+      <div class="col-sm-6">
+        <label class="label col-form-label text-left d-block pl-0">Sender Notification</label>
+        <div class="demo-items">
+          <nb-radio-group class="radio-flex" formControlName="shipment_sender_notification_type" (valueChange)="onChangesenderNotification($event)"
+            [(value)]="senderNotificationViaEmailSms" name="sender-group" [disabled]="allFormFieldsDisabled">
+            <nb-radio [value]="'email'">
+              Email
+            </nb-radio>
+            <nb-radio [value]="'sms'">
+              SMS
+            </nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div *ngIf="bookShipmentFourForm.get('shipment_sender_notification_type')?.value?.length">
+          <label class="label col-form-label text-left d-block pl-0">Notification Type:</label>
+          <span *ngIf="!allFormFieldsDisabled">
+            <nb-checkbox class="d-block text-left" *ngFor="let data of SenderNotificationTypeData"
+            [checked]="data?.isChecked" (change)="onCheckSenderNotificationType($event, data)">
+              {{ data.name }}</nb-checkbox>
+          </span>
+          <span *ngIf="allFormFieldsDisabled">
+            <nb-checkbox class="d-block text-left" *ngFor="let data of SenderNotificationTypeData"
+            [checked]="data?.isChecked" (change)="onCheckSenderNotificationType($event, data)" disabled>
+              {{ data.name }}</nb-checkbox>
+          </span>
+        </div>
+      </div>
+
+      <div class="col-sm-6" style="margin-top: 30px;">
+        <label class="label col-form-label text-left d-block pl-0">Recipient Notification</label>
+        <div class="demo-items">
+          <nb-radio-group class="radio-flex" formControlName="shipment_recipient_notification_type" (valueChange)="onChangerecipientNotification($event)"
+            [(value)]="recipientNotificationViaEmailSms" name="recipient-group" [disabled]="allFormFieldsDisabled">
+            <nb-radio [value]="'email'">
+              Email
+            </nb-radio>
+            <nb-radio [value]="'sms'">
+              SMS
+            </nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+      <div class="col-sm-6" style="margin-top: 30px;">
+        <div *ngIf="bookShipmentFourForm.get('shipment_recipient_notification_type')?.value?.length">
+          <label class="label col-form-label text-left d-block pl-0">Notification Type:</label>
+          <span *ngIf="!allFormFieldsDisabled">
+            <nb-checkbox class="d-block text-left" *ngFor="let data of recipientNotificationTypeData"
+            [checked]="data?.isChecked" (change)="onCheckRecipientNotificationType($event, data)">
+              {{data.name}}</nb-checkbox>
+          </span>
+          <span *ngIf="allFormFieldsDisabled">
+            <nb-checkbox class="d-block text-left" *ngFor="let data of recipientNotificationTypeData"
+            [checked]="data?.isChecked" (change)="onCheckRecipientNotificationType($event, data)" disabled>
+              {{data.name}}</nb-checkbox>
+          </span>
+        </div>
+      </div>
+
+    </div>
+    <hr />
+    <div class="form-group row">
+      <label class="label col-sm-12 col-form-label">Add A Personal</label>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Message</label>
+      <div class="col-sm-10">
+        <textarea rows="3" nbInput fullWidth shape="round" formControlName="extra_notes"
+          placeholder="Message" trim="blur" *ngIf="!allFormFieldsDisabled"></textarea>
+        <textarea rows="3" nbInput fullWidth shape="round" formControlName="extra_notes"
+          placeholder="Message" trim="blur" *ngIf="allFormFieldsDisabled" disabled></textarea>
+      </div>
+    </div>
+    <div class="btn-back-next btn-next">
+      <button nbButton nbStepperPrevious>
+        << Back</button> <button nbButton nbStepperNext [nbSpinner]="isLoading" [disabled]="isLoading" (click)="saveFourthStep()">Next >>
+      </button>
+    </div>
+  </form>
+  

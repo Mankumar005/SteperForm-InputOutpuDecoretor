@@ -1,0 +1,58 @@
+@import '../../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+
+::ng-deep .edit-icon.pointer {
+    font-size: 29px;
+}
+
+nb-card-body {
+    flex: 1;
+    -ms-flex: 1 1 auto;
+    overflow: auto;
+    padding: 1px;
+    position: relative;
+}
+
+.theme-btn {
+    float: right;
+}
+
+::ng-deep .view-icon {
+    height: 25px;
+    width: 25px;
+    position: absolute;
+}
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+    color: #1e6bb8;
+}
+
+.select-user {
+    display: flex;
+    align-items: center;
+ }
+
+label.lable.country {
+    display: flex;
+    font-weight: 600;
+    margin-left: 2%;
+}
+
+.ng_select_border {
+    word-wrap: break-word;
+    background-color: #f7f9fc;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    width: 24%;
+    border: 1px solid rgb(0 0 0 / 26%);
+}
+
+
+.ng-card-table {
+    padding-top: 10px;
+}
+
+}

@@ -1,0 +1,15 @@
+<nb-card>
+  <nb-card-header class="page-title">FAQ</nb-card-header>
+  <nb-card-body>
+    <nb-accordion>
+      <nb-accordion-item #item *ngFor="let faq of faqList">
+        <nb-accordion-item-header>
+          {{faq.question}}
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <b>Answer</b>:&nbsp; {{faq.answer}}
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,20 @@
+<nb-card>
+  <nb-card-header class="page-title">
+    Pending Account List
+  </nb-card-header>
+  <nb-card-body>
+    <span class="select-user" style="margin: 10px 0px 15px 0px;">
+      <nb-select selected="0" (selectedChange)="selectedAccountType($event)" class="ng_select_border" placeholder="Active">
+        <nb-option value="0">Pending Accounts</nb-option>
+        <nb-option value="2">Rejected Accounts</nb-option>
+      </nb-select>
+    </span>
+    <nb-card class="ng-card-table">
+      <nb-card-body>
+        <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" class="tbl-loader-effect" [settings]="settings"
+          [source]="source">
+        </ng2-smart-table>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-body>
+</nb-card>

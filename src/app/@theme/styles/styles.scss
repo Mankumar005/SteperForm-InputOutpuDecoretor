@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+// framework component themes (styles tied to theme variables)
+@import '@nebular/theme/styles/globals';
+@import '@nebular/auth/styles/globals';
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/grid';
+
+// loading progress bar theme
+@import './pace.theme';
+
+@import './layout';
+@import './overrides';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  @include ngx-layout();
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  @include nb-overrides();
+}
+
+input.hide_arrows::-webkit-outer-spin-button,
+input.hide_arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number].hide_arrows {
+  -moz-appearance: textfield;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.required-input {
+  color: red;
+  padding-left: 3px;
+  position: absolute;
+}
+
+label {
+  color: #0f377c !important;
+}
+
+::ng-deep .custom-form-group {
+  align-items: baseline !important;
+  margin-bottom: 1rem;
+}
+.ng_select {
+  word-wrap: break-word;
+  background-color: #f7f9fc;
+  background-clip: border-box;
+  border: 1px solid #e4e9f2;
+  border-radius: 0.25rem;
+}
+.ng-select .ng-placeholder {
+  color: #949fb5;
+}
+.ng_select .ng-select-container.ng-has-value .ng-placeholder {
+  display: none;
+}
+.ng_select .ng-arrow-wrapper .ng-arrow {
+  border-color: #999 transparent transparent;
+  border-style: solid;
+  border-width: 5px 5px 2.5px;
+}
+.ng_select.ng-select-opened .ng-arrow-wrapper .ng-arrow {
+  top: -2px;
+  border-color: transparent transparent #999;
+  border-width: 0 5px 5px;
+}
+.ng_select .ng-dropdown-panel {
+  background-color: #fff;
+  left: 0;
+  text-align: left;
+  margin-top: 6px;
+  border:1px solid #b4b6bb;
+}
+.ng_select .ng-dropdown-panel .ng-option {
+  padding: 8px 0 8px 12px;
+}
+.ng_select .ng-dropdown-panel .ng-option:hover {
+  background-color: #f6faff;
+}
+.ng-dropdown-panel.ng_dropdown_panel {
+  height: auto;
+  background-color: #fff;
+  left: 0;
+  text-align: left;
+  margin-top: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 0;
+}
+.ng-dropdown-panel.ng_dropdown_panel .ng-option {
+  padding: 8px 0 8px 12px;
+}
+.ng-dropdown-panel.ng_dropdown_panel .ng-option:hover {
+  background-color: #f6faff;
+}
+.theme-btn,.appearance-filled.status-basic,.btn-next button {
+  background: linear-gradient(133deg, #0f377c, #9facfa) !important;
+  color: #fff !important;
+  text-transform: capitalize;
+}
+.page-title,.title {
+  font-size: 21px;
+  font-weight: 700;
+  color: #0f377c;
+}
+.sub-title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #0f377c;
+}
+
+.back-arow {
+  float: right;
+  cursor: pointer;
+}
+
+ng2-smart-table.tbl-loader-effect[ng-reflect-nb-spinner='true'] table tbody {
+  display: none;
+}
+ng2-smart-table.tbl-loader-effect nb-spinner {
+  position: static;
+  height: 300px;
+  background-color: transparent;
+  border: 1px solid #edf1f7;
+}
+
+.menu-item a,nb-menu .menu-item a .menu-icon, .header-container .sidebar-toggle nb-icon {
+  color: #0f377c !important;
+}
+
+nb-stepper .step-content .label,label.lable.country {
+  color: #0f377c !important;
+}
+
+nb-card.address_book_modal nb-card-body p {
+  color: #0f377c !important;
+}
+
+nb-menu .menu-item a.active .menu-icon {
+  color: #3366ff !important;
+}
+
+nb-menu .menu-item a.active {
+  color: #3366ff !important;
+}
+
+ng2-smart-table nav.ng2-smart-pagination-nav .pagination li.active > span,nb-stepper .header .connector-past {
+  background-color: #0f377c;
+}
+
+nb-menu .menu-item .menu-item:first-child {
+  border-top-color: #9facfa;
+}
+
+nb-menu .menu-item {
+  border-bottom-color: #9facfa;
+}
+
+nb-menu .menu-item .expand-state { color: #9facfa; }
+
+nb-stepper .header .step.selected .label-index {
+  border-color: #0f377c;
+  color: #0f377c;
+}
+
+nb-stepper .header .step.completed .label-index {
+  border-color: #0f377c;
+  background-color: #0f377c;
+}
+
+.accordion-item-header-expanded {
+  background-color: #9facfa;
+}
+
+.accordion-item-header-collapsed,.accordion-item-header-expanded {
+  padding: 12px 20px;
+}
+
+.header-light {
+  background-color: #9facfa;
+  padding: 12px 24px;
+}
+
+.table-bordered {
+  border: 3px solid #9facfa;
+}
+
+.table-bordered th, .table-bordered td {
+  border: 1px solid #9facfa;
+}
+
+.table thead th {
+  border-bottom: 2px solid #9facfa;
+}
+
+.table th, .table td {
+  border-top: 1px solid #9facfa;
+}
+
+ng2-smart-table nav.ng2-smart-pagination-nav .pagination li.active > span:hover {
+  background-color: #9facfa !important;
+}
+
+nb-context-menu nb-menu span.menu-title {
+  text-align: left;
+}
+
+.user-container {
+  position: relative;
+  padding-right: 15px;
+}
+
+.user-container::after {
+  position: absolute;
+  top: -1px;
+  bottom: 0;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-width: 0 1px 1px 0;
+  border-style: solid;
+  content: '';
+  transform: rotate(45deg);
+  display: table;
+  margin: auto;
+  border-color: #0f377c;
+}
+
+.header-container .user-action nb-user .user-container .user-picture {
+  display: none;
+}
+
+.back-arow {
+  float: right;
+  cursor: pointer;
+}
+.back-text {
+  font-size: 13px;
+  padding-left: 5px;
+}
+
+.btn-text-cap {
+  text-transform: capitalize;
+}
+
+.ng2-smart-sort,
+ng2-smart-table table th.ng2-smart-actions .ng2-smart-title {
+  color: #1e6bb8;
+  font-weight: normal;
+}
+
+ng2-smart-table.tbl-loader-effect ng2-smart-table-pager {
+  justify-content: center;
+}
+ng2-smart-table.tbl-loader-effect table tbody tr:not(.ng2-smart-row) td {
+  text-align: center;
+}
+ng2-smart-table nav.ng2-smart-pagination-nav .pagination li a:hover {
+  background-color: #0f377c;
+  color: #fff;
+}

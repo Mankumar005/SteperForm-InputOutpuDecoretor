@@ -1,0 +1,58 @@
+<nb-card>
+  <nb-card-header class="page-title">Contact Us</nb-card-header>
+  <nb-card-body>
+    <!-- <p class="sub-title">Hello! Sign in with your email.</p> -->
+    <form [formGroup]="contactUsFrom" aria-labelledby="title">
+      <div class="form-control-group">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="label" for="input-email">Subject
+              <span class="required-input">*</span>
+            </label>
+          </div>
+          <div class="col-md-6">
+            <input maxlength="100" nbInput fullWidth type="text" trim="blur" class="form-control"
+              formControlName="subject" placeholder="Subject" required>
+            <mat-error *ngFor="let validation of formValidations.subject">
+              <p class="caption status-danger"
+                *ngIf="contactUsFrom.get('subject')?.hasError(validation.type) && (contactUsFrom.get('subject')?.dirty || contactUsFrom.get('subject')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-control-group pt-4">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="label" for="input-email">Message
+              <span class="required-input">*</span>
+            </label>
+          </div>
+          <div class="col-md-6">
+            <textarea class="login-input" nbInput maxlength="200" fullWidth type="text" trim="blur" class="form-control"
+              formControlName="message" placeholder="Message" fieldSize="large" required></textarea>
+            <mat-error *ngFor="let validation of formValidations.message">
+              <p class="caption status-danger"
+                *ngIf="contactUsFrom.get('message')?.hasError(validation.type) && (contactUsFrom.get('message')?.dirty || contactUsFrom.get('message')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+          </div>
+        </div>
+      </div>
+
+      <div class="row pt-3">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+          <button nbButton fullWidth [disabled]="isLoading" size="large" [ngClass]="isLoading ? '' : 'theme-btn'"
+            [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" (click)="onSubmit()">
+            Send
+          </button>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

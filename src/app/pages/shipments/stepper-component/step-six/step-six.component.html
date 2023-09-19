@@ -1,0 +1,83 @@
+<div class="nb-tbl-flex title align-items-center">
+    <h5>Continue Your Shipment</h5>
+    <span class="back-arow" nbTooltip="Back" nbTooltipPlacement="bottom" (click)="backToListPage()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px" >
+      <span class="back-text">Back To List</span> 
+    </span>
+  </div>
+  <div class="note-title">
+    <h4>PLEASE NOTE:</h4>
+  </div>
+  <div class="content" style="height: 150px; overflow: auto; margin: 18px 0px; border: 1px solid #C0C0C0; padding: 5px;">
+    <p>* Click the Ship button only once. Expect some delay due to transmission time. Do not click Stop or
+      Reload; it may cause a duplicate shipment transaction to occur.</p>
+    <p>* By clicking the Ship/Continue button,you agree to the Vayulogi Ship Manager at vayulogi.com Terms
+      of Use and the Vayulogi terms of shipping in the applicable Vayulogi Service Guide and the Shipper's
+      Terms and Conditions for Vayulogi Express international shipments.</p>
+    <p>* By clicking the Ship/Continue button, you agree that this shipment does not contain undeclared
+      Dangerous Goods. If you are uncertain of whether your shipment contains Dangerous Goods, see the Help
+      for more information.</p>
+    <p>* Results provided by Vayulogi Address Checker are believed to be reliable, but are not guaranteed.
+    </p>
+    <p>* Vayulogi makes no warranties, express or implied, regarding Address Checker information.</p>
+    <p>* Correct completion of shipping documents is the responsibility of the customer.</p>
+    <p>* If the delivery address is later identified as residential, you could receive a residential
+      surcharge.</p>
+    
+  </div>
+
+  <div>
+    <nb-checkbox [formControl]="ternAndCondition" (change)="checkTernAndCondition($event)">Terms & Conditions</nb-checkbox>
+      <p class="caption status-danger" *ngIf="isTermAndCondition">Terms & Conditions is required</p>
+  </div>
+  <hr/>
+  
+  <div class="nb-tbl-flex title align-items-center" style="margin-top: 10px;">
+    <h5>Confirm Order</h5>
+  </div>
+
+  <div *ngIf="isSpinnerLoader">
+    <nb-card [nbSpinner]="isSpinnerLoader" nbSpinnerStatus="primary" style="min-height: 80px;"> </nb-card>
+  </div>
+
+  <div *ngIf="!isSpinnerLoader">
+  <div class="form-group row" style="margin-bottom: 0px;">
+    <label for="inputCompany" class="label col-sm-2 col-form-label">Service Type :</label>
+    <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+      {{jazvaOrderResponse?.service_type?.service_type_name}}
+    </div>
+  </div>
+  <div class="form-group row" style="margin-bottom: 0px;">
+    <label for="inputCompany" class="label col-sm-2 col-form-label">Weight :</label>
+    <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+      {{jazvaOrderResponse?.weight}}
+    </div>
+  </div>
+  <div class="form-group row" style="margin-bottom: 0px;">
+      <label for="inputCompany" class="label col-sm-2 col-form-label">Price :</label>
+      <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+        ₹{{jazvaOrderResponse?.shipment_price}}
+      </div>
+    </div>
+    <div class="form-group row" style="margin-bottom: 0px;">
+      <label for="inputCompany" class="label col-sm-2 col-form-label">Payment Type:</label>
+        <nb-radio-group [(value)]="paymentTypeSelected"
+              style="display: flex;">
+              <nb-radio class="radio-flex" [value]="0" disabled>
+                Stripe Payment
+              </nb-radio>
+              <nb-radio class="radio-flex" [value]="1" [checked]="true">
+                Wallet Payment
+              </nb-radio>
+            </nb-radio-group>
+      </div>
+      <div class="form-group row" style="margin-bottom: 0px;" *ngIf="paymentTypeSelected === 1">
+        <label for="inputCompany" class="label col-sm-2 col-form-label">Total Wallet Amount :</label>
+        <div class="col-sm-9" style="text-align: left;font-weight: 600;margin-top: 5px;">
+          ₹{{(walletDetails?.total_amount) ? walletDetails?.total_amount : 0}}
+        </div>
+      </div>
+  </div>
+  <div class="btn-back-next btn-next btn-center">
+    <button nbButton nbStepperNext (click)="saveSixStep(0)" [nbSpinner]="isLoading" [disabled]="isLoading">Confirm Order</button>
+  </div>

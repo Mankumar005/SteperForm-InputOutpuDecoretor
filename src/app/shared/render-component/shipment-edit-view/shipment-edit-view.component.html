@@ -1,0 +1,5 @@
+<div class="render-icon d-flex align-items-center">
+<span *ngIf="!isDraft && onPermission?.view"> <nb-icon class="view-icon pointer nb-view" nbTooltip="View" nbTooltipPlacement="bottom" icon="eye-outline" (click)="onViewShipNowDetails(rowData)"></nb-icon> </span>
+<span *ngIf="isDraft && onPermission?.update"><i class="nb-edit edit-icon" nbTooltip="Edit" nbTooltipPlacement="bottom" (click)="onEditShipNowDraftDetails(rowData)"></i></span>
+<span *ngIf="!isDraft"><img class="pdf-icon pointer" src="../../../../assets/images/pdf-icon.png" nbTooltip="Print Label" nbTooltipPlacement="bottom" (click)="printLabelById(rowData)"></span>
+</div>

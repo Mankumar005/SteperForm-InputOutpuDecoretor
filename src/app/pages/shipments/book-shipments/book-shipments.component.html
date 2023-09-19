@@ -1,0 +1,44 @@
+<div class="steppers-container row" *ngIf="!isApiLoading">
+  <div class="col-md-12 col-lg-12 col-xxxl-12">
+    <nb-card>
+      <nb-card-body>
+        <nb-stepper #stepper>
+          <nb-step [stepControl]="bookShipmentFirstForm">
+            <ngx-step-one [shipmentDetail]="shipmentBookingSenderDetail" [shipmentBookingId]="shipmentBookingId" [allFormFieldsDisabled]="allFormFieldsDisabled"
+            [jazvaOrderId]="jazvaOrderId" (isFormValidCheckEmitter)="isValidFirstFormCheck($event)" (stepperTriggerEmitter)="firstStepSave($event)"></ngx-step-one>
+          </nb-step>
+
+          <nb-step [stepControl]="bookShipmentSecondForm">
+            <ngx-step-two [shipmentDetail]="shipmentBookingRecipientDetail" [shipmentBookingId]="shipmentBookingId" [allFormFieldsDisabled]="allFormFieldsDisabled"
+            [firstStepShipmentBookingId]="firstStepShipmentBookingId" [secondStepShipmentBookingRecipientId]="secondStepShipmentBookingRecipientId" [secondStepCustomerRecipientAddressId]="secondStepCustomerRecipientAddressId"
+            [jazvaOrderId]="jazvaOrderId" (isFormValidCheckEmitter)="isValidSecondFormCheck($event)" (stepperTriggerEmitter)="secondStepSave($event)"></ngx-step-two>
+          </nb-step>
+
+          <nb-step [stepControl]="bookShipmentThirdForm">
+            <ngx-step-three [shipmentDetail]="shipmentBookingPackageDetail" [shipmentBookingId]="shipmentBookingId" [allFormFieldsDisabled]="allFormFieldsDisabled"
+            [firstStepShipmentBookingId]="firstStepShipmentBookingId" [thirdStepShipmentBookingPackageId]="thirdStepShipmentBookingPackageId" 
+            [jazvaOrderId]="jazvaOrderId" (isFormValidCheckEmitter)="isValidThirdFormCheck($event)" (stepperTriggerEmitter)="thirdStepSave($event)"></ngx-step-three>
+          </nb-step>
+
+          <nb-step [stepControl]="bookShipmentFourForm">
+            <ngx-step-four [shipmentDetail]="shipmentBillingPrefrence" [shipmentBookingId]="shipmentBookingId" [allFormFieldsDisabled]="allFormFieldsDisabled"
+            [firstStepShipmentBookingId]="firstStepShipmentBookingId" [secondStepShipmentBookingRecipientId]="secondStepShipmentBookingRecipientId"  
+            [fourthStepShipmentBillingPrefrenceId]="fourthStepShipmentBillingPrefrenceId" [fourthStepPickupAddressBookId]="fourthStepPickupAddressBookId"
+            [jazvaOrderId]="jazvaOrderId" (isFormValidCheckEmitter)="isValidFourthFormCheck($event)" (stepperTriggerEmitter)="fourthStepSave($event)"></ngx-step-four>
+          </nb-step>
+          
+          <nb-step [stepControl]="bookShipmentFiveForm">
+            <ngx-step-fifth [shipmentDetail]="shipmentBookingCommodity" [shipmentBookingId]="shipmentBookingId" [allFormFieldsDisabled]="allFormFieldsDisabled"
+            [firstStepShipmentBookingId]="firstStepShipmentBookingId" [jazvaOrderId]="jazvaOrderId" (isFormValidCheckEmitter)="isValidFifthFormCheck($event)" (stepperTriggerEmitter)="fifthStepSave($event)"></ngx-step-fifth>
+          </nb-step>
+
+          <nb-step [stepControl]="bookShipmentSixForm">
+            <ngx-step-six [shipmentDetail]="termsCondistionData" [shipmentBookingId]="shipmentBookingId" [allFormFieldsDisabled]="allFormFieldsDisabled"
+            [firstStepShipmentBookingId]="firstStepShipmentBookingId" [jazvaOrderId]="jazvaOrderId" [jazvaOrderResponse]="jazvaResponse" 
+            [shipmentDate]="selectedShipmentDate" (stepperTriggerEmitter)="fifthStepSave($event)"></ngx-step-six>
+          </nb-step>
+        </nb-stepper>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

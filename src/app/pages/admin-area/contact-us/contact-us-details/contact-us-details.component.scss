@@ -1,0 +1,45 @@
+@import '../../../../@theme/styles/themes.scss';
+
+@include nb-install-component() {
+  nb-card {
+    transform: translate3d(0, 0, 0);
+  }
+.title-border {
+    border-top: 1px solid #0000002b;
+}
+.title {
+    font-size: 21px;
+    font-weight: 600;
+}
+.back-arow {
+    float: right;
+    cursor: pointer;
+}
+.sub-title {
+    font-size: 19px;
+    font-weight: 600;
+}
+.back-text {
+    font-size: 13px;
+    padding-left: 5px;
+}
+label.lable.country {
+    display: flex;
+    font-weight: 600;
+
+}
+
+nb-accordion {
+    width: 100%;
+}
+.comp-name {
+    display: flex;
+}
+::ng-deep nb-option-list.size-medium nb-option {
+    font-weight: 400;
+
+}
+::ng-deep a.ng2-smart-sort-link.sort.ng-star-inserted {
+    color: #1e6bb8;
+}
+}

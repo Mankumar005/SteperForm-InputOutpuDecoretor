@@ -1,0 +1,13 @@
+<nb-card>
+  <nb-card-header class="nb-tbl-flex">
+    Shipment History
+    <button class="float-end" nbButton routerLink="/pages/shipments/book-shipments"
+    *ngIf="onPermission?.create">Ship Now</button>
+  </nb-card-header>
+
+  <nb-card-body style="padding: 0px;">
+      <ng2-smart-table [nbSpinner]="isLoading" nbSpinnerStatus="info" [settings]="settings" [source]="source"
+        (deleteConfirm)="onDeleteConfirm($event)" class="tbl-loader-effect">
+      </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

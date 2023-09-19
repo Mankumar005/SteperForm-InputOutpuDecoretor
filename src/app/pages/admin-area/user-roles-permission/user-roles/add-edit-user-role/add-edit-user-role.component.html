@@ -1,0 +1,131 @@
+<nb-card>
+  <nb-card-header class="page-title">
+    {{id ? 'Edit' :'Add'}} User Role
+    <span class="back-arow">
+      <img src="assets/images/back-arow.png" height="15px" width="20px" /><span class="back-text" routerLink="/pages/admin-area/user-roles/user-roles-list">Back To List</span>
+    </span>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="addEditRoletype">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-2">
+              <label class="label">Role Name
+                <span class="required-input">*</span>
+              </label>
+            </div>
+          <div class="col-md-8">
+            <input type="text" class="form-control" formControlName="role_name" nbInput fullWidth
+              placeholder="Role Name">
+            <mat-error *ngFor="let validation of formValidations.role_name">
+              <p class="caption status-danger"
+                *ngIf="addEditRoletype.get('role_name')?.hasError(validation.type) && (addEditRoletype.get('role_name')?.dirty || addEditRoletype.get('role_name')?.touched)">
+                {{validation.message}}
+              </p>
+            </mat-error>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="pt-1">
+        <nb-card>
+            <nb-card-body>
+            <!-- ===================== START : MENU TABLE ================== -->
+            <div class="row">
+                <div class="col-lg-12">
+                <div class="archives-table">
+                    <div class="table-responsive">
+                    <table class="table table-bordered tabledesign">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 80px">Is Visible</th>
+                            <th></th>
+                            <th style="widows: 70px">
+                            Sr #
+                            <span class="sort-icons"></span>
+                            </th>
+                            <th class="cursor">
+                            Menu Name
+                            <span class="sort-icons"></span>
+                            </th>
+                            <th class="text-center" style="width: 130px"
+                            *ngFor="let permissionListNew of permissionList;">
+                            {{permissionListNew?.permission_name}}
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-container *ngTemplateOutlet="treeViewTemplate; context:{ $implicit: menusList }">
+                        </ng-container>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <ng-template #treeViewTemplate let-menusList>
+                <ng-container *ngIf="menusList && menusList.length">
+                <ng-container *ngFor="let parameter of menusList;let i=index;">
+                    <tr [ngStyle]="{'background-color': parameter?.color ? parameter?.color : '' }">
+                    <td class="text-center">
+                        <label class="custom-control custom-checkbox">
+                            <nb-checkbox [name]="'is_visible_' + parameter.row_id"
+                            [(ngModel)]="parameter.is_visible" [disabled]="parameter.is_menu_disabled"
+                            (change)="hideShowMenu(parameter, $event)"></nb-checkbox>
+                        <span class="custom-control-indicator"></span>
+                        </label>
+                    </td>
+                    <td class="text-center">
+                        <a *ngIf="parameter.children_menus.length > 0" (click)="parameter.expand = !parameter.expand">
+                            <nb-icon icon="minus-outline" *ngIf="parameter.expand"></nb-icon>
+                            <nb-icon icon="plus-circle-outline" *ngIf="!parameter.expand"></nb-icon>
+                        </a>
+                        <i *ngIf="parameter.children_menus.length <= 0" class="fa fa-circle"
+                        style="font-size: 10px; padding-right: 3px;color: #f68c1f;"></i>
+                    </td>
+                    <td>{{parameter.sr_no}}</td>
+                    <td class="text-left">{{parameter.menu_name}}</td>
+                    <ng-container *ngIf="parameter.permissions">
+                        <td class="text-center"
+                        *ngFor="let permissionListNew of parameter.permissions; let permissionIndex=index;">
+                        <label class="custom-control custom-checkbox">
+                            <nb-checkbox [name]="'permission_' + parameter.row_id + '_' + permissionListNew.row_id"
+                            [(ngModel)]="permissionListNew.is_permitted" [disabled]="permissionListNew.is_permission_disabled">
+                            </nb-checkbox>
+                            <span class="custom-control-indicator"></span>
+                        </label>
+                        </td>
+                    </ng-container>
+                    </tr>
+                    <ng-container *ngIf="parameter.expand && parameter.children_menus.length > 0" class="pl-4">
+                    <ng-container *ngTemplateOutlet="treeViewTemplate; context:{ $implicit: parameter.children_menus}">
+                    </ng-container>
+                    </ng-container>
+                </ng-container>
+                </ng-container>
+                <ng-container *ngIf="menusList && !menusList.length">
+                <tr>
+                    <td style="text-align:center; padding-top: 20px;" [colSpan]="4+(permissionList.length)">
+                    <p *ngIf="!isLoading">No data found</p>
+                    <p *ngIf="isLoading"><i class="fa fa-refresh fa-spin"></i></p>
+                    </td>
+                </tr>
+                </ng-container>
+            </ng-template>
+            <!-- ===================== END : MENU TABLE ================== -->
+
+            <div class="form-actions text-center">
+                <button nbButton class="btn dark-brown-button mr-1" [disabled]="apiCallInProg" (click)="addNewRole()">
+                    {{ id ? 'Update Role' : 'Add Role'}}
+                </button>
+                <button nbButton class="btn light-orange-button" [disabled]="apiCallInProg" routerLink="/pages/admin-area/user-roles/user-roles-list">
+                    {{'Cancel'}}
+                </button>
+            </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+  </nb-card-body>
+</nb-card>

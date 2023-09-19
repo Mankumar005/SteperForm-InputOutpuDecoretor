@@ -1,0 +1,251 @@
+<nb-card >
+    <nb-card-header class="page-title">
+      Sub Account Details
+        <span class="back-arow" (click)="back()">
+           <img src="assets/images/back-arow.png" height="15px" width="20px" ><span class="back-text">Back To List</span> 
+        </span>
+    </nb-card-header>
+<nb-card-body>
+    <div class="row"  *ngIf="accountDetials">
+    <nb-accordion>
+      <nb-accordion-item expanded="true">
+        <nb-accordion-item-header >
+            <span class="sub-title">Basic Details</span> 
+        </nb-accordion-item-header>
+         <nb-accordion-item-body>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Name:</b> <span> {{accountDetials.name}}</span></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Phone:</b> <span> {{accountDetials.phone}} </span> </p>
+                    </div>
+                    <div class="col-sm-4" >
+                        <p fxFlex="33"><b>Phone Extension:</b> <span> {{accountDetials.phone_extension ? accountDetials.phone_extension : 'Not Provide'}}</span> </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-4">
+                    <p fxFlex="33"><b>Email:</b> <span> {{accountDetials.email}}</span> </p>
+                  </div>
+                  <div class="col-sm-12">
+                    <p fxFlex="33"><b>Address:</b> <span> {{accountDetials.address1}}{{accountDetials.address2 ? ',' : ''}} {{accountDetials.address2}}, {{accountDetials.city}}, 
+                        {{accountDetials.state}}, {{accountDetials.country}}, {{accountDetials.zip_code}}
+                    </span></p>
+                  </div>
+              </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item expanded="true">
+        <nb-accordion-item-header>
+        <span class="sub-title">Company Details</span>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p fxFlex="33"><b>Company Name:</b> <span> {{accountDetials.company_name}}</span></p>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-4" >
+                        <p fxFlex="33"><b>GST No:</b> <span> {{accountDetials.gst_no ? accountDetials.gst_no : 'Not Provide'}}</span> </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>PAN No:</b> <span> {{accountDetials.pan_no ? accountDetials.pan_no : 'Not Provide'}}</span> </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Udyog Adhar:</b> <span> {{accountDetials.udyog_aadhaar ? accountDetials.udyog_aadhaar : 'Not Provide'}}</span></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                  
+                    <div class="col-sm-4" >
+                        <p fxFlex="33"><b>SSN No:</b> <span> {{accountDetials.ssn_no ? accountDetials.ssn_no : 'Not Provide'}}</span> </p>
+                    </div>
+                    <div class="col-sm-4" >
+                        <p fxFlex="33"><b>IEC No:</b> <span> {{accountDetials.iec_no ? accountDetials.iec_no : 'Not Provide'}}</span> </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Shipping Service Type:</b> <span> {{accountDetials.shipping_service}}</span></p>
+                    </div>
+                </div>
+                <div class="row">
+                 
+                    <div class="col-sm-12">
+                        <p fxFlex="33"><b>Business Description:</b> <span> {{accountDetials.business_description ? accountDetials.business_description : 'Not Provide'}}</span> </p>
+                    </div>
+                </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+      <nb-accordion-item expanded="true">
+        <nb-accordion-item-header>
+         <span class="sub-title">Shipment Details</span>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Nature Of Business: </b> <span> {{accountDetials.business_name}}</span></p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Shipment Frequency: </b> <span> {{accountDetials.frequency_name}} </span> </p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p fxFlex="33"><b>Other Info: </b> <span> {{accountDetials.other_info ? accountDetials.other_info : 'Not Provide'}}</span> </p>
+                    </div>
+                </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+
+     <!-- user file download -->
+     <nb-accordion-item expanded="true">
+        <nb-accordion-item-header>
+          <span class="sub-title">Files (Documents)</span>
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table table-striped table-bordered table-sm">
+                <thead>
+                  <tr>
+                    <th>File</th>
+                    <th>File Name</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="accountDetials">
+                  <tr *ngIf="accountDetials.gst_document_url">
+                    <td>GST Document</td>
+                    <td>{{ accountDetials.gst_document_url_name }}</td>
+                    <td>
+                      <nb-icon class="download-icon" icon="download-outline" nbTooltip="Download"
+                        nbTooltipPlacement="bottom"
+                        (click)="downloadImages(accountDetials.gst_document_url,'GST Document')"></nb-icon>
+                    </td>
+                  </tr>
+                  <tr *ngIf="accountDetials.pan_document_url">
+                    <td>PAN Card</td>
+                    <td>{{ accountDetials.pan_document_url_name }}</td>
+                    <td>
+                      <nb-icon class="download-icon" icon="download-outline" nbTooltip="Download"
+                        nbTooltipPlacement="bottom"
+                        (click)="downloadImages(accountDetials.pan_document_url,'PAN Card')"></nb-icon>
+                    </td>
+                  </tr>
+                  <tr *ngIf="accountDetials.udyog_aadhaar_document_url">
+                    <td>Udyog Aadhar </td>
+                    <td>{{ accountDetials.udyog_aadhaar_document_url_name }}</td>
+                    <td>
+                      <nb-icon class="download-icon" icon="download-outline" nbTooltip="Download"
+                        nbTooltipPlacement="bottom"
+                        (click)="downloadImages(accountDetials.udyog_aadhaar_document_url,'Udyog Aadhar')"></nb-icon>
+                    </td>
+                  </tr>
+                  <tr *ngIf="accountDetials.photo_id_proof_url">
+                    <td>Photo ID Proof</td>
+                    <td>{{ accountDetials.photo_id_proof_url_name }}</td>
+                    <td>
+                      <nb-icon class="download-icon" icon="download-outline" nbTooltip="Download"
+                        nbTooltipPlacement="bottom"
+                        (click)="downloadImages(accountDetials.photo_id_proof_url,'Photo ID Proof')"></nb-icon>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+  <!--User Action -  User Active - Deactive and Approved - Reject -->
+  <nb-accordion-item expanded="true" >
+    <nb-accordion-item-header>
+      <span class="sub-title">User Action</span>
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+        <form [formGroup]="resetPaswordForm">
+          <div class="row">
+            <div class="col-sm-4"><label class="sub-title-text label">Reset Account Password</label></div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4"></div>
+          </div>
+          <hr>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+                <label class="label"><b>Email</b></label>
+              </div>
+              <div class="col-md-5">{{accountDetials.email}}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-2">
+                <label class="label"><b>Reset Password</b>
+                  <span class="required-input">*</span></label>
+              </div>
+              <div class="col-md-5">
+                <input type="{{showPassword ? 'text' : 'password'}}" class="form-control"
+                  formControlName="new_password" trim="blur" nbInput fullWidth placeholder="Enter New Password"
+                  required>
+                <nb-icon type="button" class="pass-eye" (click)="showPassword =! showPassword"
+                  icon="{{showPassword ? 'eye' : 'eye-off'}}"></nb-icon>
+                <mat-error class="caption status-danger" *ngIf="resetPaswordForm.get('new_password')?.invalid &&
+              (resetPaswordForm.get('new_password')?.touched || resetPaswordForm.get('new_password')?.dirty)">
+                  <p class="caption status-danger"
+                    *ngIf="resetPaswordForm.get('new_password')?.hasError('required')">
+                    Password is required
+                  </p>
+                  <p class="caption status-danger"
+                    *ngIf="resetPaswordForm.get('new_password')?.hasError('passwordStrength')">
+                    {{resetPaswordForm.get('new_password')?.errors?.['passwordStrength']}}
+                  </p>
+                  <p class="caption status-danger"
+                    *ngIf="!resetPaswordForm.get('new_password')?.hasError('passwordStrength') &&             resetPaswordForm.get('new_password').errors.minlength">
+                    Password must be at least 8 characters
+                  </p>
+                </mat-error>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-3">
+              <button nbButton size="medium" [disabled]="isLoading" [nbSpinner]="isLoading"
+                nbSpinnerStatus="primary" (click)="resetAccountPassword()"> Reset</button>
+            </div>
+          </div>
+        </form>
+        <hr>
+      <div class="row">
+        <div class="col-sm-4"><label class="sub-title-text label">Active & Deactive (Account)</label></div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-4">
+          <b>Status: </b><span [ngClass]="isActiveDeactive ? 'approve' : 'pending'">{{isActiveDeactive ? 'Active'
+            : 'Deactive' }}</span>
+        </div>
+        <div class="col-md-4">
+          <nb-toggle status="primary" size="small" class="toggle-btn" (checkedChange)="toggleTempHolder($event)"
+            [(ngModel)]="isActiveDeactive"> {{isActiveDeactive ? 'Active' :'Deactive'}}</nb-toggle>
+        </div>
+      </div>
+    </nb-accordion-item-body>
+    </nb-accordion-item>
+    </nb-accordion>
+  </div>
+    </nb-card-body>
+      <nb-accordion *ngIf="!accountDetials">
+        <nb-accordion-item expanded="true">
+          <nb-accordion-item-header>
+            <span class="sub-title">No data found!</span>
+          </nb-accordion-item-header>
+        </nb-accordion-item>
+      </nb-accordion>
+</nb-card> 

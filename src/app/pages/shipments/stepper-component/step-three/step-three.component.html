@@ -1,0 +1,343 @@
+<div class="nb-tbl-flex title align-items-center">
+    <h5>Tell Us About Your Package & Shipment Type ?</h5>
+    <span class="back-arow" nbTooltip="Back" nbTooltipPlacement="bottom" (click)="backToListPage()">
+      <img src="assets/images/back-arow.png" height="15px" width="20px" >
+      <span class="back-text">Back To List</span> 
+    </span>
+  </div>
+  <form [formGroup]="bookShipmentThirdForm" class="step-container">
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Shipment Date <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input nbInput fullWidth class="form-control" formControlName="shipment_date"
+          placeholder="Shipment Date" [nbDatepicker]="datepicker" *ngIf="!allFormFieldsDisabled">
+        <input nbInput fullWidth class="form-control" formControlName="shipment_date"
+          placeholder="Shipment Date" [nbDatepicker]="datepicker" *ngIf="allFormFieldsDisabled" disabled>
+        <nb-datepicker #datepicker [min]="min"></nb-datepicker>
+        <mat-error *ngFor="let validation of thirdFormFormValidations.shipment_date">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentThirdForm.get('shipment_date')?.hasError(validation.type) && (bookShipmentThirdForm.get('shipment_date')?.dirty || bookShipmentThirdForm.get('shipment_date')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPackageType" class="label col-sm-2 col-form-label">Package Type <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <nb-select fullWidth formControlName="package_type_id" [disabled]="allFormFieldsDisabled">
+          <nb-option value="">Select</nb-option>
+          <nb-option value="{{type.package_type_id}}" *ngFor="let type of packageTypeData">
+            {{type.package_type_name}}</nb-option>
+        </nb-select>
+        <mat-error *ngFor="let validation of thirdFormFormValidations.package_type_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentThirdForm.get('package_type_id')?.hasError(validation.type) && (bookShipmentThirdForm.get('package_type_id')?.dirty || bookShipmentThirdForm.get('package_type_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Are Packages Identical</label>
+      <div class="col-sm-10 demo-items">
+        <nb-radio-group formControlName="is_identical_package" [(value)]="isIdenticalRedioValue"
+          style="display: flex;" [disabled]="true">
+          <nb-radio class="radio-flex" [value]="'1'" (valueChange)="onChangeIdenticalPackage($event)">
+            Yes
+          </nb-radio>
+          <nb-radio class="radio-flex" [value]="'0'" (valueChange)="onChangeIdenticalPackage($event)" [checked]="true">
+            No
+          </nb-radio>
+        </nb-radio-group>
+        <mat-error
+        *ngFor="let validation of thirdFormFormValidations.is_identical_package">
+        <p class="caption status-danger"
+          *ngIf="bookShipmentThirdForm.get('is_identical_package')?.hasError(validation.type) && (bookShipmentThirdForm.get('is_identical_package')?.dirty || bookShipmentThirdForm.get('is_identical_package')?.touched)">
+          {{validation.message}}
+        </p>
+      </mat-error>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="bookShipmentThirdForm.get('is_identical_package')?.value === '1'">
+      <label class="label col-sm-2 col-form-label">Weight Per Packages <span
+          class="required-input">*</span></label>
+      <div class="col-sm-6">
+        <input type="number" nbInput fullWidth class="form-control hide_arrows" placeholder="Weight Per Packages"
+          formControlName="weight_per_package" trim="blur" min="0" onkeydown="return event.keyCode !== 69"
+          autocomplete="off" #input_number *ngIf="!allFormFieldsDisabled">
+
+        <input type="number" nbInput fullWidth class="form-control hide_arrows" placeholder="Weight Per Packages"
+          formControlName="weight_per_package" trim="blur" min="0" onkeydown="return event.keyCode !== 69"
+          autocomplete="off" #input_number *ngIf="allFormFieldsDisabled" disabled>
+          <mat-error
+          *ngFor="let validation of thirdFormFormValidations.weight_per_package">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentThirdForm.get('weight_per_package')?.hasError(validation.type) && (bookShipmentThirdForm.get('weight_per_package')?.dirty || bookShipmentThirdForm.get('weight_per_package')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+      <div class="col-sm-4">
+        <nb-select class="w-100" fldname="weight_unit" formControlName="weight_unit" selected="kg"  disabled="true" >
+          <nb-option value="lbs">lbs</nb-option>
+          <nb-option value="kg">kg</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="bookShipmentThirdForm.get('is_identical_package')?.value === '0'">
+      <label class="label col-sm-2 col-form-label">Number of Packages <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <input type="number" nbInput fullWidth class="form-control" placeholder="Enter Number of Packages"
+          formControlName="number_of_packages" trim="blur" readonly min="0" *ngIf="!allFormFieldsDisabled"
+          onkeydown="return event.keyCode !== 69" autocomplete="off" #input_number>
+
+        <input type="number" nbInput fullWidth class="form-control" placeholder="Enter Number of Packages"
+          formControlName="number_of_packages" trim="blur" readonly min="0" *ngIf="allFormFieldsDisabled"
+          onkeydown="return event.keyCode !== 69" autocomplete="off" #input_number disabled>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="bookShipmentThirdForm.get('number_of_packages')?.value > 0">
+      <div class="packagestable">
+        <div class="row form-group mb-2">
+          <div class="table-responsive">
+            <div class="table-wrapper">
+              <table class="table table-bordered pkgtable invalid-effect-true">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;font-size: 10px;">
+                      S.No
+                    </th>
+                    <th style="width: 100px;font-size: 10px;">Quantity</th>
+                    <th style="width: 100px;font-size: 10px;">Weight</th>
+                    <th colspan="3" style="width: 200px;font-size: 10px;text-align: center;"> Dimensions
+                    </th>
+                    <th style="width: 100px;font-size: 10px;"></th>
+                    <th style="width: 100px;font-size: 10px;">Dimensions Book</th>
+                    <th style="width: 100px;font-size: 10px;">Value</th>
+                    <th style="width: 100px;font-size: 10px;">NonStandard Pack</th>
+                    <th style="width: 100px;font-size: 10px;">Dangerous Goods</th>
+                  </tr>
+                  <tr>
+                    <th fldname="sno" style="font-size: 10px;text-align: center;"></th>
+                    <th></th>
+                    <th fldname="weight" style="font-size: 10px;text-align: center;"></th>
+                    <th fldname="length" style="font-size: 10px;text-align: center;">Length</th>
+                    <th fldname="width" style="font-size: 10px;text-align: center;">Width</th>
+                    <th fldname="height" style="font-size: 10px;text-align: center;">Height</th>
+                    <th fldname="unit" style="font-size: 10px;text-align: center;">Unit</th>
+                    <th fldname="dimensionsbook" style="font-size: 10px;text-align: center;"></th>
+                    <th fldname="value" style="font-size: 10px;text-align: center;"></th>
+                    <th fldname="nonstandard" style="font-size: 9px;text-align: center;"></th>
+                    <th fldname="dangerous" style="font-size: 9px;text-align: center;">
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="pkgtabledata" formArrayName="package_details">
+                  <tr id="pack_det_row_1" data-row="0" data-index="1" [formGroupName]="i"
+                    *ngFor="let experiences of getControls(); let i = index">
+                    <td fldname="sno">{{ i + 1}}</td>
+                    <td><input nbInput formControlName="quantity" autocomplete="off" class="w-100 hide_arrows"
+                        fldname="quantity" type="number" trim="blur" *ngIf="!allFormFieldsDisabled"
+                        onkeydown="return event.keyCode !== 69">
+                        <input nbInput formControlName="quantity" autocomplete="off" class="w-100 hide_arrows"
+                        fldname="quantity" type="number" trim="blur" *ngIf="allFormFieldsDisabled"
+                        onkeydown="return event.keyCode !== 69" disabled>
+                    </td>
+                    <td>
+                      <input nbInput formControlName="weight" autocomplete="off" class="w-100 hide_arrows" *ngIf="!allFormFieldsDisabled"
+                        fldname="weight" type="number" (keyup)="afterPointThreeValueCheck($event, experiences, 'weight')" onkeydown="return event.keyCode !== 69">
+                      <input nbInput formControlName="weight" autocomplete="off" class="w-100 hide_arrows" *ngIf="allFormFieldsDisabled" disabled
+                        fldname="weight" type="number" (keyup)="afterPointThreeValueCheck($event, experiences, 'weight')" onkeydown="return event.keyCode !== 69">
+                      <nb-select class="w-100" fldname="uom" formControlName="weight_unit" selected="kg"  disabled="true">
+                        <nb-option value="lbs">lbs</nb-option>
+                        <nb-option value="kg">kg</nb-option>
+                      </nb-select>
+                    </td>
+                    <td>
+                      <input nbInput formControlName="length" autocomplete="off" class="w-100 p-2 hide_arrows" *ngIf="!allFormFieldsDisabled"
+                        fldname="length" type="text" (keyup)="afterPointTwoValueCheck($event, experiences, 'length')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69" trim="blur">
+                      <input nbInput formControlName="length" autocomplete="off" class="w-100 p-2 hide_arrows" *ngIf="allFormFieldsDisabled" disabled
+                        fldname="length" type="text" (keyup)="afterPointTwoValueCheck($event, experiences, 'length')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69" trim="blur">
+                    </td>
+                    <td>
+                      <input nbInput formControlName="width" autocomplete="off" class="w-100 p-2 hide_arrows" *ngIf="!allFormFieldsDisabled"
+                        fldname="width" type="text" (keyup)="afterPointTwoValueCheck($event, experiences, 'width')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69" trim="blur">
+                      <input nbInput formControlName="width" autocomplete="off" class="w-100 p-2 hide_arrows" *ngIf="allFormFieldsDisabled" disabled
+                        fldname="width" type="text" (keyup)="afterPointTwoValueCheck($event, experiences, 'width')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69" trim="blur">
+                    </td>
+                    <td>
+                      <input nbInput formControlName="height" autocomplete="off" class="w-100 p-2 hide_arrows" *ngIf="!allFormFieldsDisabled"
+                        fldname="height" type="text" (keyup)="afterPointTwoValueCheck($event, experiences, 'height')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69" trim="blur">
+                      <input nbInput formControlName="height" autocomplete="off" class="w-100 p-2 hide_arrows" *ngIf="allFormFieldsDisabled" disabled
+                        fldname="height" type="text" (keyup)="afterPointTwoValueCheck($event, experiences, 'height')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69" trim="blur">
+                    </td>
+                    <td>
+                      <nb-select class="w-100" fldname="size_unit" formControlName="size_unit" selected="inch" disabled="true">
+                        <nb-option value="cm">Cm</nb-option>
+                        <nb-option value="inch">Inch</nb-option>
+                      </nb-select>
+                    </td>
+                    <td style="display: flex;">
+                      <span title="Save Dimensions Book" type="button" (click)="dimensionsSave(experiences)" *ngIf="!allFormFieldsDisabled">
+                        <i class="fa fa-save" style="font-size: 30px;padding-left: 6px;"> </i>
+                      </span>
+                      <span title="Save Dimensions Book" type="button" *ngIf="allFormFieldsDisabled">
+                        <i class="fa fa-save" style="font-size: 30px;padding-left: 6px;"> </i>
+                      </span>
+                      <span title="Dimensions Book" (click)="openDimensionsDialog(experiences)" *ngIf="!allFormFieldsDisabled">
+                        <i class="fa fa-address-book"
+                          style=" color: #0f377c !important; font-size: 30px;padding-left: 25px;"> </i>
+                      </span>
+                      <span title="Dimensions Book" *ngIf="allFormFieldsDisabled">
+                        <i class="fa fa-address-book"
+                          style=" color: #0f377c !important; font-size: 30px;padding-left: 25px;"> </i>
+                      </span>
+                    </td>
+                    <td>
+                      <input nbInput class="w-100 hide_arrows" fldname="declared_value" type="text" *ngIf="!allFormFieldsDisabled"
+                        formControlName="declared_value" (change)="valueChange($event)" trim="blur"
+                        (keyup)="afterPointTwoValueCheck($event, experiences, 'declared_value')"
+                        (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69">
+                      <input nbInput class="w-100 hide_arrows" fldname="declared_value" type="text" *ngIf="allFormFieldsDisabled"
+                        formControlName="declared_value" (change)="valueChange($event)" trim="blur"
+                        (keyup)="afterPointTwoValueCheck($event, experiences, 'declared_value')" disabled
+                        (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69">
+                    </td>
+                    <td>
+                      <nb-checkbox formControlName="is_non_standard_package" *ngIf="allFormFieldsDisabled" disabled></nb-checkbox>
+                      <nb-checkbox formControlName="is_non_standard_package" *ngIf="!allFormFieldsDisabled"></nb-checkbox>
+                    </td>
+                    <td>
+                      <nb-checkbox formControlName="is_dangerous_goods" (change)="openDangerousGoodsDescriptionModal($event ,experiences)" *ngIf="allFormFieldsDisabled" disabled></nb-checkbox>
+                      <nb-checkbox formControlName="is_dangerous_goods" (change)="openDangerousGoodsDescriptionModal($event ,experiences)" *ngIf="!allFormFieldsDisabled"></nb-checkbox>
+                      <!-- <input nbInput formControlName="dangerous_description" autocomplete="off"
+                        class="w-100" fldname="dangerous_description" type="text" trim="blur"
+                        placeholder="Description"
+                        *ngIf="getControls().at(i)?.get('is_dangerous_goods')?.value"> -->
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPackageType" class="label col-sm-2 col-form-label">Service Type <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <nb-select formControlName="service_type_id" fullWidth [disabled]="allFormFieldsDisabled" 
+          (selectedChange)="getServiceTypeValue($event)" >
+          <nb-option value="">Select</nb-option>
+          <nb-option value="{{type.service_type_id}}" *ngFor="let type of serviceTypeData">
+            {{type.service_type_name}}</nb-option>
+        </nb-select>
+        <mat-error *ngFor="let validation of thirdFormFormValidations.service_type_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentThirdForm.get('service_type_id')?.hasError(validation.type) && (bookShipmentThirdForm.get('service_type_id')?.dirty || bookShipmentThirdForm.get('service_type_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="isExternalShippingMethod">
+      <label for="inputPackageType" class="label col-sm-2 col-form-label">External Shipping <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <nb-select formControlName="external_shipping_method_id" fullWidth [disabled]="allFormFieldsDisabled">
+          <nb-option value="">Select</nb-option>
+          <nb-option value="{{type.external_shipping_method_id}}" *ngFor="let type of externalShippingMethodData">
+            {{type.external_shipping_method_name}}</nb-option>
+        </nb-select>
+        <mat-error *ngFor="let validation of thirdFormFormValidations.external_shipping_method_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentThirdForm.get('external_shipping_method_id')?.hasError(validation.type) && (bookShipmentThirdForm.get('external_shipping_method_id')?.dirty || bookShipmentThirdForm.get('external_shipping_method_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPackageType" class="label col-sm-2 col-form-label">Package Contents <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <nb-select fullWidth formControlName="package_content_id" [disabled]="allFormFieldsDisabled">
+          <nb-option value="">Select</nb-option>
+          <nb-option value="{{type.package_content_id}}" *ngFor="let type of packageContentsData">
+            {{type.package_content_name}}</nb-option>
+        </nb-select>
+        <mat-error
+        *ngFor="let validation of thirdFormFormValidations.package_content_id">
+        <p class="caption status-danger"
+          *ngIf="bookShipmentThirdForm.get('package_content_id')?.hasError(validation.type) && (bookShipmentThirdForm.get('package_content_id')?.dirty || bookShipmentThirdForm.get('package_content_id')?.touched)">
+          {{validation.message}}
+        </p>
+      </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPackageType" class="label col-sm-2 col-form-label">Shipment Purpose <span
+          class="required-input">*</span></label>
+      <div class="col-sm-10">
+        <nb-select fullWidth formControlName="shipment_purpose_id" [disabled]="allFormFieldsDisabled">
+          <nb-option value="">Select</nb-option>
+          <nb-option value="{{type.shipment_purpose_id}}" *ngFor="let type of shipmentPurposeData">
+            {{type.shipment_purpose_name}}</nb-option>
+        </nb-select>
+        <mat-error
+        *ngFor="let validation of thirdFormFormValidations.shipment_purpose_id">
+        <p class="caption status-danger"
+          *ngIf="bookShipmentThirdForm.get('shipment_purpose_id')?.hasError(validation.type) && (bookShipmentThirdForm.get('shipment_purpose_id')?.dirty || bookShipmentThirdForm.get('shipment_purpose_id')?.touched)">
+          {{validation.message}}
+        </p>
+      </mat-error>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="label col-sm-2 col-form-label">Total Customs Value <span
+          class="required-input">*</span></label>
+      <div class="col-sm-5">
+        <span *ngIf="!allFormFieldsDisabled">
+          <input type="number" nbInput fullWidth formControlName="declared_value" class="form-control hide_arrows"
+            value="0"
+            *ngIf="bookShipmentThirdForm.get('is_identical_package')?.value === '0' || !bookShipmentThirdForm.get('is_identical_package')?.value"
+            readonly>
+          <input type="text" nbInput fullWidth formControlName="declared_value" class="form-control hide_arrows"
+            value="0" *ngIf="bookShipmentThirdForm.get('is_identical_package')?.value === '1'" trim="blur"
+            (keyup)="afterPointTwoValueCheck($event, bookShipmentThirdForm, 'declared_value')" (keypress)="allowNumericDigitsOnlyOnKeyUp($event)" onkeydown="return event.keyCode !== 69">
+        </span>
+        <span *ngIf="allFormFieldsDisabled">
+          <input type="number" nbInput fullWidth formControlName="declared_value" class="form-control hide_arrows"
+            value="0" disabled>
+        </span>
+          <mat-error *ngFor="let validation of thirdFormFormValidations.declared_value" disabled>
+            <p class="caption status-danger"
+              *ngIf="bookShipmentThirdForm.get('declared_value')?.hasError(validation.type) && (bookShipmentThirdForm.get('declared_value')?.dirty || bookShipmentThirdForm.get('declared_value')?.touched)">
+              {{validation.message}}
+            </p>
+          </mat-error>
+      </div>
+      <div class="col-sm-5">
+        <nb-select fullWidth formControlName="currency_id" disabled>
+          <nb-option value="{{currency.currency_id}}" *ngFor="let currency of currencyArray">
+            {{currency.name}}</nb-option>
+        </nb-select>
+        <mat-error *ngFor="let validation of thirdFormFormValidations.currency_id">
+          <p class="caption status-danger"
+            *ngIf="bookShipmentThirdForm.get('currency_id')?.hasError(validation.type) && (bookShipmentThirdForm.get('currency_id')?.dirty || bookShipmentThirdForm.get('currency_id')?.touched)">
+            {{validation.message}}
+          </p>
+        </mat-error>
+      </div>
+    </div>
+    <div class="btn-back-next btn-next">
+      <button nbButton nbStepperPrevious>
+        << Back</button> <button nbButton nbStepperNext [nbSpinner]="isLoading" [disabled]="isLoading" (click)="saveThirdStep()">Next >>
+      </button>
+    </div>
+  </form>

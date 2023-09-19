@@ -1,0 +1,44 @@
+ 
+<h1 id="title" class="title">Sign In</h1>
+
+<form [formGroup]="loginForm" aria-labelledby="title">
+  <div class="form-control-group">
+    <label class="label" for="input-email">Email address:</label>
+    <input nbInput fullWidth  formControlName="email" trim="blur" class="form-control"
+    placeholder="Email address"
+    fieldSize="large">
+    <mat-error  *ngFor="let validation of formValidations.email">
+      <p class="caption status-danger" *ngIf="loginForm.get('email')?.hasError(validation.type) && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+        {{validation.message}}
+      </p>
+    </mat-error>
+  </div>
+
+  <div class="form-control-group">
+    <label class="label" for="input-email">Password:</label>
+    <input nbInput  fullWidth formControlName="password" ng-model="password" trim="blur" class="form-control"
+    placeholder="Password" type="{{showPassword ? 'text' : 'password'}}"
+    fieldSize="large">
+    <mat-error class="caption status-danger" *ngIf="loginForm.get('password')?.invalid &&
+      (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">
+         <p class="caption status-danger" *ngIf="loginForm.get('password')?.hasError('required')">
+           Password is required
+         </p>
+         <p class="caption status-danger"  *ngIf="loginForm.get('password')?.hasError('passwordStrength')">
+          {{loginForm.get('password')?.errors?.['passwordStrength']}}
+         </p>
+      </mat-error>
+
+    <nb-checkbox  class="pass-eye" (click)="isHideShow()"> <span class="show-password">Show Password</span></nb-checkbox>
+  </div>
+
+  <button nbButton fullWidth [disabled]="isLoading"
+  size="large" [ngClass]="isLoading ? '' : 'theme-btn'"
+  [nbSpinner]="isLoading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="" (click)="onSubmit()">
+  Sign In
+  </button>
+</form>
+
+<section class="another-action" aria-label="Sign Up">
+  Don't have an account? <a class="text-link" routerLink="" (click)="redirectToSingUp()" ><span class="sing-in-text"> Sign Up</span></a>
+</section>
